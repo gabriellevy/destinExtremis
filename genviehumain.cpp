@@ -19,6 +19,9 @@
 #include "texte/jourapresjour.h"
 #include "techno/bionique.h"
 #include "age.h"
+#include "humanite/trait.h"
+
+using std::make_shared;
 
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::C_LIBERTE = "Liberté";
@@ -64,6 +67,10 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 make_shared<Age>(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
+
+    for (int i = 0; i < eTrait::nb_Traits; i++) {
+        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
+    }
 
     // temp test :
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);

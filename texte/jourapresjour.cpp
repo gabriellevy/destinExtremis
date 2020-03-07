@@ -7,7 +7,10 @@
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
-JourApresJour::JourApresJour(){}
+JourApresJour::JourApresJour()
+{
+    RafraichirPhrases();
+}
 
 void JourApresJour::RafraichirPhrasesSelonMetier(QString classeSociale, QString metier)
 {
@@ -33,9 +36,9 @@ void JourApresJour::RafraichirPhrases()
 
     Humain* humain = Humain::GetHumainJoue();
     // extraire les critères qui influent sur les textes/événements possibles :
-    QString classeSociale = Humain::GetHumainJoue()->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
-    QString metier = Humain::GetHumainJoue()->GetValeurCarac(Metier::C_METIER);
-    QString liberte = Humain::GetHumainJoue()->GetValeurCarac(GenVieHumain::C_LIBERTE);
+    QString classeSociale = humain->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
+    QString metier = humain->GetValeurCarac(Metier::C_METIER);
+    QString liberte = humain->GetValeurCarac(GenVieHumain::C_LIBERTE);
 
     if ( liberte == "" ) // si libre
     {

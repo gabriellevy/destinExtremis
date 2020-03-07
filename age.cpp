@@ -28,4 +28,5 @@ bool Age::AfficherValeur()
         ui->labelValeur->setToolTip(this->GetCaracDescription());
         return true;
     }
+    return false;
 }

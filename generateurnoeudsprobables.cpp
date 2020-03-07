@@ -8,7 +8,7 @@
 
 using std::shared_ptr;
 
-GenerateurNoeudsProbables::GenerateurNoeudsProbables(int indexEvt){}
+GenerateurNoeudsProbables::GenerateurNoeudsProbables(int /*indexEvt*/){}
 
 
 shared_ptr<Effet> GenerateurNoeudsProbables::GenererEffet(shared_ptr<GenEvt> genEvt)

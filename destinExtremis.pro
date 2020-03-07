@@ -26,6 +26,7 @@ include(humanite/humanite.pri)
 include(texte/texte.pri)
 include(techno/techno.pri)
 include(socio_eco/socio_eco.pri)
+include(coteries/coteries.pri)
 
 CONFIG += c++11
 CONFIG += resources_big
