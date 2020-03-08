@@ -14,18 +14,6 @@ Humain::Humain(QString nom):DPerso(nom, nom, nom, "")
 
 void Humain::InitialiserPerso()
 {
-    // génération des traits :
-    int nb = 7 + Aleatoire::GetAl()->EntierInferieurA(12);
-    while(nb-->0) {
-        AjouterTrait(static_cast<eTrait>(Aleatoire::GetAl()->EntierInferieurA(eTrait::nb_Traits)));
-    }
-}
-
-void Humain::AjouterTrait(eTrait etrait)
-{
-    shared_ptr<Trait> trait = make_shared<Trait>(etrait);
-    this->SetValeurACaracId(trait->GetNom(), "1");
-    m_Traits.push_back(trait);
 }
 
 Humain* Humain::GetHumainJoue()

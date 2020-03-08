@@ -2,6 +2,7 @@
 #define TRAIT_H
 
 #include <QString>
+#include <memory>
 
 /**
  * @brief ce qui a rapport aux traits descriptif d'un personnage
@@ -24,8 +25,8 @@ enum eTrait : int {
     violent,
     resistant,
     pragmatique,
-    simple,
-    intellectuel,
+    simple, // pas forcément idiot mais a peu tendace à utiliser son intelligence de manière abstraite : plutôt terre à terre
+    intellectuel, // intelligent à priori mais a surtout tendance à intellectualiser tout, à conceptualiser, à aimer l'abstrait et la discussion
     grand,
     beau,
     intelligent,
@@ -53,6 +54,15 @@ public:
     QString GetNom();
 
     eTrait m_eTrait;
+
+    /**
+     * @brief GetTrait
+     * @param m_TraitsDejaPossedes listes de traits que le personnage possède déjà : permet d'éviter qu'il se retrouve avec des traits opposés entre eux comme 'Petit' et 'Grand'
+     * @return
+     */
+    static std::shared_ptr<Trait> GetTrait(QVector<eTrait>& m_TraitsDejaPossedes);
+
+    static eTrait GetTraitOppose(eTrait etrait);
 };
 
 #endif // TRAIT_H

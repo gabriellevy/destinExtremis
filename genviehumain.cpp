@@ -50,7 +50,7 @@ shared_ptr<Hist> GenVieHumain::GenererHistoire()
 
 void GenVieHumain::GenererDataUnivers()
 {
-    // TODO ajouter les factions
+    // pour les données d'univers dépendantes de l'histoire
 }
 
 void GenVieHumain::GenererPersos()
