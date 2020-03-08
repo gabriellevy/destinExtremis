@@ -26,3 +26,13 @@ QString CroisadeFranque::GetNom()
 {
     return "Croisade franque";
 }
+
+QString CroisadeFranque::GetDescription()
+{
+    return "Les croisés";
+}
+
+QString CroisadeFranque::GetImage()
+{
+    return ":/images/croisade_franque/Chevaliers_premières_croisades.jpg";
+}

@@ -24,3 +24,13 @@ QString Tyranides::GetNom()
 {
     return "Tyranides";
 }
+
+QString Tyranides::GetDescription()
+{
+    return "Les Tyranides";
+}
+
+QString Tyranides::GetImage()
+{
+    return ":/images/tyranides/The_hive_fleets_descend.jpg";
+}

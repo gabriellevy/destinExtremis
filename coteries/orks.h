@@ -11,6 +11,9 @@ public:
 
     void GenererTraitCompatibles();
     QString GetNom();
+
+    QString GetDescription();
+    QString GetImage();
 };
 
 #endif // ORKS_H

@@ -18,7 +18,7 @@ public:
     // noms d'aventures
     static QString VIE_HUMAIN;
 
-    QVector<std::shared_ptr<Coterie>> m_Coteries = {};
+    static QVector<std::shared_ptr<Coterie>> COTERIES;
 };
 
 #endif // EXTREMIS_H

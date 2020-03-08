@@ -10,6 +10,9 @@ public:
 
     void GenererTraitCompatibles();
     QString GetNom();
+
+    QString GetDescription();
+    QString GetImage();
 };
 
 #endif // CONQUISTADORS_H

@@ -11,6 +11,8 @@
 
 QString Extremis::VIE_HUMAIN = "Vie d'un humain";
 
+QVector<std::shared_ptr<Coterie>> Extremis::COTERIES = {};
+
 Extremis::Extremis(ModeAffichage modeAffichage,
                    QWidget *parent)
     : Univers(parent, modeAffichage)
@@ -24,7 +26,7 @@ Extremis::Extremis(ModeAffichage modeAffichage,
 
 void Extremis::GenererCoteries()
 {
-    m_Coteries = {
+    Extremis::COTERIES = {
         make_shared<Tyranides>(),
         make_shared<Celte>(),
         make_shared<Elfes>(),

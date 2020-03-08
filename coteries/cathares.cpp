@@ -28,3 +28,13 @@ QString Cathares::GetNom()
 {
     return "Cathares";
 }
+
+QString Cathares::GetDescription()
+{
+    return "Les cathares";
+}
+
+QString Cathares::GetImage()
+{
+    return ":/images/cathares/moine.jpg";
+}

@@ -27,3 +27,13 @@ QString Orks::GetNom()
 {
     return "Orks";
 }
+
+QString Orks::GetDescription()
+{
+    return "Les Orks";
+}
+
+QString Orks::GetImage()
+{
+    return ":/images/orks/mekano.PNG";
+}

@@ -24,3 +24,13 @@ QString Celte::GetNom()
 {
     return "Celtes";
 }
+
+QString Celte::GetDescription()
+{
+    return "Les celtes";
+}
+
+QString Celte::GetImage()
+{
+    return ":/images/celtes/description.jpg";
+}

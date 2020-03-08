@@ -28,3 +28,13 @@ QString Elfes::GetNom()
 {
     return "Elfes";
 }
+
+QString Elfes::GetDescription()
+{
+    return "Les Elfes";
+}
+
+QString Elfes::GetImage()
+{
+    return ":/images/elfes/400px-Elfe.jpg";
+}

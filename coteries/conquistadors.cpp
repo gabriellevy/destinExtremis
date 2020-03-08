@@ -26,6 +26,16 @@ void Conquistadors::GenererTraitCompatibles()
 
 QString Conquistadors::GetNom()
 {
-    return "Croisade franque";
+    return "Conquistadors";
+}
+
+QString Conquistadors::GetDescription()
+{
+    return "Les Conquistadors";
+}
+
+QString Conquistadors::GetImage()
+{
+    return ":/images/conquistadors/soldats.jpg";
 }
 

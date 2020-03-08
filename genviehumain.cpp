@@ -94,6 +94,8 @@ void GenVieHumain::GenererEvtsAccueil()
     shared_ptr<Effet> effet1 = AjouterEffetNarration("", "");
     Naissance::GenererEffetNaissance(effet1);
 
+    std::shared_ptr<Evt> evtEducationPol = Education::GenererEvtEducationPolitique(this);
+
     AjouterEffetGoToEvt(GenVieHumain::EVT_SELECTEUR_ID, "finNaissance");
 }
 
