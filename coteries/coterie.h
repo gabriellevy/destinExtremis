@@ -5,6 +5,9 @@
 #include "humanite/trait.h"
 #include <memory>
 
+class Effet;
+class GenHistoire;
+
 class Coterie
 {
 protected:
@@ -20,6 +23,7 @@ public:
     virtual QString GetNom() = 0;
     virtual QString GetDescription() = 0;
     virtual QString GetImage() = 0;
+    virtual std::shared_ptr<Effet> AjouterEffetUniversite(GenHistoire* genHist) = 0;
 
     static QVector<std::shared_ptr<Coterie>>GetNRandomCoteries(int n);
 };

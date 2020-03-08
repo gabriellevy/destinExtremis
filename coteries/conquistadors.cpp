@@ -1,6 +1,8 @@
 #include "conquistadors.h"
+#include "genviehumain.h"
 
 using std::make_shared;
+using std::shared_ptr;
 
 Conquistadors::Conquistadors()
 {
@@ -37,5 +39,12 @@ QString Conquistadors::GetDescription()
 QString Conquistadors::GetImage()
 {
     return ":/images/conquistadors/soldats.jpg";
+}
+
+std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHist)
+{
+    shared_ptr<Effet> effet = genHist->AjouterEffetNarration("youpi temp");
+
+    return effet;
 }
 

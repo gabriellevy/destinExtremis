@@ -14,6 +14,7 @@ public:
 
     QString GetDescription();
     QString GetImage();
+    virtual std::shared_ptr<Effet> AjouterEffetUniversite(GenHistoire* genHist);
 };
 
 #endif // CATHARES_H

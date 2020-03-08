@@ -1,6 +1,8 @@
 #include "cathares.h"
+#include "genviehumain.h"
 
 using std::make_shared;
+using std::shared_ptr;
 
 Cathares::Cathares()
 {
@@ -37,4 +39,11 @@ QString Cathares::GetDescription()
 QString Cathares::GetImage()
 {
     return ":/images/cathares/moine.jpg";
+}
+
+std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist)
+{
+    shared_ptr<Effet> effet = genHist->AjouterEffetNarration("youpi temp");
+
+    return effet;
 }

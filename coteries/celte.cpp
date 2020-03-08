@@ -1,6 +1,8 @@
 #include "celte.h"
+#include "genviehumain.h"
 
 using std::make_shared;
+using std::shared_ptr;
 
 Celte::Celte()
 {
@@ -33,4 +35,11 @@ QString Celte::GetDescription()
 QString Celte::GetImage()
 {
     return ":/images/celtes/description.jpg";
+}
+
+std::shared_ptr<Effet> Celte::AjouterEffetUniversite(GenHistoire* genHist)
+{
+    shared_ptr<Effet> effet = genHist->AjouterEffetNarration("youpi temp");
+
+    return effet;
 }

@@ -1,6 +1,8 @@
 #include "elfes.h"
+#include "genviehumain.h"
 
 using std::make_shared;
+using std::shared_ptr;
 
 Elfes::Elfes()
 {
@@ -37,4 +39,11 @@ QString Elfes::GetDescription()
 QString Elfes::GetImage()
 {
     return ":/images/elfes/400px-Elfe.jpg";
+}
+
+std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist)
+{
+    shared_ptr<Effet> effet = genHist->AjouterEffetNarration("youpi temp");
+
+    return effet;
 }

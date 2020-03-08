@@ -18,6 +18,10 @@ public:
     Education(int indexEvt);
 
     static std::shared_ptr<Evt> GenererEvtEducationPolitique(GenHistoire* genHistoire);
+
+    // nombre de coteries par elsquelles doit passer le personnage pour son éducation
+    const static int NB_COTERIES_EDUCATION = 3;
+    const static int NB_EFFETS_EDUCATION = 3; // par université de coterie
 };
 
 #endif // EDUCATION_H

@@ -1,6 +1,8 @@
 #include "tyranides.h"
+#include "genviehumain.h"
 
 using std::make_shared;
+using std::shared_ptr;
 
 Tyranides::Tyranides()
 {
@@ -33,4 +35,11 @@ QString Tyranides::GetDescription()
 QString Tyranides::GetImage()
 {
     return ":/images/tyranides/The_hive_fleets_descend.jpg";
+}
+
+std::shared_ptr<Effet> Tyranides::AjouterEffetUniversite(GenHistoire* genHist)
+{
+    shared_ptr<Effet> effet = genHist->AjouterEffetNarration("youpi temp");
+
+    return effet;
 }

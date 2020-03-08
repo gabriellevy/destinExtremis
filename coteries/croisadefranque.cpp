@@ -1,6 +1,8 @@
 #include "croisadefranque.h"
+#include "genviehumain.h"
 
 using std::make_shared;
+using std::shared_ptr;
 
 CroisadeFranque::CroisadeFranque()
 {
@@ -35,4 +37,11 @@ QString CroisadeFranque::GetDescription()
 QString CroisadeFranque::GetImage()
 {
     return ":/images/croisade_franque/Chevaliers_premières_croisades.jpg";
+}
+
+std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genHist)
+{
+    shared_ptr<Effet> effet = genHist->AjouterEffetNarration("youpi temp");
+
+    return effet;
 }
