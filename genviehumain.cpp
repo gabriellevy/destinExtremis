@@ -20,6 +20,8 @@
 #include "techno/bionique.h"
 #include "age.h"
 #include "humanite/trait.h"
+#include "politique/education.h"
+#include "politique/propagande.h"
 
 using std::make_shared;
 
@@ -65,7 +67,7 @@ void GenVieHumain::GenererCaracs()
 {
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                make_shared<Age>(180)); // début à 15 ans (180)
+                new Age(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
 
     for (int i = 0; i < eTrait::nb_Traits; i++) {
@@ -80,9 +82,9 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_CONSTITUTION);
 
-    shared_ptr<Carac> carac = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
+    Carac* carac = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
     carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
-    shared_ptr<Carac> caracBionique = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Bionique::C_BIONIQUE_LONGEVITE);
+    Carac* caracBionique = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Bionique::C_BIONIQUE_LONGEVITE);
     caracBionique->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
 }
 
@@ -116,6 +118,8 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<ClasseSociale>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Crime>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EconomieEvt>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Education>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Propagande>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>
