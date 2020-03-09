@@ -41,21 +41,29 @@ QString Orks::GetImage()
     return ":/images/orks/mekano.PNG";
 }
 
-std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist)
+std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
-    shared_ptr<Effet> effet;
-    int nb = Aleatoire::GetAl()->EntierInferieurA(5);
+    QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
 
-    switch (nb) {
-    case 0 : {
-        effet = genHist->AjouterEffetNarration("youpi temp Orks " + QString::number(nb));
-        //effet->AjouterChangeurDeCarac() // bonne blessure (cicatrice) suite aux exercices à l'ork // attention mauvaise carac pour être elfe
-    } break;
-    case 1 : effet = genHist->AjouterEffetNarration("youpi temp Orks " + QString::number(nb)); break;
-    case 2 : effet = genHist->AjouterEffetNarration("youpi temp Orks " + QString::number(nb)); break;
-    case 3 : effet = genHist->AjouterEffetNarration("youpi temp Orks " + QString::number(nb)); break;
-    case 4 : effet = genHist->AjouterEffetNarration("youpi temp Orks " + QString::number(nb)); break;
-    }
+    shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 15", "", "", evt);
+    effet1->m_GoToEffetId = go_to_effet_suivant;
+    shared_ptr<Condition> cond1 = make_shared<Condition>(15, TypeProba::p_Relative);
+    shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                effet1,
+                cond1);
+    noeudsProbaEducation.push_back(noeud1);
 
-    return effet;
+    shared_ptr<Effet> effet2 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 0.8", "", "", evt);
+    effet2->m_GoToEffetId = go_to_effet_suivant;
+    shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
+    shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
+                effet2,
+                cond);
+    noeudsProbaEducation.push_back(noeud);
+
+    shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
+                noeudsProbaEducation);
+    effetSelecteur->m_MsChrono = 1; // passé automatiquement
+
+    return effetSelecteur;
 }

@@ -170,15 +170,9 @@ void GenVieHumain::GenererPrincipalSelectionneurDEffet()
     QVector<shared_ptr<NoeudProbable>> tousLesNoeudsDeBase;
     GenererEvtsDeBase(tousLesNoeudsDeBase);
 
-    /*Effet* effetDebutBoucle = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_SELECTEUR_ID);
-    effetDebutBoucle->m_Texte = "blablablabla";*/
-
     shared_ptr<Effet> effetTestMort = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_SELECTEUR_ID);
     effetTestMort->m_GoToEffetId = "effetFinVie";
     effetTestMort->AjouterCondition(PbSante::C_SANTE, Comparateur::c_Egal, PbSante::MORT);
-
-    /*Effet* effetDebutBoucle2 = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_SELECTEUR_ID + "hbjk");
-    effetDebutBoucle2->m_Texte = "blablablabla2";*/
 
     shared_ptr<Effet> effetSelecteur = m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 tousLesNoeudsDeBase, GenVieHumain::EFFET_SELECTEUR_ID + "_selecteur", "", GenVieHumain::EVT_SELECTEUR);
