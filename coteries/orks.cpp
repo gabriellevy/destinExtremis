@@ -53,7 +53,8 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
     shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
                 "Au cours d'un entrainement au combat dans les fosses vous recevez une blessure : " + blessure +
                 "\nLes orks en rigolent un bon coup et vous tappent dans le dos joyeusement. \"Tu verras quand tu s'ras un vrai ork ça r'poussera\"",
-                "", "", evt);
+                ":/images/orks/gros_cosatud_jugeant.jpg",
+                "", evt);
     effet1->AjouterChangeurDeCarac(blessure, "1");
     effet1->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
     effet1->AjouterChangeurDeCarac((make_shared<Trait>(eTrait::beau))->GetNom(), ""); // le joueur perd son éventuelle beauté...
