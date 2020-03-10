@@ -2,6 +2,7 @@
 #include "../destinLib/abs/effet.h"
 #include "../destinLib/abs/evt.h"
 #include "../destinLib/gen/genevt.h"
+#include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/selectionneurdenoeud.h"
 #include "extremis.h"
 #include "genviehumain.h"
@@ -16,6 +17,24 @@ QString PbSante::RESISTANT = "Résistant";
 QString PbSante::FRELE = "Frêle";
 QString PbSante::MORT = "Mort";
 QString PbSante::FOLIE = "Folie";
+
+QString PbSante::BORGNE = "Borgne";
+QString PbSante::BOITEUX = "Boiteux";
+QString PbSante::CICATRICE_AU_VISAGE = "Cicatrice au visage";
+QString PbSante::DOIGT_COUPE = "Doigt coupé";
+QString PbSante::OREILLE_COUPEE = "Oreille coupée";
+QVector<QString> PbSante::BLESSURES_LEGERES = {
+    PbSante::BORGNE,
+    PbSante::BOITEUX,
+    PbSante::CICATRICE_AU_VISAGE,
+    PbSante::DOIGT_COUPE,
+    PbSante::OREILLE_COUPEE
+};
+
+QString PbSante::GetBlessureLegereAleatoire()
+{
+    return BLESSURES_LEGERES[Aleatoire::GetAl()->EntierInferieurA(BLESSURES_LEGERES.size())];
+}
 
 PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {

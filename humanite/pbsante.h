@@ -29,6 +29,16 @@ public:
     static QString FOLIE;
     static QString PESTE;
 
+    // diverses blessures légères recevables (booléens)
+    static QString BORGNE;
+    static QString BOITEUX;
+    static QString CICATRICE_AU_VISAGE;
+    static QString DOIGT_COUPE;
+    static QString OREILLE_COUPEE;
+    static QVector<QString> BLESSURES_LEGERES;
+    static QString GetBlessureLegereAleatoire();
+
+
     static std::shared_ptr<Condition> AjouterModifProbaSiMort(std::shared_ptr<Condition> cond, double poidsProba);
     static std::shared_ptr<Condition> AjouterConditionSiVivant();
     static std::shared_ptr<Condition> AjouterConditionSiAgeSuperieurA(int ageAnnees);

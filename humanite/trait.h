@@ -63,6 +63,8 @@ public:
     static std::shared_ptr<Trait> GetTrait(QVector<eTrait>& m_TraitsDejaPossedes);
 
     static eTrait GetTraitOppose(eTrait etrait);
+
+    static QString GetNomTrait(eTrait etrait); // est aussi l'identifiant de la carac associée
 };
 
 #endif // TRAIT_H

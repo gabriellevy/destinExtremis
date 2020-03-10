@@ -48,6 +48,11 @@ QString Trait::GetNom()
      return "Trait au nom non ajouté";
 }
 
+QString Trait::GetNomTrait(eTrait etrait)
+{
+    return (make_shared<Trait>(etrait))->GetNom();
+}
+
 eTrait Trait::GetTraitOppose(eTrait etrait)
 {
     switch (etrait) {

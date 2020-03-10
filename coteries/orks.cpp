@@ -1,6 +1,9 @@
 #include "orks.h"
 #include "genviehumain.h"
 #include "../destinLib/aleatoire.h"
+#include "humanite/pbsante.h"
+#include "violence/combat.h"
+#include "techno/ingenieur.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -45,21 +48,39 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
 
-    shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 15", "", "", evt);
+    // blessure dans la fosse
+    QString blessure = PbSante::GetBlessureLegereAleatoire();
+    shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                "Au cours d'un entrainement au combat dans les fosses vous recevez une blessure : " + blessure +
+                "\nLes orks en rigolent un bon coup et vous tappent dans le dos joyeusement. \"Tu verras quand tu s'ras un vrai ork ça r'poussera\"",
+                "", "", evt);
+    effet1->AjouterChangeurDeCarac(blessure, "1");
+    effet1->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
+    effet1->AjouterChangeurDeCarac((make_shared<Trait>(eTrait::beau))->GetNom(), ""); // le joueur perd son éventuelle beauté...
     effet1->m_GoToEffetId = go_to_effet_suivant;
-    shared_ptr<Condition> cond1 = make_shared<Condition>(15, TypeProba::p_Relative);
+    shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
     shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
                 effet1,
                 cond1);
     noeudsProbaEducation.push_back(noeud1);
 
-    shared_ptr<Effet> effet2 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 0.8", "", "", evt);
-    effet2->m_GoToEffetId = go_to_effet_suivant;
-    shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
-    shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
-                effet2,
+    // formation mékano
+    shared_ptr<Effet> effetMekano = genHist->AjouterEffetNarration(
+                "Un mékano a remarqué vos capacités et vous a formé aux bases de la réparation de moteurs. "
+                "\nBien que sa technique semble rudimentaire à première vue il est véritablement doué et très entousisaste comm enseignant."
+                "\nIl vous prometq ue quand vous serez un vrai ork il vous apprendra à fabriquer des armes, ce qui est encore plus rigolo.",
+                ":/images/orks/mekano.PNG",
+                "", evt);
+    effetMekano->m_GoToEffetId = go_to_effet_suivant;
+    effetMekano->m_Conditions = {
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::intelligent), "1", Comparateur::c_SuperieurEgal)
+    };
+    effetMekano->AjouterAjouteurACarac(Ingenieur::C_MECANIQUE, "1"); // meilleur Mékano
+    shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
+    shared_ptr<NoeudProbable> noeudMekano = make_shared<NoeudProbable>(
+                effetMekano,
                 cond);
-    noeudsProbaEducation.push_back(noeud);
+    noeudsProbaEducation.push_back(noeudMekano);
 
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);

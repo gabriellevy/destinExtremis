@@ -22,6 +22,7 @@
 #include "humanite/trait.h"
 #include "politique/education.h"
 #include "politique/propagande.h"
+#include "violence/combat.h"
 
 using std::make_shared;
 
@@ -69,9 +70,14 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Age(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Combat::C_CAP_COMBAT);
 
+    // afficher tous les traits et blessures du personnage
     for (int i = 0; i < eTrait::nb_Traits; i++) {
         GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
+    }
+    for ( QString bless: PbSante::BLESSURES_LEGERES) {
+        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(bless);
     }
 
     // temp test :
@@ -81,6 +87,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_CONSTITUTION);
+
 
     Carac* carac = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
     carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
@@ -122,6 +129,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<EconomieEvt>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Education>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Propagande>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Combat>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>
