@@ -12,7 +12,7 @@ CroisadeFranque::CroisadeFranque()
 void CroisadeFranque::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
-        make_shared<Trait>(eTrait::honneur),
+        make_shared<Trait>(eTrait::honorable),
         make_shared<Trait>(eTrait::fort),
         make_shared<Trait>(eTrait::sens_du_sacrifice),
         make_shared<Trait>(eTrait::spirituel)

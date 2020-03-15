@@ -23,7 +23,7 @@ std::shared_ptr<Evt> Education::GenererEvtEducationPolitique(GenHistoire* genHis
 
     genHistoire->AjouterEffetNarration(
                 "Pour parfaire votre éducation et devenir un homme vous allez être éduqué dans les universités de " +
-                QString::number(NB_COTERIES_EDUCATION) + "coteries déterminées au hasard et y apprendre leurs philosophie et mode de vie pendant un mois pour chaque. " +
+                QString::number(NB_COTERIES_EDUCATION) + " coteries déterminées au hasard et y apprendre leurs philosophie et mode de vie pendant un mois pour chaque. " +
                 "Après cette formalité vous serez libre d'en rejoindre une ou de partir vivre votre vie par vous même."
                 , "", "choixUnivCoteries");
 

@@ -13,7 +13,7 @@ enum eTrait : int {
     sens_du_groupe,
     sens_du_sacrifice,
     cupide,
-    honneur,
+    honorable, // prends très au sérieux sa réputation, ne ment jamais, respecte ses pairs et sa famille...
     fort,
     spirituel,
     opportuniste,

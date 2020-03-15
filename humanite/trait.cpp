@@ -13,7 +13,7 @@ QString Trait::GetNom()
     case sens_du_groupe: return "Sens du groupe";
     case sens_du_sacrifice: return "Sens du sacrifice";
     case cupide: return "Cupide";
-    case honneur: return "Honneur";
+    case honorable: return "Honorable";
     case fort: return "Fort";
     case spirituel: return "Spirituel";
     case opportuniste: return "Opportuniste";
@@ -59,7 +59,7 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case sens_du_groupe: break;
     case sens_du_sacrifice: break;
     case cupide: break;
-    case honneur: break;
+    case honorable: break;
     case fort: return faible;
     case spirituel: break;
     case opportuniste: break;

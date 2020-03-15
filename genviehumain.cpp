@@ -29,7 +29,7 @@ using std::make_shared;
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::C_LIBERTE = "Liberté";
 
-GenVieHumain::GenVieHumain():GenHistoire ("Vive l'Imperium") {}
+GenVieHumain::GenVieHumain():GenHistoire ("La vie sur Extremis") {}
 
 GenVieHumain* GenVieHumain::GetGenVieHumain()
 {
@@ -74,7 +74,7 @@ void GenVieHumain::GenererCaracs()
 
     // afficher tous les traits et blessures du personnage
     for (int i = 0; i < eTrait::nb_Traits; i++) {
-        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
+        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
     }
     for ( QString bless: PbSante::BLESSURES_LEGERES) {
         GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(bless);
