@@ -21,11 +21,14 @@ void Orks::GenererTraitCompatibles()
         make_shared<Trait>(eTrait::resistant),
         make_shared<Trait>(eTrait::pragmatique),
         make_shared<Trait>(eTrait::franc),
+        make_shared<Trait>(eTrait::angoisse),
+        make_shared<Trait>(eTrait::paresseux),
+        make_shared<Trait>(eTrait::faible),
         make_shared<Trait>(eTrait::simple)
     };
     m_TraitsIncompatible = {
-        make_shared<Trait>(eTrait::intellectuel),
-        make_shared<Trait>(eTrait::faible)
+        make_shared<Trait>(eTrait::ambitieux),
+        make_shared<Trait>(eTrait::intellectuel)
     };
 }
 

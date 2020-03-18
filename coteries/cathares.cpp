@@ -33,9 +33,9 @@ QString Cathares::GetNom()
 
 QString Cathares::GetDescription()
 {
-    return "L'es'université Cathares où vous êtes accueilli est très éloignée du centre de la ville. "
-            "Elle se trouve dans un endroit peu industrialisé et entouré d'arbres. L'université elle-même est un monastére de "
-            "pierre majestueux amis de toute évidence très peu équipé niveau confort.";
+    return "L'université Cathares où vous êtes accueilli est très éloignée du centre de la ville. "
+            "Elle se trouve dans un endroit peu industrialisé et entouré d'arbres. L'université elle-même est un majestueux monastère de "
+            "pierre mais de toute évidence très peu équipé niveau confort.";
 }
 
 QString Cathares::GetImage()

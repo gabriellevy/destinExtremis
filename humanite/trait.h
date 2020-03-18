@@ -19,20 +19,23 @@ enum eTrait : int {
     opportuniste,
     sournois,
     faible,
-    nature,
+    nature, // lié à la nature, aux animaux
     franc,
     industrieux,
     violent,
     resistant,
+    chetif,
     pragmatique,
     simple, // pas forcément idiot mais a peu tendace à utiliser son intelligence de manière abstraite : plutôt terre à terre
     intellectuel, // intelligent à priori mais a surtout tendance à intellectualiser tout, à conceptualiser, à aimer l'abstrait et la discussion
     grand,
     beau,
     intelligent,
+    bete,
     artiste,
     sensible,
     habile,
+    maladroit,
     petit,
     laid,
     patriarcal,
@@ -40,9 +43,11 @@ enum eTrait : int {
     jouisseur,
     ambitieux,
     aventureux,
+    travailleur,
+    paresseux,
     altruiste,
     pacifiste,
-
+    angoisse, // angoissé, stressé, pas bien dans sa peau
     nb_Traits
 };
 

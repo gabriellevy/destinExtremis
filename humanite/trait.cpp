@@ -10,20 +10,23 @@ Trait::Trait(eTrait trait):m_eTrait(trait)
 QString Trait::GetNom()
 {
     switch (m_eTrait) {
-    case sens_du_groupe: return "Sens du groupe";
+    case sens_du_groupe:    return "Sens du groupe";
     case sens_du_sacrifice: return "Sens du sacrifice";
-    case cupide: return "Cupide";
-    case honorable: return "Honorable";
-    case fort: return "Fort";
-    case spirituel: return "Spirituel";
-    case opportuniste: return "Opportuniste";
-    case sournois: return "Sournois";
-    case faible: return "Faible";
-    case nature: return "Nature";
-    case franc: return "Franc";
-    case industrieux: return "Industrieux";
-    case violent: return "Violent";
-    case resistant: return "Résistant";
+    case cupide:            return "Cupide";
+    case honorable:         return "Honorable";
+    case fort:              return "Fort";
+    case spirituel:         return "Spirituel";
+    case opportuniste:      return "Opportuniste";
+    case sournois:          return "Sournois";
+    case faible:            return "Faible";
+    case nature:            return "Nature";
+    case franc:             return "Franc";
+    case chetif:            return "Chétif";
+    case maladroit:         return "Maladroit";
+    case industrieux:       return "Industrieux";
+    case bete:              return "Bête";
+    case violent:           return "Violent";
+    case resistant:         return "Résistant";
     case pragmatique: return "Pragmatique";
     case simple: return "Simple";
     case intellectuel: return "Intellectuel";
@@ -42,6 +45,9 @@ QString Trait::GetNom()
     case aventureux: return "Aventureux";
     case altruiste: return "Altruiste";
     case pacifiste: return "Pacifiste";
+    case angoisse: return "Angoissé";
+    case paresseux: return "Paresseux";
+    case travailleur: return "Travailleur";
     case nb_Traits: return "??????????";
     }
 
@@ -68,17 +74,20 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case nature: break;
     case franc: return sournois;
     case industrieux: break;
-    case violent: return pacifiste;
-    case resistant: return faible;
+    case violent:       return pacifiste;
+    case resistant:     return chetif;
+    case chetif:        return resistant;
     case pragmatique: break;
     case simple: return intellectuel;
     case intellectuel: return simple;
     case grand: return petit;
     case beau: return laid;
-    case intelligent: break;
+    case intelligent:   return bete;
+    case bete:          return intelligent;
     case artiste: break;
     case sensible: break;
-    case habile: break;
+    case habile:        return maladroit;
+    case maladroit:     return habile;
     case petit: return grand;
     case laid: return beau;
     case patriarcal: break;
@@ -87,7 +96,10 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case ambitieux: break;
     case aventureux: break;
     case altruiste: break;
+    case angoisse: break;
     case pacifiste: return violent;
+    case paresseux: return travailleur;
+    case travailleur: return paresseux;
     case nb_Traits: break;
     }
 
