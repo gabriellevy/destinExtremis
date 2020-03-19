@@ -23,6 +23,7 @@
 #include "politique/education.h"
 #include "politique/propagande.h"
 #include "violence/combat.h"
+#include "religion/religion.h"
 
 using std::make_shared;
 
@@ -71,6 +72,8 @@ void GenVieHumain::GenererCaracs()
                 new Age(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Combat::C_CAP_COMBAT);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImageValeur(Religion::C_RELIGION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Religion::C_FOI);
 
     // afficher tous les traits et blessures du personnage
     for (int i = 0; i < eTrait::nb_Traits; i++) {
@@ -130,6 +133,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<Education>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Propagande>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Combat>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Religion>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>

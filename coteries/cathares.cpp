@@ -1,5 +1,6 @@
 #include "cathares.h"
 #include "genviehumain.h"
+#include "religion/religion.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -47,14 +48,19 @@ std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist, sh
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
 
-    shared_ptr<Effet> effet2 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 0.8", "", "", evt);
-    effet2->m_GoToEffetId = go_to_effet_suivant;
-    shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
-    shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
-                effet2,
-                cond);
-    noeudsProbaEducation.push_back(noeud);
-
+    // formation religieuse
+    shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                "Rien n'est plus important pour un cathare que la formation religieuse. Vous apssez des semaines à écouter les leçons et à suivre les exemples des purs.",
+                ":/images/cathares/apprend_lit.jpg",
+                "", evt);
+    effet1->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::CHRETIEN);
+    effet1->AjouterAjouteurACarac(Religion::C_FOI, "1");
+    effet1->m_GoToEffetId = go_to_effet_suivant;
+    shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
+    shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                effet1,
+                cond1);
+    noeudsProbaEducation.push_back(noeud1);
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
