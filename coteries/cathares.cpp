@@ -1,6 +1,9 @@
 #include "cathares.h"
 #include "genviehumain.h"
 #include "religion/religion.h"
+#include "humain.h"
+#include "../destinLib/aleatoire.h"
+#include "../destinLib/abs/univers.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -50,17 +53,65 @@ std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist, sh
 
     // formation religieuse
     shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
-                "Rien n'est plus important pour un cathare que la formation religieuse. Vous apssez des semaines à écouter les leçons et à suivre les exemples des purs.",
+                "Rien n'est plus important pour un cathare que la formation religieuse. Vous passez des semaines à écouter les leçons et à suivre les exemples des purs.",
                 ":/images/cathares/apprend_lit.jpg",
                 "", evt);
-    effet1->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::CHRETIEN);
-    effet1->AjouterAjouteurACarac(Religion::C_FOI, "1");
+    Religion::ModifierEffetEnEffetConversion(effet1, Religion::CHRETIEN);
     effet1->m_GoToEffetId = go_to_effet_suivant;
     shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
     shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
                 effet1,
                 cond1);
     noeudsProbaEducation.push_back(noeud1);
+
+    // enfermé en cellule
+    shared_ptr<Effet> effetEnferme = genHist->AjouterEffetNarration(
+                "Votre maître estime qu'un mois de privations et de pénitence sera excellent pour renforcer et sauver votre âme. "
+                "Vous êtes enfermé dans une celleule sombre au pain et à l'eau. "
+                "Cette dureté vous affecte cruellement.",
+                ":/images/cathares/apprend_lit.jpg",
+                "", evt);
+    Religion::ModifierEffetEnEffetConversion(effetEnferme, Religion::CHRETIEN);
+    effetEnferme->m_GoToEffetId = go_to_effet_suivant;
+    effetEnferme->m_CallbackDisplay = [] {
+        Humain* humain = Humain::GetHumainJoue();
+        shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+        if ( humain->GetValeurCarac(Trait::GetNomTrait(eTrait::rancunnier)) != "" ) {
+            effet->m_Texte += "\nCe traitement injuste vous rend furieux. Vous abjurez toute religion.";
+            effet->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::ATHEE);
+            effet->AjouterAjouteurACarac(Religion::C_FOI, "0");
+        }
+        else {
+            // 50% de chance de perdre "jouisseur"
+            if ( humain->GetValeurCarac(Trait::GetNomTrait(eTrait::jouisseur)) != "" && Aleatoire::GetAl()->Entre0Et1() > 0.5) {
+                humain->SetValeurACaracId(Trait::GetNomTrait(eTrait::jouisseur), "");
+                effet->m_Texte += "\nCe traitement rude est une révélation. Vous renoncez à la concupiscence et perdez la caractéristique 'jouisseur'.";
+            }
+            // 50% de chance de gagner "resistant"
+            if ( humain->GetValeurCarac(Trait::GetNomTrait(eTrait::resistant)) == "" && Aleatoire::GetAl()->Entre0Et1() > 0.5) {
+                humain->SetValeurACaracId(Trait::GetNomTrait(eTrait::resistant), "1");
+                effet->m_Texte += "\nA votre grande surprise votre corps résiste particulièrement bien aux privations. Peut-être que la pureté nouvelle de votre âme vous renforce ? Vous gagnez 'résistant.";
+            }
+        }
+    };
+    shared_ptr<Condition> condEnferme = make_shared<Condition>(1.0, TypeProba::p_Relative);
+    shared_ptr<NoeudProbable> noeudEnferme = make_shared<NoeudProbable>(
+                effetEnferme,
+                condEnferme);
+    noeudsProbaEducation.push_back(noeudEnferme);
+
+    // effetVide
+    shared_ptr<Effet> effetVide = genHist->AjouterEffetNarration(
+                "effetVide temp.",
+                ":/images/cathares/apprend_lit.jpg",
+                "", evt);
+    effet1->m_GoToEffetId = go_to_effet_suivant;
+    shared_ptr<Condition> condVide = make_shared<Condition>(1.0, TypeProba::p_Relative);
+    shared_ptr<NoeudProbable> noeudVide = make_shared<NoeudProbable>(
+                effetVide,
+                condVide);
+    noeudsProbaEducation.push_back(noeudVide);
+
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement

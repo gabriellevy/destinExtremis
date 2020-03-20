@@ -27,8 +27,9 @@ QString Trait::GetNom()
     case bete:              return "Bête";
     case violent:           return "Violent";
     case resistant:         return "Résistant";
-    case pragmatique: return "Pragmatique";
-    case simple: return "Simple";
+    case rancunnier:        return "Rancunier";
+    case pragmatique:       return "Pragmatique";
+    case simple:            return "Simple";
     case intellectuel: return "Intellectuel";
     case grand: return "Grand";
     case beau: return "Beau";
@@ -97,6 +98,7 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case aventureux: break;
     case altruiste: break;
     case angoisse: break;
+    case rancunnier: break;
     case pacifiste: return violent;
     case paresseux: return travailleur;
     case travailleur: return paresseux;

@@ -50,8 +50,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                 "\nVous passez des jours entiers à prier dans la dévotion des images saintes à suivre les cours de catéchisme des franciscains.",
                 ":/images/croisade_franque/priant.jpg",
                 "", evt);
-    effet1->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::CHRETIEN);
-    effet1->AjouterAjouteurACarac(Religion::C_FOI, "1");
+    Religion::ModifierEffetEnEffetConversion(effet1, Religion::CHRETIEN);
     effet1->m_GoToEffetId = go_to_effet_suivant;
     shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
     shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(

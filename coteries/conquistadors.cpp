@@ -52,14 +52,25 @@ std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHis
                 "\nVous passez des jours entiers à prier dans la dévotion des images saintes à suivre les cours de catéchisme des prêtres catholiques.",
                 ":/images/conquistadors/priant.jpg",
                 "", evt);
-    effet1->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::CHRETIEN);
-    effet1->AjouterAjouteurACarac(Religion::C_FOI, "1");
+    Religion::ModifierEffetEnEffetConversion(effet1, Religion::CHRETIEN);
     effet1->m_GoToEffetId = go_to_effet_suivant;
     shared_ptr<Condition> cond1 = make_shared<Condition>(0.6, TypeProba::p_Relative);// la religion n'est pas le plus important pour les conquistadors
     shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
                 effet1,
                 cond1);
     noeudsProbaEducation.push_back(noeud1);
+
+    // effetVide
+    shared_ptr<Effet> effetVide = genHist->AjouterEffetNarration(
+                "effetVide temp conqui.",
+                ":/images/conquistadors/priant.jpg",
+                "", evt);
+    effet1->m_GoToEffetId = go_to_effet_suivant;
+    shared_ptr<Condition> condVide = make_shared<Condition>(1.0, TypeProba::p_Relative);
+    shared_ptr<NoeudProbable> noeudVide = make_shared<NoeudProbable>(
+                effetVide,
+                condVide);
+    noeudsProbaEducation.push_back(noeudVide);
 
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);
