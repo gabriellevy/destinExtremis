@@ -26,6 +26,7 @@ public:
     static QVector<Phrase> PHRASES;
 
     void RafraichirPhrases();
+    void RafraichirPhrasesSelonCoterie(QString coterie);
 
     static Phrase ExtrairePhrase();
 

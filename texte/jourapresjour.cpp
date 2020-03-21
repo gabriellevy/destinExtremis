@@ -4,6 +4,7 @@
 #include "socio_eco/classesociale.h"
 #include "socio_eco/metier.h"
 #include "genviehumain.h"
+#include "coteries/coterie.h"
 
 QVector<Phrase> JourApresJour::PHRASES = {};
 
@@ -31,6 +32,21 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString classeSociale, QString 
     }
 }
 
+void JourApresJour::RafraichirPhrasesSelonCoterie(QString coterie)
+{
+    if ( coterie ==  Coterie::CATHARES ||
+         coterie == Coterie::CONQUISTADORS) {
+        // christianisme post moyen-âge
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Pensée de Pascal du jour : "
+                           "\nIl est dangereux de trop faire croire à l'homme combien il est égal aux bêtes, sans lui montrer sa grandeur."
+                           "Il est encore dangereux de lui trop faire voir sa grandeur sans sa bassesse."
+                           "Il est encore plus dangereux de lui laisser ignorer l'un et l'autre, mais il est très avantageux de lui représenter l'un et l'autre."
+                           "\n\nIl ne faut pas que l'homme croie qu'il est égal aux bêtes, ni aux anges, ni qu'il ignore l'un et l'autre, mais qu'il sache l'une t l'autre.")
+                    );
+    }
+}
+
 void JourApresJour::RafraichirPhrases()
 {
     JourApresJour::PHRASES.clear();
@@ -40,6 +56,9 @@ void JourApresJour::RafraichirPhrases()
     QString classeSociale = humain->GetValeurCarac(ClasseSociale::C_CLASSE_SOCIALE);
     QString metier = humain->GetValeurCarac(Metier::C_METIER);
     QString liberte = humain->GetValeurCarac(GenVieHumain::C_LIBERTE);
+    QString coterie = humain->GetValeurCarac(Coterie::C_COTERIE);
+
+    RafraichirPhrasesSelonCoterie(coterie);
 
     if ( liberte == "" ) // si libre
     {
