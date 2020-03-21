@@ -32,6 +32,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 1 : {
             m_Nom = Metier::MUSICIEN;
             m_ConditionSelecteurProba = make_shared<Condition>(0.00005 - tmpFavoriseur, p_Relative);
+            Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.3, artiste);
             Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.05, Coterie::CONQUISTADORS);
     }break;
     case 10 : {

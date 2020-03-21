@@ -3,6 +3,7 @@
 #include "religion/religion.h"
 #include "violence/combat.h"
 #include "socio_eco/metier.h"
+#include "humanite/trait.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -106,10 +107,12 @@ std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHis
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
         effet->AjouterAjouteurACarac(Metier::MUSICIEN, "1");
-        shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<Condition> cond = make_shared<Condition>(0.3, TypeProba::p_Relative);
+
+        Trait::AjouterModifProbaSiACeTrait(cond.get(), 1.5, artiste);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
                     effet,
-                    condCombat);
+                    cond);
         noeudsProbaEducation.push_back(noeudCombat);
     }
 
