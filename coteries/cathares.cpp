@@ -53,7 +53,7 @@ std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist, sh
 
     // formation religieuse
     shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
-                "Rien n'est plus important pour un cathare que la formation religieuse. Vous passez des semaines à écouter les leçons et à suivre les exemples des purs.",
+                "Rien n'est plus important pour un cathare que la formation religieuse. Vous passez des semaines à écouter les leçons et à suivre les exemples des parfaits.",
                 ":/images/cathares/apprend_lit.jpg",
                 "", evt);
     Religion::ModifierEffetEnEffetConversion(effet1, Religion::CHRETIEN);
@@ -117,4 +117,10 @@ std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist, sh
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
 
     return effetSelecteur;
+}
+
+
+QString Cathares::GetId()
+{
+    return Coterie::CATHARES;
 }

@@ -17,6 +17,7 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString classeSociale, QString 
     if (metier == Metier::PAYSAN)
     {
         JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de blé."));
+        JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de patates."));
         JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de riz."));
         JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de céréales."));
         JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de légumes."));

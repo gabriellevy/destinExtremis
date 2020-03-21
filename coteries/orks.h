@@ -12,6 +12,7 @@ public:
 
     void GenererTraitCompatibles();
     QString GetNom();
+    QString GetId();
 
     QString GetDescription();
     QString GetImage();

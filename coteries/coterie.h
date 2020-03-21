@@ -8,6 +8,7 @@
 class Effet;
 class Evt;
 class GenHistoire;
+class Condition;
 
 class Coterie
 {
@@ -22,6 +23,7 @@ public:
 
     virtual void GenererTraitCompatibles() = 0;
     virtual QString GetNom() = 0;
+    virtual QString GetId() = 0;
     virtual QString GetDescription() = 0;
     virtual QString GetImage() = 0;
 
@@ -29,6 +31,19 @@ public:
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant) = 0;
 
     static QVector<std::shared_ptr<Coterie>>GetNRandomCoteries(int n);
+
+    static void AjouterModifProbaSiDeCetteCoterie(Condition* CondProba, double proba, QString nomCoterie);
+
+
+    static QString C_COTERIE;
+    // valeurs de C_COTERIE
+    static QString CONQUISTADORS;
+    static QString CATHARES;
+    static QString CELTES;
+    static QString CROISADE;
+    static QString ELFES;
+    static QString ORKS;
+    static QString TYRANIDES;
 };
 
 #endif // COTERIE_H

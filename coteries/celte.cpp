@@ -37,6 +37,11 @@ QString Celte::GetImage()
     return ":/images/celtes/description.jpg";
 }
 
+QString Celte::GetId()
+{
+    return Coterie::CELTES;
+}
+
 std::shared_ptr<Effet> Celte::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;

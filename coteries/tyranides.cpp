@@ -37,6 +37,11 @@ QString Tyranides::GetImage()
     return ":/images/tyranides/The_hive_fleets_descend.jpg";
 }
 
+QString Tyranides::GetId()
+{
+    return Coterie::TYRANIDES;
+}
+
 std::shared_ptr<Effet> Tyranides::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;

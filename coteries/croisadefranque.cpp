@@ -64,3 +64,8 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
 
     return effetSelecteur;
 }
+
+QString CroisadeFranque::GetId()
+{
+    return Coterie::CROISADE;
+}

@@ -42,6 +42,11 @@ QString Orks::GetDescription()
     return "Les orks sont des mutants qui embrassent avant tout une vie simple et brutale sans prise de tête.";
 }
 
+QString Orks::GetId()
+{
+    return Coterie::ORKS;
+}
+
 QString Orks::GetImage()
 {
     return ":/images/orks/mekano.PNG";

@@ -12,9 +12,11 @@ QString Metier::C_METIER = "Métier";
 
 QString Metier::INEMPLOYABLE = "Inemployable";
 QString Metier::PAYSAN = "Paysan";
+QString Metier::MUSICIEN = "Musicien";
 QString Metier::MINEUR = "Mineur";
 QString Metier::CHASSEUR_CUEILLEUR_NOMADE = "Chasseur cueilleur nomade";
 QString Metier::OUVRIER = "Ouvrier";
+QString Metier::FORGERON = "Forgeron";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -26,6 +28,11 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = Metier::PAYSAN;
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 - tmpFavoriseur, p_Relative);
         // plus de chances d'êtres paysans sur les mondes agricoles et médiévaux
+    }break;
+    case 1 : {
+            m_Nom = Metier::MUSICIEN;
+            m_ConditionSelecteurProba = make_shared<Condition>(0.00005 - tmpFavoriseur, p_Relative);
+            Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.05, Coterie::CONQUISTADORS);
     }break;
     case 10 : {
         m_Nom = Metier::OUVRIER;
@@ -41,7 +48,12 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = Metier::MINEUR;
         m_ConditionSelecteurProba = make_shared<Condition>(0.005 - tmpFavoriseur, p_Relative);
     }break;
-    }
+    case 13 : {
+        m_Nom = Metier::FORGERON;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0005 - tmpFavoriseur, p_Relative);
+        Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.05, Coterie::CONQUISTADORS);
+    }break;
+}
 
     if ( m_Description == "" ) {
         m_Description = "Vous êtes maintenant " +

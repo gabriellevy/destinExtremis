@@ -41,6 +41,11 @@ QString Elfes::GetImage()
     return ":/images/elfes/400px-Elfe.jpg";
 }
 
+QString Elfes::GetId()
+{
+    return Coterie::ELFES;
+}
+
 std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
