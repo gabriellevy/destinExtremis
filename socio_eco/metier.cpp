@@ -18,6 +18,7 @@ QString Metier::MINEUR = "Mineur";
 QString Metier::CHASSEUR_CUEILLEUR_NOMADE = "Chasseur cueilleur nomade";
 QString Metier::OUVRIER = "Ouvrier";
 QString Metier::FORGERON = "Forgeron";
+QString Metier::ALCHIMISTE = "Alchimiste";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -42,6 +43,12 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = make_shared<Condition>(0.00005 - tmpFavoriseur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.3, artiste);
         Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.03, Coterie::ELFES);
+    }break;
+    case 3 : {
+        m_Nom = Metier::ALCHIMISTE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.00001 - tmpFavoriseur, p_Relative);
+        Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.03, Coterie::ELFES);
+        Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.03, Coterie::CELTES);
     }break;
     case 10 : {
         m_Nom = Metier::OUVRIER;

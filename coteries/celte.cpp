@@ -1,5 +1,6 @@
 #include "celte.h"
 #include "genviehumain.h"
+#include "socio_eco/metier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -51,13 +52,34 @@ std::shared_ptr<Effet> Celte::AjouterEffetUniversite(GenHistoire* genHist, share
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
 
-    shared_ptr<Effet> effet2 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 0.8", "", "", evt);
-    effet2->m_GoToEffetId = go_to_effet_suivant;
-    shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
-    shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
-                effet2,
-                cond);
-    noeudsProbaEducation.push_back(noeud);
+    {
+        shared_ptr<Effet> effet2 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 0.8", "", "", evt);
+        effet2->m_GoToEffetId = go_to_effet_suivant;
+        shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
+                    effet2,
+                    cond);
+        noeudsProbaEducation.push_back(noeud);
+    }
+
+    // effet devient Alchimiste
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "La fabrication de potions, de filtres, de pommades est une composante essentielle de la science des druides celtes. "
+                    "Leurs usages sont innombrables et vont de potions de soins aux champignons rendant les guerriers insensibles à la peur et la douleur. "
+                    "Un druide détecte un certain potentiel chez vous et décide de vous apprendre les bases.",
+                    ":/images/elfes/alchimiste.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::ALCHIMISTE, "1");
+        Trait::AjouterConditionSiAPasCeTrait(effet, bete);
+
+        shared_ptr<Condition> cond = make_shared<Condition>(0.7, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeud);
+    }
 
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);

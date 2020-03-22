@@ -23,7 +23,7 @@ public:
 
     static QString C_METIER;
     // valeurs de C_METIER :
-    // ATTENTION : les noms de métier snt à la fois la valeur de la carac C_METIER pour indiquer le métier du eprso
+    // ATTENTION : les noms de métier snt à la fois la valeur de la carac C_METIER pour indiquer le métier du perso
     // PLUS un nom de carac en soi qui indique le niveau (1 à 10) du personnage dans ce métier
     static QString INEMPLOYABLE; // quand le eprso n'est plus bon à rien (maladie extrêmement grave par ex)
     static QString PAYSAN;
@@ -33,6 +33,7 @@ public:
     static QString FORGERON;
     static QString MUSICIEN;
     static QString POETE;
+    static QString ALCHIMISTE;
 };
 
 #endif // METIER_H

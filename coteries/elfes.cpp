@@ -80,10 +80,10 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         Trait::AjouterConditionSiACeTrait(effet, laid);
 
         shared_ptr<Condition> cond = make_shared<Condition>(2.0, TypeProba::p_Relative);
-        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
                     effet,
                     cond);
-        noeudsProbaEducation.push_back(noeudCombat);
+        noeudsProbaEducation.push_back(noeud);
     }
 
     // effet gagne beau
@@ -100,10 +100,10 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         Trait::AjouterConditionSiAPasCeTrait(effet, beau);
 
         shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
-        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
                     effet,
                     cond);
-        noeudsProbaEducation.push_back(noeudCombat);
+        noeudsProbaEducation.push_back(noeud);
     }
 
     // effet devient artiste
@@ -118,10 +118,10 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         Trait::AjouterConditionSiAPasCeTrait(effet, artiste);
 
         shared_ptr<Condition> cond = make_shared<Condition>(0.3, TypeProba::p_Relative);// difficile d'ajouter une carac à un eprso (artiste à partir de rien...)
-        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
                     effet,
                     cond);
-        noeudsProbaEducation.push_back(noeudCombat);
+        noeudsProbaEducation.push_back(noeud);
     }
 
     // effet devient Musicien
@@ -135,10 +135,10 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         Trait::AjouterConditionSiACeTrait(effet, artiste);
 
         shared_ptr<Condition> cond = make_shared<Condition>(0.7, TypeProba::p_Relative);
-        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
                     effet,
                     cond);
-        noeudsProbaEducation.push_back(noeudCombat);
+        noeudsProbaEducation.push_back(noeud);
     }
 
     // effet devient Poète
@@ -152,10 +152,28 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         Trait::AjouterConditionSiACeTrait(effet, artiste);
 
         shared_ptr<Condition> cond = make_shared<Condition>(0.7, TypeProba::p_Relative);
-        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
                     effet,
                     cond);
-        noeudsProbaEducation.push_back(noeudCombat);
+        noeudsProbaEducation.push_back(noeud);
+    }
+
+    // effet devient Alchimiste
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "La fabrication de potions, de filtres, de pommades est une composante essentielle de l'art elfique. "
+                    "Leurs usages sont innombrables et vont de potions de soins aux meilleurs produits de beauté du monde. "
+                    "Un maître herboriste détecte un certain potentiel chez vous et décide de vous apprendre les bases.",
+                    ":/images/elfes/alchimiste.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::ALCHIMISTE, "1");
+
+        shared_ptr<Condition> cond = make_shared<Condition>(0.7, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeud);
     }
 
 
