@@ -37,6 +37,11 @@ QString Cathares::GetNom()
 
 QString Cathares::GetDescription()
 {
+    return "Description des Cathares";
+}
+
+QString Cathares::GetDescriptionUniversite()
+{
     return "L'université Cathares où vous êtes accueilli est très éloignée du centre de la ville. "
             "Elle se trouve dans un endroit peu industrialisé et entouré d'arbres. L'université elle-même est un majestueux monastère de "
             "pierre mais de toute évidence très peu équipé niveau confort.";

@@ -25,6 +25,7 @@ public:
     virtual QString GetNom() = 0;
     virtual QString GetId() = 0;
     virtual QString GetDescription() = 0;
+    virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(

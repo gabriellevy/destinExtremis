@@ -29,6 +29,11 @@ QString Tyranides::GetNom()
 
 QString Tyranides::GetDescription()
 {
+    return "Description des Tyranides";
+}
+
+QString Tyranides::GetDescriptionUniversite()
+{
     return "Les Tyranides";
 }
 

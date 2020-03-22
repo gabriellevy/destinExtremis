@@ -37,6 +37,11 @@ QString Conquistadors::GetNom()
 
 QString Conquistadors::GetDescription()
 {
+    return "Description des Conquistadors";
+}
+
+QString Conquistadors::GetDescriptionUniversite()
+{
     return "Les Conquistadors";
 }
 

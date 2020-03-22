@@ -33,6 +33,11 @@ QString Elfes::GetNom()
 
 QString Elfes::GetDescription()
 {
+    return "Description des Elfes";
+}
+
+QString Elfes::GetDescriptionUniversite()
+{
     return "Les Elfes";
 }
 

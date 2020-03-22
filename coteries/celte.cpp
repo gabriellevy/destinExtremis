@@ -22,12 +22,17 @@ void Celte::GenererTraitCompatibles()
     };
 }
 
+QString Celte::GetDescription()
+{
+    return "Description des celtes";
+}
+
 QString Celte::GetNom()
 {
     return "Celtes";
 }
 
-QString Celte::GetDescription()
+QString Celte::GetDescriptionUniversite()
 {
     return "Les celtes";
 }

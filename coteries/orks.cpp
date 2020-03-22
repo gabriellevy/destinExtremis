@@ -39,6 +39,11 @@ QString Orks::GetNom()
 
 QString Orks::GetDescription()
 {
+    return "Description des Orks";
+}
+
+QString Orks::GetDescriptionUniversite()
+{
     return "Les orks sont des mutants qui embrassent avant tout une vie simple et brutale sans prise de tête.";
 }
 

@@ -14,6 +14,7 @@ public:
     QString GetId();
 
     QString GetDescription();
+    QString GetDescriptionUniversite();
     QString GetImage();
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
