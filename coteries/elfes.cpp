@@ -1,6 +1,7 @@
 #include "elfes.h"
 #include "genviehumain.h"
 #include "socio_eco/metier.h"
+#include "../destinLib/aleatoire.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -118,6 +119,35 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         Trait::AjouterConditionSiAPasCeTrait(effet, artiste);
 
         shared_ptr<Condition> cond = make_shared<Condition>(0.3, TypeProba::p_Relative);// difficile d'ajouter une carac à un eprso (artiste à partir de rien...)
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeud);
+    }
+
+    // effet frustration sexuelle
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Vous êtes fasciné et tout émoustillé par la quantité incroyable de jeunes beautés que vous rencontrez à l'université elfique. "
+                    "Malheureusement elles n'ont que mérpis et moquerie pour vous et votre physique médiocre.",
+                    ":/images/elfes/jeune_elfe.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        double proba = Aleatoire::GetAl()->Entre0Et1();
+        if ( proba < 0.6) {
+            effet->AjouterChangeurDeCarac(Trait::GetNomTrait(angoisse), "1");
+            effet->m_Texte += "\nVous en intériosez une forte angoisse sur votre propre valeur.";
+        } else if (proba < 0.75) {
+            effet->AjouterChangeurDeCarac(Trait::GetNomTrait(violent), "1");
+            effet->m_Texte += "\nVous trouvez ça injuste et vous sentez profondément énervé contre elles et contre la société en général.";
+        } else {
+            effet->AjouterChangeurDeCarac(Trait::GetNomTrait(ambitieux), "1");
+            effet->m_Texte += "\nVous décidez de vous concentrer sur votre propre amélioration et enrichissement pour un jour avoir votre chance avec une femme aussi belle";
+
+        }
+        Trait::AjouterConditionSiAPasCeTrait(effet, beau);
+
+        shared_ptr<Condition> cond = make_shared<Condition>(0.5, TypeProba::p_Relative);// difficile d'ajouter une carac à un eprso (artiste à partir de rien...)
         shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
                     effet,
                     cond);
