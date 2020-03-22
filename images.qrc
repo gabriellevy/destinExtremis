@@ -19,5 +19,8 @@
         <file>images/croisade_franque/duel_chevalier.jpg</file>
         <file>images/elfes/elfe_musicien.jpg</file>
         <file>images/elfes/musique_automne.jpg</file>
+        <file>images/elfes/elfe_habille.jpg</file>
+        <file>images/elfes/elfe_royale.jpg</file>
+        <file>images/elfes/poete.jpg</file>
     </qresource>
 </RCC>

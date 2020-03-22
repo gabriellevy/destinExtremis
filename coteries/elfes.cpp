@@ -66,6 +66,46 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         noeudsProbaEducation.push_back(noeud);
     }
 
+    // effet perd laid
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Votre laideur offense tellement vos maître qu'ils font une priorité de vous rendre présentable."
+                    "Pour cela ils utilisent une myriades d'outils et d'objets merveilleux. Des pommades, des bains, des amulettes et même des potions enchantées."
+                    "Le résultat est stupéfiant. "
+                    "\nVous perdez la compétence 'laid'.",
+                    ":/images/elfes/elfe_habille.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterChangeurDeCarac(Trait::GetNomTrait(laid), "");
+        Trait::AjouterConditionSiACeTrait(effet, laid);
+
+        shared_ptr<Condition> cond = make_shared<Condition>(2.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // effet gagne beau
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "La beauté est primorduiale pour els elfes et ils font en sorte que votre médiocrité ne soit aps un frein pour vous intégrer et vous sentir l'un des leurs. "
+                    "Pour cela ils utilisent une myriades d'outils et d'objets merveilleux. Des pommades, des bains, des amulettes et même des potions enchantées."
+                    "Le résultat est stupéfiant. "
+                    "\nVous gagnez la compétence 'beau'.",
+                    ":/images/elfes/elfe_royale.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterChangeurDeCarac(Trait::GetNomTrait(beau), "1");
+        Trait::AjouterConditionSiAPasCeTrait(effet, beau);
+
+        shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
     // effet devient artiste
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
@@ -74,7 +114,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/musique_automne.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
-        effet->AjouterAjouteurACarac(Trait::GetNomTrait(artiste), "1");
+        effet->AjouterChangeurDeCarac(Trait::GetNomTrait(artiste), "1");
         Trait::AjouterConditionSiAPasCeTrait(effet, artiste);
 
         shared_ptr<Condition> cond = make_shared<Condition>(0.3, TypeProba::p_Relative);// difficile d'ajouter une carac à un eprso (artiste à partir de rien...)
@@ -94,7 +134,24 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
         effet->AjouterAjouteurACarac(Metier::MUSICIEN, "1");
         Trait::AjouterConditionSiACeTrait(effet, artiste);
 
-        shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<Condition> cond = make_shared<Condition>(0.7, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // effet devient Poète
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Vu votre poentiel d'artiste les elfes trouvent indispensable de vous former à la poésie, la pierre angulaire de la sensibilité elfique.",
+                    ":/images/elfes/poete.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::POETE, "1");
+        Trait::AjouterConditionSiACeTrait(effet, artiste);
+
+        shared_ptr<Condition> cond = make_shared<Condition>(0.7, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
                     effet,
                     cond);

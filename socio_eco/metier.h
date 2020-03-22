@@ -32,6 +32,7 @@ public:
     static QString OUVRIER;
     static QString FORGERON;
     static QString MUSICIEN;
+    static QString POETE;
 };
 
 #endif // METIER_H
