@@ -1,6 +1,7 @@
 #include "trait.h"
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
+#include "../destinLib/abs/effet.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -59,6 +60,16 @@ QString Trait::GetNom()
 QString Trait::GetNomTrait(eTrait etrait)
 {
     return (make_shared<Trait>(etrait))->GetNom();
+}
+
+void Trait::AjouterConditionSiACeTrait(shared_ptr<Effet> effet, eTrait trait)
+{
+    effet->AjouterCondition(Trait::GetNomTrait(trait), Comparateur::c_Egal, "1");
+}
+
+void Trait::AjouterConditionSiAPasCeTrait(shared_ptr<Effet> effet, eTrait trait)
+{
+    effet->AjouterCondition(Trait::GetNomTrait(trait), Comparateur::c_Egal, "");
 }
 
 void Trait::AjouterModifProbaSiACeTrait(Condition* CondProba, double proba, eTrait trait)

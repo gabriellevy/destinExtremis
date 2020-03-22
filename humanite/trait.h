@@ -5,6 +5,7 @@
 #include <memory>
 
 class Condition;
+class Effet;
 
 /**
  * @brief ce qui a rapport aux traits descriptif d'un personnage
@@ -74,6 +75,8 @@ public:
 
     static QString GetNomTrait(eTrait etrait); // est aussi l'identifiant de la carac associée
     static void AjouterModifProbaSiACeTrait(Condition* CondProba, double proba, eTrait trait);
+    static void AjouterConditionSiACeTrait(std::shared_ptr<Effet> effet, eTrait trait);
+    static void AjouterConditionSiAPasCeTrait(std::shared_ptr<Effet> effet, eTrait trait);
 };
 
 #endif // TRAIT_H

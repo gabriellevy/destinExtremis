@@ -17,5 +17,7 @@
         <file>images/conquistadors/forgeron.jpg</file>
         <file>images/conquistadors/guitariste2.jpg</file>
         <file>images/croisade_franque/duel_chevalier.jpg</file>
+        <file>images/elfes/elfe_musicien.jpg</file>
+        <file>images/elfes/musique_automne.jpg</file>
     </qresource>
 </RCC>
