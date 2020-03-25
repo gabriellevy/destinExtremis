@@ -62,15 +62,6 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
 
-    {
-        shared_ptr<Effet> effet2 = genHist->AjouterEffetNarration("youpi temp " + GetNom() + " 0.8", "", "", evt);
-        effet2->m_GoToEffetId = go_to_effet_suivant;
-        shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
-        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
-                    effet2,
-                    cond);
-        noeudsProbaEducation.push_back(noeud);
-    }
 
     // effet perd laid
     {
