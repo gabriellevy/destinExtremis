@@ -32,6 +32,11 @@ void Orks::GenererTraitCompatibles()
     };
 }
 
+float Orks::GetPoidsDemo()
+{
+    return 1.1;
+}
+
 QString Orks::GetNom()
 {
     return "Orks";

@@ -12,6 +12,7 @@ public:
     void GenererTraitCompatibles();
     QString GetNom();
     QString GetId();
+    float GetPoidsDemo();
 
     QString GetDescription();
     QString GetDescriptionUniversite();

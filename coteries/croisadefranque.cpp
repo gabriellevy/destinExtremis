@@ -31,6 +31,11 @@ QString CroisadeFranque::GetNom()
     return "Croisade franque";
 }
 
+float CroisadeFranque::GetPoidsDemo()
+{
+    return 1.0;
+}
+
 QString CroisadeFranque::GetDescription()
 {
     return "Description des Croisés";
@@ -53,7 +58,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // formation religieuse
     {
         shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
-                    "Un croisé se doit d'être un fervent chértien dévoué à la guerre sainte. "
+                    "Un croisé se doit d'être un fervent chrétien dévoué à la guerre sainte. "
                     "\nVous passez des jours entiers à prier dans la dévotion des images saintes à suivre les cours de catéchisme des franciscains.",
                     ":/images/croisade_franque/priant.jpg",
                     "", evt);

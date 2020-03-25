@@ -53,6 +53,11 @@ QString Elfes::GetId()
     return Coterie::ELFES;
 }
 
+float Elfes::GetPoidsDemo()
+{
+    return 0.4;
+}
+
 std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;

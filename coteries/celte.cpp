@@ -43,6 +43,11 @@ QString Celte::GetImage()
     return ":/images/celtes/description.jpg";
 }
 
+float Celte::GetPoidsDemo()
+{
+    return 1.3;
+}
+
 QString Celte::GetId()
 {
     return Coterie::CELTES;

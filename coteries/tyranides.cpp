@@ -27,6 +27,11 @@ QString Tyranides::GetNom()
     return "Tyranides";
 }
 
+float Tyranides::GetPoidsDemo()
+{
+    return 1.0;
+}
+
 QString Tyranides::GetDescription()
 {
     return "Description des Tyranides";

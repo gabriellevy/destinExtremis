@@ -40,6 +40,11 @@ QString Conquistadors::GetDescription()
     return "Description des Conquistadors";
 }
 
+float Conquistadors::GetPoidsDemo()
+{
+    return 1.0;
+}
+
 QString Conquistadors::GetDescriptionUniversite()
 {
     return "Les Conquistadors";

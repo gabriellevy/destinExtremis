@@ -40,6 +40,11 @@ QString Cathares::GetDescription()
     return "Description des Cathares";
 }
 
+float Cathares::GetPoidsDemo()
+{
+    return 1.0;
+}
+
 QString Cathares::GetDescriptionUniversite()
 {
     return "L'université Cathares où vous êtes accueilli est très éloignée du centre de la ville. "

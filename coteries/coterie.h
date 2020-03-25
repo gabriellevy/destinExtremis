@@ -27,6 +27,7 @@ public:
     virtual QString GetDescription() = 0;
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
+    virtual float GetPoidsDemo() = 0; // poids démographique. 1 = normal, 0.1 très très faible, 2 énorme
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant) = 0;
