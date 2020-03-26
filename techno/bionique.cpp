@@ -12,6 +12,8 @@
 
 QString Bionique::C_BIONIQUE_LONGEVITE = "Bionique longévité";
 
+QString Bionique::C_FABRICATION_BIONIQUE = "Fabrication de bioniques";
+
 Bionique::Bionique(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     switch (indexEvt) {

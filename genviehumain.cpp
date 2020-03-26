@@ -17,6 +17,7 @@
 #include "socio_eco/economieevt.h"
 #include "humanite/naissance.h"
 #include "texte/jourapresjour.h"
+#include "techno/vehicule.h"
 #include "techno/bionique.h"
 #include "age.h"
 #include "humanite/trait.h"
@@ -74,6 +75,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Combat::C_CAP_COMBAT);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImageValeur(Religion::C_RELIGION);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Religion::C_FOI);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
 
     // afficher tous les traits et blessures du personnage
     for (int i = 0; i < eTrait::nb_Traits; i++) {
@@ -134,6 +136,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<Propagande>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Combat>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Religion>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Vehicule>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>

@@ -25,5 +25,8 @@
         <file>images/elfes/alchimiste.jpg</file>
         <file>images/elfes/0c561c3dc3bc0e3e045dbd87368ee663.jpg</file>
         <file>images/elfes/jeune_elfe.jpg</file>
+        <file>images/orks/chariot.jpg</file>
+        <file>images/orks/ork_mediko0.jpg</file>
+        <file>images/orks/Combat_fosse.jpg</file>
     </qresource>
 </RCC>

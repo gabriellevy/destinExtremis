@@ -18,6 +18,8 @@ QString PbSante::FRELE = "Frêle";
 QString PbSante::MORT = "Mort";
 QString PbSante::FOLIE = "Folie";
 
+QString PbSante::ALCOOLIQUE = "Alcoolique";
+
 QString PbSante::BORGNE = "Borgne";
 QString PbSante::BOITEUX = "Boiteux";
 QString PbSante::CICATRICE_AU_VISAGE = "Cicatrice au visage";

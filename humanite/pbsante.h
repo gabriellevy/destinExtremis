@@ -37,6 +37,8 @@ public:
     static QString OREILLE_COUPEE;
     static QVector<QString> BLESSURES_LEGERES;
     static QString GetBlessureLegereAleatoire();
+    // maladies diverses semi graves
+    static QString ALCOOLIQUE;
 
 
     static std::shared_ptr<Condition> AjouterModifProbaSiMort(std::shared_ptr<Condition> cond, double poidsProba);

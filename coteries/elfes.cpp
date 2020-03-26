@@ -86,7 +86,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
     // effet gagne beau
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "La beauté est primorduiale pour els elfes et ils font en sorte que votre médiocrité ne soit aps un frein pour vous intégrer et vous sentir l'un des leurs. "
+                    "La beauté est primordiale pour les elfes et ils font en sorte que votre médiocrité ne soit aps un frein pour vous intégrer et vous sentir l'un des leurs. "
                     "Pour cela ils utilisent une myriades d'outils et d'objets merveilleux. Des pommades, des bains, des amulettes et même des potions enchantées."
                     "Le résultat est stupéfiant. "
                     "\nVous gagnez la compétence 'beau'.",

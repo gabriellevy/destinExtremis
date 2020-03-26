@@ -34,6 +34,7 @@ public:
     static QString MUSICIEN;
     static QString POETE;
     static QString ALCHIMISTE;
+    static QString MEDECIN;
 };
 
 #endif // METIER_H

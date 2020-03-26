@@ -10,6 +10,8 @@ class Effet;
 /**
  * @brief ce qui a rapport aux traits descriptif d'un personnage
  * Tous ces traits sont binaires par souci d simplification et peuvent aussi bien être psychologiques que physiques
+ * ces traits doivent pouvoir être acquis très jeune et de préférence dès la petite enfance.
+ * On écarte de préférence ceux qui sont des acquisistion tardives
  */
 
 enum eTrait : int {
