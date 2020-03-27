@@ -52,7 +52,7 @@ enum eTrait : int {
     paresseux,
     altruiste,
     pacifiste,
-    rancunnier,
+    rancunier,
     angoisse, // angoissé, stressé, pas bien dans sa peau
     nb_Traits
 };

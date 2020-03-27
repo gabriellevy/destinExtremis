@@ -89,7 +89,7 @@ std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist, sh
         effetEnferme->m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
-            if ( humain->GetValeurCarac(Trait::GetNomTrait(eTrait::rancunnier)) != "" ) {
+            if ( humain->GetValeurCarac(Trait::GetNomTrait(eTrait::rancunier)) != "" ) {
                 effet->m_Texte += "\nCe traitement injuste vous rend furieux. Vous abjurez toute religion.";
                 effet->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::ATHEE);
                 effet->AjouterAjouteurACarac(Religion::C_FOI, "0");

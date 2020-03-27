@@ -7,6 +7,8 @@
 #include "techno/vehicule.h"
 #include "techno/bionique.h"
 #include "socio_eco/metier.h"
+#include "../destinLib/exec/exechistoire.h"
+#include "humain.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -189,14 +191,20 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
         effet->AjouterAjouteurACarac(Bionique::C_FABRICATION_BIONIQUE, "1"); // meilleur médiko
         effet->AjouterAjouteurACarac(Metier::MEDECIN, "1"); // meilleur médiko
         shared_ptr<Condition> cond = make_shared<Condition>(0.5, TypeProba::p_Relative);
-        double proba = Aleatoire::GetAl()->Entre0Et1();
-        if ( proba <= 0.3) {
-            QString blessure = PbSante::GetBlessureLegereAleatoire();
-            effet->m_Texte += "\nMalheureusement il en profite pour faire des expériences amusantes sur vous après vous avoir assomé avec un maillet.";
-            effet->m_Texte += "\nVous êtes maintenant : " + blessure;
-            effet->AjouterChangeurDeCarac(blessure, "1");
-            // TODO MATHIEU : ajouter ici un bionique aléatoire
-        }
+        effet->m_CallbackDisplay = [] {
+            double proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba <= 0.8) {
+                shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+                Humain* humain = Humain::GetHumainJoue();
+                QString blessure = PbSante::GetBlessureLegereAleatoire();
+                effet->m_Texte += "\nMalheureusement il en profite pour faire des expériences amusantes sur vous après vous avoir assomé avec un maillet.";
+                effet->m_Texte += "\nVous êtes maintenant : " + blessure;
+                humain->SetValeurACaracId(blessure, "1");
+                QString bionique = Bionique::AppliquerBionique(humain);
+                effet->m_Texte += "\nEt vous avez le bionique : " + bionique;
+            }
+        };
+
         shared_ptr<NoeudProbable> noeudMekano = make_shared<NoeudProbable>(
                     effet,
                     cond);
