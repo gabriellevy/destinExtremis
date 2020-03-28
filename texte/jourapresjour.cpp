@@ -13,7 +13,7 @@ JourApresJour::JourApresJour()
     RafraichirPhrases();
 }
 
-void JourApresJour::RafraichirPhrasesSelonMetier(QString classeSociale, QString metier)
+void JourApresJour::RafraichirPhrasesSelonMetier(QString /*classeSociale*/, QString metier)
 {
     if (metier == Metier::PAYSAN)
     {
