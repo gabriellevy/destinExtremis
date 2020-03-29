@@ -100,7 +100,21 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         // si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
         // mais affectation de métier plus rapide sur monde féodal :
         m_ConditionSelecteurProba->AjouterModifProba(-2.3, {make_shared<Condition>(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
+
+        // plus de chances de choisir un métier si on a des compétences de ce métier :
+        m_ConditionSelecteurProba->AjouterModifProba(0.2, {make_shared<Condition>(m_Nom, "1", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.2, {make_shared<Condition>(m_Nom, "2", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.2, {make_shared<Condition>(m_Nom, "3", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "4", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "5", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "6", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "7", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "8", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "9", Comparateur::c_SuperieurEgal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "10", Comparateur::c_SuperieurEgal)});
     }
+
+
 
     METIERS[m_Nom] = this;
 }
