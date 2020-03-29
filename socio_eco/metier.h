@@ -32,6 +32,8 @@ public:
     static QString OUVRIER;
     static QString FORGERON;
     static QString MUSICIEN;
+    static QString CARTOGRAPHE;
+    static QString MARCHAND;
     static QString POETE;
     static QString ALCHIMISTE;
     static QString MEDECIN;

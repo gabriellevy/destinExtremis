@@ -13,6 +13,8 @@ QString Metier::C_METIER = "Métier";
 QString Metier::INEMPLOYABLE = "Inemployable";
 QString Metier::PAYSAN = "Paysan";
 QString Metier::MUSICIEN = "Musicien";
+QString Metier::CARTOGRAPHE = "Cartographe";
+QString Metier::MARCHAND = "Marchand";
 QString Metier::POETE = "Poète";
 QString Metier::MINEUR = "Mineur";
 QString Metier::CHASSEUR_CUEILLEUR_NOMADE = "Chasseur cueilleur nomade";
@@ -54,6 +56,14 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 4 : {
         m_Nom = Metier::MEDECIN;
         m_ConditionSelecteurProba = make_shared<Condition>(0.001 - tmpFavoriseur, p_Relative);
+    }break;
+    case 5 : {
+        m_Nom = Metier::CARTOGRAPHE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0001 - tmpFavoriseur, p_Relative);
+    }break;
+    case 6 : {
+        m_Nom = Metier::MARCHAND;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
     }break;
     case 10 : {
         m_Nom = Metier::OUVRIER;

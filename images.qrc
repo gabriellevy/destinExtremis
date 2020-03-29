@@ -28,5 +28,6 @@
         <file>images/orks/chariot.jpg</file>
         <file>images/orks/ork_mediko0.jpg</file>
         <file>images/orks/Combat_fosse.jpg</file>
+        <file>images/conquistadors/carte.png</file>
     </qresource>
 </RCC>

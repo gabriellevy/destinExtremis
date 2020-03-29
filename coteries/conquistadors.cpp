@@ -127,6 +127,40 @@ std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHis
         noeudsProbaEducation.push_back(noeudCombat);
     }
 
+    // effet Cartographe
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Les conquistadors ont bâti le plus grand empire du monde et sont donc ceux qui le connaissent le mieux depuis la destructions amssives causées par la dernière guerre. "
+                    "Cette connaissance est primordiale et c'est pourquoi comme toutes les jeunes recrues vous êtes formé à la cartographie pour contempler la plus grande gloire de la coterie.",
+                    ":/images/conquistadors/carte.png",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::CARTOGRAPHE, "2");
+        shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
+
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // effet Marchand
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Par leur maîtrise des mers et de nombreuses contrées étrangères les conquistadors contrôlent une énorme partie du commerce mondiale. De plus par leurs pillages ils doivent savoir estimer rapidement la valeur des objets pour ne pas faire d'erreur. "
+                    "\nJamais une expédition ne part sans au moins un marchand. Votre tuteur décide donc de vous y former pour estimer vos talents en la matière.",
+                    "",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::MARCHAND, "1");
+        shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
+
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
