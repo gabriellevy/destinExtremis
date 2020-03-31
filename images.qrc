@@ -29,5 +29,9 @@
         <file>images/orks/ork_mediko0.jpg</file>
         <file>images/orks/Combat_fosse.jpg</file>
         <file>images/conquistadors/carte.png</file>
+        <file>images/croisade_franque/hospice.jpg</file>
+        <file>images/croisade_franque/cheval.jpg</file>
+        <file>images/croisade_franque/chateau.jpg</file>
+        <file>images/croisade_franque/priant_guerre.jpg</file>
     </qresource>
 </RCC>

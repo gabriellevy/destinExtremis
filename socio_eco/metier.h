@@ -37,6 +37,8 @@ public:
     static QString POETE;
     static QString ALCHIMISTE;
     static QString MEDECIN;
+    static QString TUEUR_DE_MONSTRE; //  au sens large adapté selon la coterie et sa définition de monstre
+    static QString ARCHITECTE;
 };
 
 #endif // METIER_H

@@ -3,6 +3,9 @@
 #include "religion/religion.h"
 #include "violence/combat.h"
 #include "../destinLib/aleatoire.h"
+#include "socio_eco/metier.h"
+#include "../destinLib/exec/exechistoire.h"
+#include "humain.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -82,6 +85,98 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
         effet->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
+        shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    condCombat);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // effet Cavalerie
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Savoir s'occuper d'un cheval est indispensable chez les croisés. Que ce soit pour être chevalier ou simple paysan."
+                    "Votre formateur vous apprends les bases de l'équitation et de tout ce qui tourne autour de l'entretien des chevaux.",
+                    ":/images/croisade_franque/cheval.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Combat::C_EQUITATION, "2");
+        effet->AjouterAjouteurACarac(Metier::PAYSAN, "1");
+        shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    condCombat);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // effet architecte
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "La construction de châteaux imprenables est la spécialité des croisés. Avec l'interdiction des guerres les châteaux sont peu importants. Les compétences en architecture des croisés restent bien utiles et votre tuteur vous en fait profiter",
+                    ":/images/croisade_franque/chateau.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::ARCHITECTE, "2");
+        shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    condCombat);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // hospitaliers
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Les hospitaliers sont des croisés qui ont juré de protéger et soigner les faibles quelle que soit leur race, religion ou coterie et ce gratuitement de manière complètement désintéressée."
+                    "\nVous êtes amenés à travailler durement dans un de leurs hospices à soigner les vieux, les malades et les femmes enceintes.",
+                    ":/images/croisade_franque/hospice.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::MEDECIN, "1"); // meilleur médecin
+        effet->m_CallbackDisplay = [] {
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            Humain* humain = Humain::GetHumainJoue();
+            double proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba <= 0.4 && !humain->ACeTrait(sens_du_sacrifice)) {
+                effet->m_Texte += "\nVous vous portez volontaires pour nettoyer les lépreux tant vous êtes prêt à prendre tous les risques pour les malades. Vous gagnez 'sens du sacrifice'.";
+                humain->SetValeurACaracId(Trait::GetNomTrait(sens_du_sacrifice), "1");
+            }
+            proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba <= 0.4 && !humain->ACeTrait(altruiste)) {
+                effet->m_Texte += "\nVous vous sentez vraiment à votre place parmi les malades. En quelques jours seulement vous faites passer leurs problèmes avant les votres. Vous gagnez 'Altruiste'.";
+                humain->SetValeurACaracId(Trait::GetNomTrait(altruiste), "1");
+            }
+            proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba <= 0.4 && !humain->ACeTrait(angoisse)) {
+                effet->m_Texte += "\nLe spectacle de toute cette misère vous affecte durement. Vous gagnez 'Angoissé'.";
+                humain->SetValeurACaracId(Trait::GetNomTrait(angoisse), "1");
+            }
+        };
+        shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    condCombat);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // chasseur de sorciers
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Les croisés méprisent la magie égoïste et imprévisible qui vient des hommes car c'est le diable qui la leur inspire. Ils vous forment donc dans la compréhension de ce qu'est la magie maléfique et de la différence avec les miracles divins."
+                    "\nIls vous montrent aussi comment repérer les monstres et les démons qui complotent toujours dans l'ombre des hommes.",
+                    ":/images/croisade_franque/priant_guerre.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::TUEUR_DE_MONSTRE, "1");
+        effet->m_CallbackDisplay = [] {
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            Humain* humain = Humain::GetHumainJoue();
+            double proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba <= 0.6 && !humain->ACeTrait(observateur)) {
+                effet->m_Texte += "\nVous devenez redoutable dans la détection des détails. Vous gagnez 'observateur'.";
+                humain->SetValeurACaracId(Trait::GetNomTrait(observateur), "1");
+            }
+        };
         shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
                     effet,

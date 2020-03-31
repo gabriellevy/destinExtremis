@@ -22,6 +22,8 @@ QString Metier::OUVRIER = "Ouvrier";
 QString Metier::FORGERON = "Forgeron";
 QString Metier::ALCHIMISTE = "Alchimiste";
 QString Metier::MEDECIN = "Médecin";
+QString Metier::TUEUR_DE_MONSTRE = "Tueur de monstres";
+QString Metier::ARCHITECTE = "Architecte";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -65,6 +67,14 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = Metier::MARCHAND;
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
     }break;
+    case 7 : {
+        m_Nom = Metier::ARCHITECTE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
+    }break;
+    case 8 : {
+        m_Nom = Metier::TUEUR_DE_MONSTRE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
+    }break;
     case 10 : {
         m_Nom = Metier::OUVRIER;
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 - tmpFavoriseur, p_Relative);
@@ -72,8 +82,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 11 : {
         m_Nom = Metier::CHASSEUR_CUEILLEUR_NOMADE;
-        m_ConditionSelecteurProba = make_shared<Condition>(0.5 - tmpFavoriseur, p_Relative);
-        // uniquement sur les mondes férals
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 - tmpFavoriseur, p_Relative);
     }break;
     case 12 : {
         m_Nom = Metier::MINEUR;

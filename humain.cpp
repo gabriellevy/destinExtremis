@@ -16,6 +16,11 @@ void Humain::InitialiserPerso()
 {
 }
 
+bool Humain::ACeTrait(eTrait trait)
+{
+    return ( GetValeurCarac(Trait::GetNomTrait(trait)) == "1");
+}
+
 Humain* Humain::GetHumainJoue()
 {
     if ( Humain::ME == nullptr )

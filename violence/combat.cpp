@@ -8,6 +8,7 @@
 #include "genviehumain.h"
 
 QString Combat::C_CAP_COMBAT = "Capacité au combat";
+QString Combat::C_EQUITATION = "Équitation";
 
 Combat::Combat(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {

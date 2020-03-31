@@ -17,6 +17,7 @@ public:
 
     // caracs liées :
     static QString C_CAP_COMBAT;
+    static QString C_EQUITATION;
 };
 
 #endif // COMBAT_H
