@@ -15,7 +15,7 @@ std::shared_ptr<Effet> Naissance::GenererEffetNaissance(std::shared_ptr<Effet> e
     effetNarrationVide->m_Texte = "Vos traits principaux : ";
     QVector<eTrait> m_Traits = {};
     while(nb-->0) {
-        shared_ptr<Trait> trait = Trait::GetTrait(m_Traits);
+        shared_ptr<Trait> trait = Trait::GetTrait(m_Traits, true);
         m_Traits.push_back(trait->m_eTrait);
         effetNarrationVide->AjouterChangeurDeCarac(trait->GetNom(), "1");
         effetNarrationVide->m_Texte += trait->GetNom();

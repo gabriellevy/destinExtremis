@@ -129,10 +129,26 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     return nb_Traits;// utilisé comme "retour invalide"
 }
 
-std::shared_ptr<Trait> Trait::GetTrait(QVector<eTrait> &m_TraitsDejaPossedes)
+
+bool Trait::PeutEtrePrisALaNaissance()
+{
+    switch (m_eTrait) {
+    case sens_du_groupe :
+    case sens_du_sacrifice:
+    case patriarcal:
+    case patriote:
+    case pacifiste:
+        return false;
+    default:
+        return true;
+    }
+}
+
+std::shared_ptr<Trait> Trait::GetTrait(QVector<eTrait> &m_TraitsDejaPossedes, bool traitDeNaissance)
 {
     bool trouve = false;
     eTrait enumTrait;
+    shared_ptr<Trait> trait;
     while (!trouve) {
         enumTrait = static_cast<eTrait>(Aleatoire::GetAl()->EntierInferieurA(eTrait::nb_Traits));
         trouve = ( m_TraitsDejaPossedes.indexOf(enumTrait) == -1);// pas deux fois le même
@@ -140,7 +156,10 @@ std::shared_ptr<Trait> Trait::GetTrait(QVector<eTrait> &m_TraitsDejaPossedes)
         {
             trouve = ( m_TraitsDejaPossedes.indexOf(GetTraitOppose(enumTrait)) == -1);// pas un trait opposé à un déjà tiré
         }
+        trait = make_shared<Trait>(enumTrait);
+        if ( traitDeNaissance && !trait->PeutEtrePrisALaNaissance()) {
+            trouve = false;
+        }
     }
-    shared_ptr<Trait> trait = make_shared<Trait>(enumTrait);
     return trait;
 }

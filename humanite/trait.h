@@ -15,46 +15,54 @@ class Effet;
  */
 
 enum eTrait : int {
-    sens_du_groupe,
-    sens_du_sacrifice,
+    // psychologique
     cupide,
     honorable, // prends très au sérieux sa réputation, ne ment jamais, respecte ses pairs et sa famille...
-    fort,
-    spirituel,
     opportuniste,
     sournois,
-    faible,
-    nature, // lié à la nature, aux animaux
     franc,
     industrieux,
     violent,
-    resistant,
-    chetif,
     pragmatique,
     simple, // pas forcément idiot mais a peu tendace à utiliser son intelligence de manière abstraite : plutôt terre à terre
     intellectuel, // intelligent à priori mais a surtout tendance à intellectualiser tout, à conceptualiser, à aimer l'abstrait et la discussion
-    grand,
-    beau,
     intelligent,
     bete,
-    artiste,
     sensible,
-    habile,
-    maladroit,
-    petit,
-    laid,
-    patriarcal,
-    patriote,
     jouisseur,
     ambitieux,
     aventureux,
     travailleur,
     paresseux,
     altruiste,
-    pacifiste,
     rancunier,
-    observateur,
     angoisse, // angoissé, stressé, pas bien dans sa peau
+
+    // psychologique acquis plus idéologique => PeutEtrePrisALaNaissance renvoie false
+    sens_du_groupe,
+    sens_du_sacrifice,
+    patriarcal,
+    patriote,
+    pacifiste,
+
+    // capacités physiques
+    fort,
+    faible,
+    resistant,
+    chetif,
+    grand,
+    beau,
+    habile,
+    maladroit,
+    petit,
+    laid,
+    observateur,
+
+    // tendances de l'âme
+    spirituel,
+    nature, // lié à la nature, aux animaux
+    artiste,
+
     nb_Traits
 };
 
@@ -72,7 +80,7 @@ public:
      * @param m_TraitsDejaPossedes listes de traits que le personnage possède déjà : permet d'éviter qu'il se retrouve avec des traits opposés entre eux comme 'Petit' et 'Grand'
      * @return
      */
-    static std::shared_ptr<Trait> GetTrait(QVector<eTrait>& m_TraitsDejaPossedes);
+    static std::shared_ptr<Trait> GetTrait(QVector<eTrait>& m_TraitsDejaPossedes, bool traitDeNaissance);
 
     static eTrait GetTraitOppose(eTrait etrait);
 
@@ -80,6 +88,8 @@ public:
     static void AjouterModifProbaSiACeTrait(Condition* CondProba, double proba, eTrait trait);
     static void AjouterConditionSiACeTrait(std::shared_ptr<Effet> effet, eTrait trait);
     static void AjouterConditionSiAPasCeTrait(std::shared_ptr<Effet> effet, eTrait trait);
+
+    bool PeutEtrePrisALaNaissance(); // renvoit faux si ce trait peut seulement être acquis plutôt tard dans la vie
 };
 
 #endif // TRAIT_H
