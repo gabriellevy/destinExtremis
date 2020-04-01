@@ -17,13 +17,13 @@ QString Metier::CARTOGRAPHE = "Cartographe";
 QString Metier::MARCHAND = "Marchand";
 QString Metier::POETE = "Poète";
 QString Metier::MINEUR = "Mineur";
-QString Metier::CHASSEUR_CUEILLEUR_NOMADE = "Chasseur cueilleur nomade";
 QString Metier::OUVRIER = "Ouvrier";
 QString Metier::FORGERON = "Forgeron";
 QString Metier::ALCHIMISTE = "Alchimiste";
 QString Metier::MEDECIN = "Médecin";
 QString Metier::TUEUR_DE_MONSTRE = "Tueur de monstres";
 QString Metier::ARCHITECTE = "Architecte";
+QString Metier::PARASITE = "Parasite";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -75,14 +75,18 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = Metier::TUEUR_DE_MONSTRE;
         m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
     }break;
+    case 9 : {
+        m_Nom = Metier::PARASITE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, paresseux);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.03, sournois);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, beau);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, charmeur);
+    }break;
     case 10 : {
         m_Nom = Metier::OUVRIER;
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 - tmpFavoriseur, p_Relative);
         // plus de chances d'êtres ouvrier sur les mondes ruches et forges
-    }break;
-    case 11 : {
-        m_Nom = Metier::CHASSEUR_CUEILLEUR_NOMADE;
-        m_ConditionSelecteurProba = make_shared<Condition>(0.1 - tmpFavoriseur, p_Relative);
     }break;
     case 12 : {
         m_Nom = Metier::MINEUR;

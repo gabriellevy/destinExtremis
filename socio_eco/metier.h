@@ -28,7 +28,6 @@ public:
     static QString INEMPLOYABLE; // quand le eprso n'est plus bon à rien (maladie extrêmement grave par ex)
     static QString PAYSAN;
     static QString MINEUR;
-    static QString CHASSEUR_CUEILLEUR_NOMADE;
     static QString OUVRIER;
     static QString FORGERON;
     static QString MUSICIEN;
@@ -39,6 +38,7 @@ public:
     static QString MEDECIN;
     static QString TUEUR_DE_MONSTRE; //  au sens large adapté selon la coterie et sa définition de monstre
     static QString ARCHITECTE;
+    static QString PARASITE; // type qui ne bosse jaamis mais est très doué pour vivre aux dépens des autres
 };
 
 #endif // METIER_H

@@ -57,6 +57,7 @@ enum eTrait : int {
     petit,
     laid,
     observateur,
+    charmeur, // bon abord, bonne voie, charisme
 
     // tendances de l'âme
     spirituel,

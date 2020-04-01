@@ -15,6 +15,7 @@ JourApresJour::JourApresJour()
 
 void JourApresJour::RafraichirPhrasesSelonMetier(QString /*classeSociale*/, QString metier)
 {
+    Humain* humain = Humain::GetHumainJoue();
     if (metier == Metier::PAYSAN)
     {
         JourApresJour::PHRASES.push_back(Phrase("Encore une journée de récolte de blé."));
@@ -29,6 +30,13 @@ void JourApresJour::RafraichirPhrasesSelonMetier(QString /*classeSociale*/, QStr
         JourApresJour::PHRASES.push_back(Phrase("Vous avez chargé des milliers de tonnes d'eau potable pour les mondes ruches."));
         JourApresJour::PHRASES.push_back(Phrase("La pêche devrait suffire à remplir vos quotas du mois."));
         JourApresJour::PHRASES.push_back(Phrase("La récolte d'algues nutritive est satisfaisante."));
+    } else if ( metier == Metier::PARASITE) {
+        if (humain->ACeTrait(beau) || humain->ACeTrait(charmeur)) {
+            JourApresJour::PHRASES.push_back(Phrase("Vous emballez la grande clémence avec un sourire et des belles paroles. "
+                                                    "Elle n'est pas très jolie mais elle a de l'argent. En la jouant fine vous êtes à l'abri du besoin pour un moment."));
+        }
+        JourApresJour::PHRASES.push_back(Phrase("Vous avez réussi à vous mettre en bonne relation avec tout le quartier. "
+                                      "En faisant tourner les voisins vous arrivez à vous faire inviter à manger presque tous les jours !"));
     }
 }
 

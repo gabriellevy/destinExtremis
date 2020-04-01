@@ -52,6 +52,7 @@ QString Trait::GetNom()
     case angoisse: return "Angoissé";
     case paresseux: return "Paresseux";
     case travailleur: return "Travailleur";
+    case charmeur: return "Charmeur";
     case nb_Traits: return "??????????";
     }
 
@@ -118,6 +119,7 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case aventureux: break;
     case altruiste: break;
     case angoisse: break;
+    case charmeur: break;
     case observateur: break;
     case rancunier: break;
     case pacifiste: return violent;
