@@ -5,6 +5,7 @@
 #include "socio_eco/metier.h"
 #include "humanite/trait.h"
 #include "../destinLib/aleatoire.h"
+#include "../destinLib/abs/condition.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -17,17 +18,18 @@ Conquistadors::Conquistadors()
 void Conquistadors::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
-    make_shared<Trait>(eTrait::ambitieux),
-    make_shared<Trait>(eTrait::aventureux),
-    make_shared<Trait>(eTrait::fort),
-    make_shared<Trait>(eTrait::spirituel),
-    make_shared<Trait>(eTrait::opportuniste),
-    make_shared<Trait>(eTrait::cupide)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::ambitieux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::aventureux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::opportuniste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::cupide), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::nature), "1", Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
-    make_shared<Trait>(eTrait::altruiste),
-    make_shared<Trait>(eTrait::faible),
-    make_shared<Trait>(eTrait::pacifiste)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::altruiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::chetif), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::pacifiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::paresseux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::angoisse), "1", Comparateur::c_Egal )
     };
 }
 

@@ -2,6 +2,8 @@
 #include "genviehumain.h"
 #include "socio_eco/metier.h"
 #include "../destinLib/aleatoire.h"
+#include "../destinLib/abs/condition.h"
+#include "humanite/pbsante.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -14,17 +16,20 @@ Elfes::Elfes()
 void Elfes::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
-        make_shared<Trait>(eTrait::grand),
-        make_shared<Trait>(eTrait::beau),
-        make_shared<Trait>(eTrait::intelligent),
-        make_shared<Trait>(eTrait::sensible),
-        make_shared<Trait>(eTrait::habile),
-        make_shared<Trait>(eTrait::artiste)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::grand), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::beau), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::intelligent), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sensible), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::habile), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::artiste), "1", Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
-        make_shared<Trait>(eTrait::petit),
-        make_shared<Trait>(eTrait::laid),
-        make_shared<Trait>(eTrait::simple)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::petit), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::laid), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::simple), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::franc), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::violent), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(PbSante::DEFIGURE, "1", Comparateur::c_Egal )
     };
 }
 

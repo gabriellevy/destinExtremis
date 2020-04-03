@@ -4,6 +4,7 @@
 #include "humain.h"
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/univers.h"
+#include "../destinLib/abs/condition.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -16,17 +17,22 @@ Cathares::Cathares()
 void Cathares::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
-        make_shared<Trait>(eTrait::altruiste),
-        make_shared<Trait>(eTrait::sens_du_sacrifice),
-        make_shared<Trait>(eTrait::sens_du_groupe),
-        make_shared<Trait>(eTrait::pacifiste),
-        make_shared<Trait>(eTrait::faible)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::altruiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sens_du_sacrifice), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sens_du_groupe), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::pacifiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::faible), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Religion::C_FOI, Religion::CHRETIEN, Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
-        make_shared<Trait>(eTrait::cupide),
-        make_shared<Trait>(eTrait::industrieux),
-        make_shared<Trait>(eTrait::ambitieux),
-        make_shared<Trait>(eTrait::jouisseur)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::cupide), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::industrieux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::ambitieux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::violent), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::jouisseur), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sournois), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::opportuniste), "1", Comparateur::c_Egal )
     };
 }
 

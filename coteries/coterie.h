@@ -9,12 +9,13 @@ class Effet;
 class Evt;
 class GenHistoire;
 class Condition;
+class Humain;
 
 class Coterie
 {
 protected:
-    QVector<std::shared_ptr<Trait>> m_TraitsCompatible = {};
-    QVector<std::shared_ptr<Trait>> m_TraitsIncompatible = {};
+    QVector<std::shared_ptr<Condition>> m_TraitsCompatible = {}; // si true pour le joueur alors il est compatible à la coterie
+    QVector<std::shared_ptr<Condition>> m_TraitsIncompatible = {}; // si true pour le joueur alors il est incompatible à la coterie
 public:
     Coterie();
     virtual ~Coterie() {}
@@ -29,6 +30,12 @@ public:
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
     virtual float GetPoidsDemo() = 0; // poids démographique. 1 = normal, 0.1 très très faible, 2 énorme
+    /**
+     * @brief Calcul la compatibilité entre le joueur et cette coterie.
+     * @param aleatoire résultat semi aléatoire  si true (pour 50% de al valeur grosso modo
+     * @return < à 0 = ennemis ; < 0.5 = mauvais ; > 1 = excellente compatibilité
+     */
+    virtual double Compatibilite(Humain* hum, bool aleatoire = false);
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant) = 0;

@@ -1,6 +1,7 @@
 #include "tyranides.h"
 #include "genviehumain.h"
 #include "../destinLib/aleatoire.h"
+#include "../destinLib/abs/condition.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -13,13 +14,18 @@ Tyranides::Tyranides()
 void Tyranides::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
-        make_shared<Trait>(eTrait::sens_du_groupe),
-        make_shared<Trait>(eTrait::sournois),
-        make_shared<Trait>(eTrait::sens_du_sacrifice)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sens_du_groupe), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sournois), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::charmeur), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sens_du_sacrifice), "1", Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
-        make_shared<Trait>(eTrait::franc),
-        make_shared<Trait>(eTrait::cupide)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::honorable), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::franc), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sensible), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::angoisse), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::artiste), "1", Comparateur::c_Egal )
     };
 }
 

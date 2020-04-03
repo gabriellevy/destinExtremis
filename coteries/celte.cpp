@@ -2,6 +2,7 @@
 #include "genviehumain.h"
 #include "socio_eco/metier.h"
 #include "../destinLib/aleatoire.h"
+#include "../destinLib/abs/condition.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -14,13 +15,16 @@ Celte::Celte()
 void Celte::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
-        make_shared<Trait>(eTrait::nature),
-        make_shared<Trait>(eTrait::fort),
-        make_shared<Trait>(eTrait::franc),
-        make_shared<Trait>(eTrait::spirituel)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::nature), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::honorable), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::franc), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
-        make_shared<Trait>(eTrait::industrieux)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::industrieux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::intellectuel), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::pacifiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::maladroit), "1", Comparateur::c_Egal )
     };
 }
 

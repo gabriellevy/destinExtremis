@@ -34,6 +34,7 @@ public:
     static QString BOITEUX;
     static QString CICATRICE_AU_VISAGE;
     static QString DOIGT_COUPE;
+    static QString DEFIGURE; // a une blessure quelconque au visage
     static QString OREILLE_COUPEE;
     static QVector<QString> BLESSURES_LEGERES;
     static QString GetBlessureLegereAleatoire();

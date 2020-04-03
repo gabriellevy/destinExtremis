@@ -9,6 +9,7 @@
 #include "socio_eco/metier.h"
 #include "../destinLib/exec/exechistoire.h"
 #include "humain.h"
+#include "../destinLib/abs/condition.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -21,19 +22,28 @@ Orks::Orks()
 void Orks::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
-        make_shared<Trait>(eTrait::violent),
-        make_shared<Trait>(eTrait::fort),
-        make_shared<Trait>(eTrait::resistant),
-        make_shared<Trait>(eTrait::pragmatique),
-        make_shared<Trait>(eTrait::franc),
-        make_shared<Trait>(eTrait::angoisse),
-        make_shared<Trait>(eTrait::paresseux),
-        make_shared<Trait>(eTrait::faible),
-        make_shared<Trait>(eTrait::simple)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::violent), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::pragmatique), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::franc), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::paresseux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::faible), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::simple), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::angoisse), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::fort), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::resistant), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(PbSante::DEFIGURE, "1", Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
-        make_shared<Trait>(eTrait::ambitieux),
-        make_shared<Trait>(eTrait::intellectuel)
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::ambitieux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::intellectuel), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::industrieux), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sensible), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::altruiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::sens_du_sacrifice), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::pacifiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::charmeur), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::artiste), "1", Comparateur::c_Egal )
     };
 }
 
@@ -208,6 +218,7 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
                 effet->m_Texte += "\nMalheureusement il en profite pour faire des expériences amusantes sur vous après vous avoir assomé avec un maillet.";
                 effet->m_Texte += "\nVous êtes maintenant : " + blessure;
                 humain->SetValeurACaracId(blessure, "1");
+                humain->SetValeurACaracId(PbSante::DEFIGURE, "1");
                 QString bionique = Bionique::AppliquerBionique(humain);
                 effet->m_Texte += "\nEt vous avez le bionique : " + bionique;
             }

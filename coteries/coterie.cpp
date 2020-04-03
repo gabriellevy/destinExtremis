@@ -23,6 +23,16 @@ Coterie::Coterie()
 
 }
 
+double Coterie::Compatibilite(Humain* hum, bool aleatoire)
+{
+    double proba = 0.5;
+    if ( aleatoire)
+        proba = Aleatoire::GetAl()->Entre0Et1();
+
+
+
+}
+
 void Coterie::Initialisation()
 {
     GenererTraitCompatibles();

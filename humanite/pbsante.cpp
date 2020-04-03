@@ -25,7 +25,8 @@ QString PbSante::BOITEUX = "Boiteux";
 QString PbSante::CICATRICE_AU_VISAGE = "Cicatrice au visage";
 QString PbSante::DOIGT_COUPE = "Doigt coupé";
 QString PbSante::OREILLE_COUPEE = "Oreille coupée";
-QVector<QString> PbSante::BLESSURES_LEGERES = {
+QString PbSante::DEFIGURE = "Défiguré";
+QVector<QString> PbSante::BLESSURES_LEGERES = { // appliquer aussi PbSante::DEFIGURE éventuellement
     PbSante::BORGNE,
     PbSante::BOITEUX,
     PbSante::CICATRICE_AU_VISAGE,
