@@ -7,6 +7,7 @@
 #include "extremis.h"
 #include "genviehumain.h"
 #include "coteries/coterie.h"
+#include "humain.h"
 
 Education::Education(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
@@ -45,8 +46,27 @@ std::shared_ptr<Evt> Education::GenererEvtEducationPolitique(GenHistoire* genHis
 
         }
     }
-    shared_ptr<Effet> effFin = genHistoire->AjouterEffetNarration("fin éducation");
+    shared_ptr<Effet> effFin = genHistoire->AjouterEffetNarration("Votre éducation est finie, il est temps d'éventuellement choisir une coterie d'adoption.");
     effFin->m_Id = "education" + QString::number(index);
+    effFin->m_CallbackDisplay = [m_Coteries] {
+        shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+        Humain* humain = Humain::GetHumainJoue();
+        shared_ptr<Coterie> cotchoisie = nullptr;
+        double compat = 0.0;
+        for ( auto cot: m_Coteries) {
+            double nouvCompat = cot->Compatibilite(humain);
+            if ( nouvCompat > 0.9  && nouvCompat > compat) {
+                cotchoisie = cot;
+                nouvCompat = compat;
+            }
+        }
+        if ( cotchoisie == nullptr) {
+            effet->m_Texte += "\nMalheureusement aucune ne correspond vraiment à vos valeurs. Ce sera pour plus tard.";
+        } else {
+            effet->m_Texte += "\nVous rejoignez la coterie : " + cotchoisie->GetNom() + ".";
+            humain->SetValeurACaracId(Coterie::C_COTERIE, cotchoisie->GetId());
+        }
+    };
 
     return evtEducationPol;
 }

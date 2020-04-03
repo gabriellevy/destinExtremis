@@ -20,7 +20,7 @@ void CroisadeFranque::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
         make_shared<Condition>(Trait::GetNomTrait(eTrait::honorable), "1", Comparateur::c_Egal ),
-        make_shared<Condition>(Trait::GetNomTrait(eTrait::violent), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(Religion::C_FOI, Religion::CHRETIEN, Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::sens_du_sacrifice), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::franc), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal )

@@ -22,7 +22,7 @@ void Conquistadors::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::aventureux), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::opportuniste), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::cupide), "1", Comparateur::c_Egal ),
-        make_shared<Condition>(Trait::GetNomTrait(eTrait::nature), "1", Comparateur::c_Egal )
+        make_shared<Condition>(Religion::C_FOI, Religion::CHRETIEN, Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
         make_shared<Condition>(Trait::GetNomTrait(eTrait::altruiste), "1", Comparateur::c_Egal ),

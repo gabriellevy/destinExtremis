@@ -2,6 +2,7 @@
 #include "extremis.h"
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
+#include "humain.h"
 
 using std::shared_ptr;
 using std::make_shared;
@@ -29,8 +30,18 @@ double Coterie::Compatibilite(Humain* hum, bool aleatoire)
     if ( aleatoire)
         proba = Aleatoire::GetAl()->Entre0Et1();
 
+    for ( shared_ptr<Condition> cond : this->m_TraitsCompatible) {
+        if ( cond->Tester()) {
+            proba += 0.2;
+        }
+    }
+    for ( shared_ptr<Condition> cond : this->m_TraitsIncompatible) {
+        if ( cond->Tester()) {
+            proba -= 0.2;
+        }
+    }
 
-
+    return proba;
 }
 
 void Coterie::Initialisation()
