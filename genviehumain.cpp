@@ -73,9 +73,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Age(180)); // début à 15 ans (180)
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Combat::C_CAP_COMBAT);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImageValeur(Religion::C_RELIGION);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Religion::C_FOI);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
 
     // afficher tous les traits et blessures du personnage
@@ -83,7 +81,7 @@ void GenVieHumain::GenererCaracs()
         GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
     }
     for ( QString bless: PbSante::BLESSURES_LEGERES) {
-        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(bless);
+        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
     }
 
     // temp test :
