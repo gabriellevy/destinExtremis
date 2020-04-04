@@ -44,6 +44,23 @@ double Coterie::Compatibilite(Humain* hum, bool aleatoire)
     return proba;
 }
 
+QString Coterie::GetMusique()
+{
+    return "";
+}
+
+void Coterie::RejoindreCoterie(Humain* hum, shared_ptr<Effet> eff)
+{
+    hum->SetValeurACaracId(Coterie::C_COTERIE, GetId());
+    QString nom = this->CreerPatronyme();
+    hum->MajNom(nom);
+    eff->m_Texte += "\nVous rejoignez la coterie : " + GetNom() + " et vous êtes nummé " + nom + ".";
+    QString musique = GetMusique();
+    if ( musique != "") {
+        eff->m_Son = musique;
+    }
+}
+
 void Coterie::Initialisation()
 {
     GenererTraitCompatibles();

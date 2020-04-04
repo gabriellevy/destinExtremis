@@ -63,8 +63,7 @@ std::shared_ptr<Evt> Education::GenererEvtEducationPolitique(GenHistoire* genHis
         if ( cotchoisie == nullptr) {
             effet->m_Texte += "\nMalheureusement aucune ne correspond vraiment à vos valeurs. Ce sera pour plus tard.";
         } else {
-            effet->m_Texte += "\nVous rejoignez la coterie : " + cotchoisie->GetNom() + ".";
-            humain->SetValeurACaracId(Coterie::C_COTERIE, cotchoisie->GetId());
+            cotchoisie->RejoindreCoterie(humain, effet);
         }
     };
 

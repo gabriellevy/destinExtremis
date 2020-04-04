@@ -28,6 +28,11 @@ void Celte::GenererTraitCompatibles()
     };
 }
 
+QString Celte::GetMusique()
+{
+    return "qrc:/sons/celtes/01-06-Lemminkainen_Suite_Op_22_IV_Lemminkainen-LLS.mp3";
+}
+
 QString Celte::GetDescription()
 {
     return "Description des celtes";

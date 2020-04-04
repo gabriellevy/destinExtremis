@@ -15,6 +15,11 @@ Conquistadors::Conquistadors()
     Initialisation();
 }
 
+QString Conquistadors::GetMusique()
+{
+    return "qrc:/sons/celtes/01-06-Lemminkainen_Suite_Op_22_IV_Lemminkainen-LLS.mp3";
+}
+
 void Conquistadors::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {

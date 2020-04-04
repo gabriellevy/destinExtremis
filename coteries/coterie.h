@@ -29,6 +29,10 @@ public:
     virtual QString GetDescription() = 0;
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
+    /**
+     * @return id de la musique de cette faction. Aucune par défaut. Peut tout à fait contenir une liste de musique dont une aléatoire (ou déterminée par calcul) est renvoyée
+     */
+    virtual QString GetMusique();
     virtual float GetPoidsDemo() = 0; // poids démographique. 1 = normal, 0.1 très très faible, 2 énorme
     /**
      * @brief Calcul la compatibilité entre le joueur et cette coterie.
@@ -36,6 +40,11 @@ public:
      * @return < à 0 = ennemis ; < 0.5 = mauvais ; > 1 = excellente compatibilité
      */
     virtual double Compatibilite(Humain* hum, bool aleatoire = false);
+    /**
+     * @brief Fonction runtime exécutée quand un eprsonnage rejoint cette coetrie.
+     * A surclasser dès que la coterie implique des effets particuliers quand on la rejoint (en appelant tout de même cette fonction super)
+     */
+    virtual void RejoindreCoterie(Humain* hum, std::shared_ptr<Effet> eff);
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant) = 0;

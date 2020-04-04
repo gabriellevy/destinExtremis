@@ -17,6 +17,7 @@ public:
     QString GetDescription();
     QString GetDescriptionUniversite();
     QString GetImage();
+    QString GetMusique();
     QString CreerPatronyme(bool masculin = true);
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(

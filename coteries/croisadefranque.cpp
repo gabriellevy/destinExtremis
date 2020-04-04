@@ -34,6 +34,11 @@ void CroisadeFranque::GenererTraitCompatibles()
     };
 }
 
+QString CroisadeFranque::GetMusique()
+{
+    return "qrc:/sons/cathares/01-21-Symphony_No_9_In_D_Minor_Adagio_Langsam_-LLS.mp3";
+}
+
 QString CroisadeFranque::GetNom()
 {
     return "Croisade franque";

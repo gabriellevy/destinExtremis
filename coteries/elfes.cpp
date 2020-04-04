@@ -33,6 +33,11 @@ void Elfes::GenererTraitCompatibles()
     };
 }
 
+QString Elfes::GetMusique()
+{
+    return "qrc:/sons/elfes/5eme.1Sibelius.m4a";
+}
+
 QString Elfes::GetNom()
 {
     return "Elfes";

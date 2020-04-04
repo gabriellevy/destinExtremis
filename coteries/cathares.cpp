@@ -36,6 +36,11 @@ void Cathares::GenererTraitCompatibles()
     };
 }
 
+QString Cathares::GetMusique()
+{
+    return "qrc:/sons/cathares/01-21-Symphony_No_9_In_D_Minor_Adagio_Langsam_-LLS.mp3";
+}
+
 QString Cathares::GetNom()
 {
     return "Cathares";

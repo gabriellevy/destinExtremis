@@ -62,6 +62,11 @@ QString Orks::GetDescription()
     return "Description des Orks";
 }
 
+QString Orks::GetMusique()
+{
+    return "qrc:/sons/orks/Skyrim.mp3";
+}
+
 QString Orks::GetDescriptionUniversite()
 {
     return "Les orks sont des mutants qui embrassent avant tout une vie simple et brutale sans prise de tête.";
