@@ -69,6 +69,7 @@ void GenVieHumain::GenererPersos()
 void GenVieHumain::GenererCaracs()
 {
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
                 new Age(180)); // début à 15 ans (180)

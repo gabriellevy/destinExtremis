@@ -36,6 +36,11 @@ void Conquistadors::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::paresseux), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::angoisse), "1", Comparateur::c_Egal )
     };
+    m_MetiersAssocies = {
+        Metier::CARTOGRAPHE,
+        Metier::FORGERON,
+        Metier::MARCHAND
+    };
 }
 
 QString Conquistadors::GetNom()

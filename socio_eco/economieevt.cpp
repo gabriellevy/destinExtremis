@@ -7,8 +7,11 @@
 #include "genviehumain.h"
 #include "metier.h"
 #include "../destinLib/aleatoire.h"
+#include "humain.h"
 
 QString EconomieEvt::C_NIVEAU_ECONOMIQUE = "Niveau économique";
+
+using std::make_shared;
 
 EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
@@ -16,6 +19,28 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 0 : {
         m_Nom = "bon travail";
         m_ConditionSelecteurProba = make_shared<Condition>(0.03, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, ambitieux);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.02, paresseux);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, travailleur);
+        // plus la compétence est haute plus il  a de chances de réussir
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "5", Comparateur::c_SuperieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "6", Comparateur::c_SuperieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "7", Comparateur::c_SuperieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "8", Comparateur::c_SuperieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "9", Comparateur::c_SuperieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "10", Comparateur::c_SuperieurEgal)}
+        );
         m_Description = "Votre excellent travail est apprécié de tous.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 1;
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
@@ -24,11 +49,41 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 1 : {
         m_Nom = "mauvais travail";
         m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, maladroit);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, paresseux);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.02, travailleur);
+        // plus la compétence est basse plus il  a de chances de se planter
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "4", Comparateur::c_InferieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "3", Comparateur::c_InferieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "2", Comparateur::c_InferieurEgal)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "1", Comparateur::c_InferieurEgal)}
+        );
         m_Description = "Vos nombreuses gaffes au travail mettent votre carrière en danger.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
 
     }break;
+    case 2 : {
+        m_Nom = "montée en compétence";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
+        m_Description = "L'expérience aidant vous êtes de plus en plus compétent dans votre métier.";
+        m_IncrementeursCaracs[Metier::C_COMPETENCE_METIER] = 1;
+        m_CallbackDisplay = [] {
+            Humain* hum = Humain::GetHumainJoue();
+            QString metier = hum->GetValeurCarac(Metier::C_METIER);
+            int nivMetier = hum->GetValeurCaracAsInt(metier) + 1;
+            hum->SetValeurACaracId(Metier::C_COMPETENCE_METIER, nivMetier);
+            hum->SetValeurACaracId(metier, nivMetier);
+        };
+        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+    }
     }
 }
 

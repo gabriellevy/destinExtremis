@@ -31,6 +31,11 @@ void Elfes::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::violent), "1", Comparateur::c_Egal ),
         make_shared<Condition>(PbSante::DEFIGURE, "1", Comparateur::c_Egal )
     };
+    m_MetiersAssocies = {
+        Metier::MUSICIEN,
+        Metier::POETE,
+        Metier::ALCHIMISTE
+    };
 }
 
 QString Elfes::GetMusique()

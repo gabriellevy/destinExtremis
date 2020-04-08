@@ -5,6 +5,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/univers.h"
 #include "../destinLib/abs/condition.h"
+#include "socio_eco/metier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -33,6 +34,11 @@ void Cathares::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::jouisseur), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::sournois), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::opportuniste), "1", Comparateur::c_Egal )
+    };
+    m_MetiersAssocies = {
+        Metier::INEMPLOYABLE,
+        Metier::PAYSAN,
+        Metier::PRETRE
     };
 }
 

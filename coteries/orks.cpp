@@ -45,6 +45,11 @@ void Orks::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::artiste), "1", Comparateur::c_Egal )
     };
+    m_MetiersAssocies = {
+        Metier::PARASITE,
+        Metier::GUERRIER,
+        Metier::CONDUCTEUR
+    };
 }
 
 float Orks::GetPoidsDemo()
@@ -128,6 +133,7 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
                     "Vous avez mainteannt la blessure : " + blessure;
         }
         effet1->AjouterAjouteurACarac(Vehicule::C_CONDUITE_ROUTE, "2");
+        effet1->AjouterAjouteurACarac(Metier::CONDUCTEUR, "2");
 
         effet1->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);

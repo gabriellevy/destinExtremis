@@ -2,6 +2,7 @@
 #include "genviehumain.h"
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
+#include "socio_eco/metier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -26,6 +27,11 @@ void Tyranides::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::sensible), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::angoisse), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::artiste), "1", Comparateur::c_Egal )
+    };
+    m_MetiersAssocies = {
+        Metier::MINEUR,
+        Metier::OUVRIER,
+        Metier::POLITIQUE
     };
 }
 

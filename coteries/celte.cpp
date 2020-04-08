@@ -26,6 +26,11 @@ void Celte::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::pacifiste), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::maladroit), "1", Comparateur::c_Egal )
     };
+    m_MetiersAssocies = {
+        Metier::ALCHIMISTE,
+        Metier::PAYSAN,
+        Metier::PRETRE
+    };
 }
 
 QString Celte::GetMusique()

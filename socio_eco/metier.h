@@ -28,7 +28,9 @@ public:
     static QString INEMPLOYABLE; // quand le eprso n'est plus bon à rien (maladie extrêmement grave par ex)
     static QString PAYSAN;
     static QString MINEUR;
+    static QString PRETRE;
     static QString OUVRIER;
+    static QString POLITIQUE;
     static QString FORGERON;
     static QString MUSICIEN;
     static QString CARTOGRAPHE;
@@ -36,9 +38,16 @@ public:
     static QString POETE;
     static QString ALCHIMISTE;
     static QString MEDECIN;
+    static QString GUERRIER;
+    static QString CONDUCTEUR; // pilote / chauffeur
     static QString TUEUR_DE_MONSTRE; //  au sens large adapté selon la coterie et sa définition de monstre
     static QString ARCHITECTE;
     static QString PARASITE; // type qui ne bosse jaamis mais est très doué pour vivre aux dépens des autres
+
+    // correspond au niveau de la carac du métier du personnage
+    // un personnage qui a PAYSAN en C_METIER et 4 en carac PAYSAN doit avoir 4 en carac C_COMPETENCE_METIER
+    static QString C_COMPETENCE_METIER;
+
 };
 
 #endif // METIER_H

@@ -13,7 +13,7 @@ QString Coterie::C_COTERIE = "Coterie";
 QString Coterie::CONQUISTADORS = "Conquistadors";
 QString Coterie::CATHARES = "Cathares";
 QString Coterie::CELTES = "Celtes";
-QString Coterie::CROISADE = "Croisade";
+QString Coterie::CROISADE = "Croisade franque";
 QString Coterie::ELFES = "Elfes";
 QString Coterie::ORKS = "Orks";
 QString Coterie::TYRANIDES = "Tyranides";
@@ -38,6 +38,11 @@ double Coterie::Compatibilite(Humain* hum, bool aleatoire)
     for ( shared_ptr<Condition> cond : this->m_TraitsIncompatible) {
         if ( cond->Tester()) {
             proba -= 0.2;
+        }
+    }
+    for (QString idMetier: this->m_MetiersAssocies) {
+        if ( hum->GetValeurCarac(Coterie::C_COTERIE) == idMetier) {
+            proba += 0.3;
         }
     }
 

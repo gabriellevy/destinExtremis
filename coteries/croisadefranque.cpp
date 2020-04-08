@@ -32,6 +32,11 @@ void CroisadeFranque::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::chetif), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::cupide), "1", Comparateur::c_Egal )
     };
+    m_MetiersAssocies = {
+        Metier::ARCHITECTE,
+        Metier::PAYSAN,
+        Metier::FORGERON
+    };
 }
 
 QString CroisadeFranque::GetMusique()

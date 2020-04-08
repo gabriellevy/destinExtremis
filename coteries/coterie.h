@@ -16,6 +16,7 @@ class Coterie
 protected:
     QVector<std::shared_ptr<Condition>> m_TraitsCompatible = {}; // si true pour le joueur alors il est compatible à la coterie
     QVector<std::shared_ptr<Condition>> m_TraitsIncompatible = {}; // si true pour le joueur alors il est incompatible à la coterie
+
 public:
     Coterie();
     virtual ~Coterie() {}
@@ -53,6 +54,7 @@ public:
 
     static void AjouterModifProbaSiDeCetteCoterie(Condition* CondProba, double proba, QString nomCoterie);
 
+    QVector<QString> m_MetiersAssocies = {}; // métiers particulièrement prisés/contrôlés par la coterie.
 
     static QString C_COTERIE;
     // valeurs de C_COTERIE

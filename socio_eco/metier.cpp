@@ -9,6 +9,7 @@
 #include "humain.h"
 
 QString Metier::C_METIER = "Métier";
+QString Metier::C_COMPETENCE_METIER = "Compétence métier";
 
 QString Metier::INEMPLOYABLE = "Inemployable";
 QString Metier::PAYSAN = "Paysan";
@@ -17,13 +18,17 @@ QString Metier::CARTOGRAPHE = "Cartographe";
 QString Metier::MARCHAND = "Marchand";
 QString Metier::POETE = "Poète";
 QString Metier::MINEUR = "Mineur";
+QString Metier::PRETRE = "Prêtre";
 QString Metier::OUVRIER = "Ouvrier";
+QString Metier::POLITIQUE = "Politique";
 QString Metier::FORGERON = "Forgeron";
 QString Metier::ALCHIMISTE = "Alchimiste";
 QString Metier::MEDECIN = "Médecin";
 QString Metier::TUEUR_DE_MONSTRE = "Tueur de monstres";
 QString Metier::ARCHITECTE = "Architecte";
 QString Metier::PARASITE = "Parasite";
+QString Metier::GUERRIER = "Guerrier";
+QString Metier::CONDUCTEUR = "Conducteur";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -86,7 +91,10 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 10 : {
         m_Nom = Metier::OUVRIER;
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 - tmpFavoriseur, p_Relative);
-        // plus de chances d'êtres ouvrier sur les mondes ruches et forges
+    }break;
+    case 11 : {
+        m_Nom = Metier::PRETRE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.001 - tmpFavoriseur, p_Relative);
     }break;
     case 12 : {
         m_Nom = Metier::MINEUR;
@@ -97,7 +105,19 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = make_shared<Condition>(0.0005 - tmpFavoriseur, p_Relative);
         Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.05, Coterie::CONQUISTADORS);
     }break;
-}
+    case 14 : {
+        m_Nom = Metier::GUERRIER;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.005 - tmpFavoriseur, p_Relative);
+    }break;
+    case 15 : {
+        m_Nom = Metier::CONDUCTEUR;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
+    }break;
+    case 16 : {
+        m_Nom = Metier::POLITIQUE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.002 - tmpFavoriseur, p_Relative);
+    }break;
+    }
 
     if ( m_Description == "" ) {
         m_Description = "Vous êtes maintenant " +
@@ -105,6 +125,14 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Description += ".";
     }
     m_ModificateursCaracs[C_METIER] = m_Nom;
+
+    // la compétence métier du personnage devient celle de son nouveau métier
+    QString nom = m_Nom;
+    m_CallbackDisplay = [nom] {
+        Humain* hum = Humain::GetHumainJoue();
+        hum->SetValeurACaracId(C_COMPETENCE_METIER,
+                               hum->GetValeurCaracAsInt(nom));
+    };
 
     m_Conditions.push_back(Metier::AjouterConditionSiAPasMetier());
     m_Conditions.push_back(Crime::AjouterConditionSiLibre());
@@ -127,7 +155,17 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba->AjouterModifProba(0.1, {make_shared<Condition>(m_Nom, "10", Comparateur::c_SuperieurEgal)});
     }
 
-
+    // plus de chances d'avoir les métiers liés à notre coterie
+    for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
+        for ( QString nomMetier: cot->m_MetiersAssocies) {
+            if ( nomMetier == m_Nom) {
+                m_ConditionSelecteurProba->AjouterModifProba(
+                            0.2,
+                            {make_shared<Condition>(Coterie::C_COTERIE, cot->GetNom(), Comparateur::c_Egal)}
+                            );
+            }
+        }
+    }
 
     METIERS[m_Nom] = this;
 }
