@@ -13,9 +13,11 @@ QString Trait::GetNom()
 {
     switch (m_eTrait) {
     case sens_du_groupe:    return "Sens du groupe";
+    case pervers_sexuel:    return "Pervers sexuel";
     case sens_du_sacrifice: return "Sens du sacrifice";
     case cupide:            return "Cupide";
     case honorable:         return "Honorable";
+    case menteur:           return "Menteur";
     case fort:              return "Fort";
     case spirituel:         return "Spirituel";
     case opportuniste:      return "Opportuniste";
@@ -48,6 +50,7 @@ QString Trait::GetNom()
     case ambitieux: return "Ambitieux";
     case aventureux: return "Aventureux";
     case altruiste: return "Altruiste";
+    case cruel: return "Cruel";
     case pacifiste: return "Pacifiste";
     case angoisse: return "Angoissé";
     case paresseux: return "Paresseux";
@@ -85,9 +88,11 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
 {
     switch (etrait) {
     case sens_du_groupe: break;
+    case pervers_sexuel: break;
     case sens_du_sacrifice: break;
     case cupide: break;
-    case honorable: break;
+    case honorable: return menteur;
+    case menteur: return honorable;
     case fort: return faible;
     case spirituel: break;
     case opportuniste: break;
@@ -117,7 +122,8 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case jouisseur: break;
     case ambitieux: break;
     case aventureux: break;
-    case altruiste: break;
+    case altruiste: return cruel;
+    case cruel: return altruiste;
     case angoisse: break;
     case charmeur: break;
     case observateur: break;
@@ -135,6 +141,7 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
 bool Trait::PeutEtrePrisALaNaissance()
 {
     switch (m_eTrait) {
+    case pervers_sexuel :
     case sens_du_groupe :
     case sens_du_sacrifice:
     case patriarcal:

@@ -8,6 +8,7 @@
 #include "metier.h"
 #include "../destinLib/aleatoire.h"
 #include "humain.h"
+#include "socio_eco/crime.h"
 
 QString EconomieEvt::C_NIVEAU_ECONOMIQUE = "Niveau économique";
 
@@ -44,6 +45,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Description = "Votre excellent travail est apprécié de tous.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 1;
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
 
     }break;
     case 1 : {
@@ -68,6 +70,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Description = "Vos nombreuses gaffes au travail mettent votre carrière en danger.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
 
     }break;
     case 2 : {
@@ -83,6 +86,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             hum->SetValeurACaracId(metier, nivMetier);
         };
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
     }
     }
 }

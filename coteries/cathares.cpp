@@ -33,7 +33,7 @@ void Cathares::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::violent), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::jouisseur), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::sournois), "1", Comparateur::c_Egal ),
-        make_shared<Condition>(Trait::GetNomTrait(eTrait::opportuniste), "1", Comparateur::c_Egal )
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::cruel), "1", Comparateur::c_Egal )
     };
     m_MetiersAssocies = {
         Metier::INEMPLOYABLE,

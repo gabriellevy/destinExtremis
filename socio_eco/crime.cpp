@@ -28,9 +28,17 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
-    case 0 : {
-        m_Nom = Crime::DELINQUANT;
+    case 0 : { // misérable qui devient délinquant
+        m_Nom = "devient_" + Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, paresseux);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cupide);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, opportuniste);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, menteur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, sournois);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, travailleur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         m_Description = "Vous vous mettez à voler à droite à gauche pour survivre";
         m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
@@ -39,16 +47,29 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     case 1 : {
-        m_Nom = Crime::CRIMINEL + "_1";
+        m_Nom = "devient_" + Crime::CRIMINEL + "_violeur";
         m_ConditionSelecteurProba = make_shared<Condition>(0.0001 + tmp_Modificateur, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cruel);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, pervers_sexuel);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, sournois);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_Description = "Vos perversions vous poussent à devenir un violeur de plus en plus dépravé.";
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
 
     }break;
     case 2 : {
-        m_Nom = Crime::CRIMINEL + "_2";
+        m_Nom = "devient_" + Crime::CRIMINEL + "_braqueur";
         m_ConditionSelecteurProba = make_shared<Condition>(0.0001 + tmp_Modificateur, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, aventureux);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cupide);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, opportuniste);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, menteur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, sournois);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, travailleur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         m_Description = "Votre soif de richesse fait de vous un criminel de plus en plus violent.";
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
@@ -66,9 +87,15 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
 
     }break;
-    case 6 : {
+    case 6 : { // si déjà criminel et au travail
         m_Nom = "Vendeur de drogue";
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cupide);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, opportuniste);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, menteur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, sournois);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         m_Description = "VOus mettez en place un petit réseau de revente de drogue sur votre lieu "
                 "de travail qui vous fait très bien voir de vos collègues.";
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
@@ -87,9 +114,17 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             Crime::PrononcerLaSentence();
         };
     }break;
-    case 8 : {
-        m_Nom = Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
+    case 8 : { // honnête devient petit délinquant par violence et désoeuvrement
+        m_Nom = "devient_" + Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
         m_ConditionSelecteurProba = make_shared<Condition>(0.002 + tmp_Modificateur, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, violent);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, rancunier);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cruel);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, sournois);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, altruiste);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, pacifiste);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, travailleur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         m_Description = "Vous prenez l'habitude de vous battre et de voler.";
         m_Conditions.push_back(
                     make_shared<Condition>(Crime::C_CRIMINEL,
@@ -123,6 +158,8 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = make_shared<Condition>(0.001 + tmp_Modificateur, p_Relative);
         Crime::AjouterModificateurDeProbaSiDelinquant(m_ConditionSelecteurProba, 0.01);
         Crime::AjouterModificateurDeProbaSiCriminel(m_ConditionSelecteurProba, 0.01);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, opportuniste);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
@@ -135,6 +172,8 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = make_shared<Condition>(0.001 + tmp_Modificateur, p_Relative);
         Crime::AjouterModificateurDeProbaSiDelinquant(m_ConditionSelecteurProba, 0.01);
         Crime::AjouterModificateurDeProbaSiCriminel(m_ConditionSelecteurProba, 0.01);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, opportuniste);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));

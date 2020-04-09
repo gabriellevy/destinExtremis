@@ -175,6 +175,8 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
         if ( proba <= 0.2 ) {
             effet1->m_Texte += "\nL'alcool vous a salement endommagé le cerveau. Vous devenez 'simple'";
             effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(simple), "1");
+            effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(intelligent), "");
+            effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(intellectuel), "");
         }
         proba = Aleatoire::GetAl()->Entre0Et1();
         if ( proba <= 0.2 ) {

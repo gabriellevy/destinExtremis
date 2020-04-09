@@ -19,6 +19,7 @@ enum eTrait : int {
     cupide,
     honorable, // prends très au sérieux sa réputation, ne ment jamais, respecte ses pairs et sa famille...
     opportuniste,
+    menteur,
     sournois,
     franc,
     industrieux,
@@ -35,10 +36,12 @@ enum eTrait : int {
     travailleur,
     paresseux,
     altruiste,
+    cruel,
     rancunier,
     angoisse, // angoissé, stressé, pas bien dans sa peau
 
     // psychologique acquis plus idéologique => PeutEtrePrisALaNaissance renvoie false
+    pervers_sexuel,
     sens_du_groupe,
     sens_du_sacrifice,
     patriarcal,
