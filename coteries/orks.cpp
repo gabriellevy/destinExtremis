@@ -143,6 +143,24 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
         noeudsProbaEducation.push_back(noeud1);
     }
 
+    // pilote d'avion
+    {
+        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                    "Les autres coteries se moquent de l'aspect rudimentaire de la technologie ork et pourtant ils sont une des rares à être capable de produire et faire tourner des avions grâces à leurs techniques très économiques en énergie."
+                    "\nVotre instructeur vous offre l'insigne honneur de voler vec lui et vous montre les bases du pilotage.",
+                    ":/images/orks/avion.jpg",
+                    "", evt);
+        effet1->AjouterAjouteurACarac(Vehicule::C_CONDUITE_AVION, "1");
+        effet1->AjouterAjouteurACarac(Metier::PILOTE, "1");
+
+        effet1->m_GoToEffetId = go_to_effet_suivant;
+        shared_ptr<Condition> cond1 = make_shared<Condition>(0.6, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                    effet1,
+                    cond1);
+        noeudsProbaEducation.push_back(noeud1);
+    }
+
     // soulé à la bière
     {
         shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(

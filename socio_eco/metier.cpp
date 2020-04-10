@@ -29,6 +29,7 @@ QString Metier::ARCHITECTE = "Architecte";
 QString Metier::PARASITE = "Parasite";
 QString Metier::GUERRIER = "Guerrier";
 QString Metier::CONDUCTEUR = "Conducteur";
+QString Metier::PILOTE = "Pilote";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -116,6 +117,10 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 16 : {
         m_Nom = Metier::POLITIQUE;
         m_ConditionSelecteurProba = make_shared<Condition>(0.002 - tmpFavoriseur, p_Relative);
+    }break;
+    case 17 : {
+        m_Nom = Metier::PILOTE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
     }break;
     }
 

@@ -16,6 +16,7 @@ public:
     Vehicule(int indexEvt);
 
     static QString C_CONDUITE_ROUTE; // capacité à conduire des voitures, motos.. (1 à 10)
+    static QString C_CONDUITE_AVION; // capacité à conduire tout ce qui vole (1 à 10)
 
 };
 

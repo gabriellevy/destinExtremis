@@ -40,6 +40,7 @@ public:
     static QString MEDECIN;
     static QString GUERRIER;
     static QString CONDUCTEUR; // pilote / chauffeur
+    static QString PILOTE; // pilote d'aéronef
     static QString TUEUR_DE_MONSTRE; //  au sens large adapté selon la coterie et sa définition de monstre
     static QString ARCHITECTE;
     static QString PARASITE; // type qui ne bosse jaamis mais est très doué pour vivre aux dépens des autres

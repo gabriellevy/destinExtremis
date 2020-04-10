@@ -7,6 +7,7 @@
 #include "genviehumain.h"
 
 QString Vehicule::C_CONDUITE_ROUTE = "Conduite";
+QString Vehicule::C_CONDUITE_AVION = "Pilotage avion";
 
 Vehicule::Vehicule(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
