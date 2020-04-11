@@ -21,13 +21,11 @@ QString Coterie::TYRANIDES = "Tyranides";
 
 
 Coterie::Coterie()
-{
-    this->GenererQuartier();
-}
+{}
 
 shared_ptr<Quartier> Coterie::GenererQuartier()
 {
-    return nullptr;
+    return m_Quartier;
 }
 
 double Coterie::Compatibilite(Humain* hum, bool aleatoire)
@@ -75,14 +73,36 @@ void Coterie::RejoindreCoterie(Humain* hum, shared_ptr<Effet> eff)
 void Coterie::Initialisation()
 {
     GenererTraitCompatibles();
+    m_Quartier = this->GenererQuartier();
 }
 
-QVector<shared_ptr<Coterie>> Coterie::GetNRandomCoteries(int n)
+
+std::shared_ptr<Coterie>Coterie:: GetCoterieAleatoire(bool selonPoidsDemographique )
+{
+    if ( selonPoidsDemographique ) {
+        double poidsDemoTotal = 0;
+        for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
+            poidsDemoTotal += cot->GetPoidsDemo();
+        }
+
+        double alPoidsDemo = Aleatoire::GetAl()->Entre0Et1() * poidsDemoTotal;
+
+        for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
+            alPoidsDemo -= cot->GetPoidsDemo();
+            if ( alPoidsDemo <= 0)
+                return cot;
+        }
+
+    }
+    return Extremis::COTERIES[Aleatoire::GetAl()->EntierInferieurA(Extremis::COTERIES.size())];
+}
+
+QVector<shared_ptr<Coterie>> Coterie::GetNRandomCoteries(int n, bool selonPoidsDemographique)
 {
     QVector<shared_ptr<Coterie>> m_Coteries = {};
 
     while (n > 0) {
-        shared_ptr<Coterie> coterie = Extremis::COTERIES[Aleatoire::GetAl()->EntierInferieurA(Extremis::COTERIES.size())];
+        shared_ptr<Coterie> coterie = GetCoterieAleatoire(selonPoidsDemographique);
 
         if ( m_Coteries.indexOf(coterie) == -1) {
             m_Coteries.push_back(coterie);

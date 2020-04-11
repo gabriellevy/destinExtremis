@@ -11,16 +11,16 @@
 using std::make_shared;
 using std::shared_ptr;
 
-Cathares::Cathares():Coterie()
+Cathares::Cathares()
 {
-    GenererTraitCompatibles();
+    Initialisation();
 }
 
 shared_ptr<Quartier> Cathares::GenererQuartier()
 {
-    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Maur des fossés", "Quartier des cathares", "");
-    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
-    return quartier;
+    m_Quartier = make_shared<Quartier>("Saint Maur des fossés", "Quartier des cathares", "", this);
+    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    return m_Quartier;
 }
 
 void Cathares::GenererTraitCompatibles()
@@ -65,7 +65,7 @@ QString Cathares::GetDescription()
     return "Description des Cathares";
 }
 
-float Cathares::GetPoidsDemo()
+double Cathares::GetPoidsDemo()
 {
     return 1.0;
 }

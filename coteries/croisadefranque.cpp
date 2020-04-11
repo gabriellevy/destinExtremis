@@ -14,14 +14,14 @@ using std::shared_ptr;
 
 CroisadeFranque::CroisadeFranque()
 {
-    GenererTraitCompatibles();
+    Initialisation();
 }
 
 shared_ptr<Quartier> CroisadeFranque::GenererQuartier()
 {
-    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Denis", "Quartier des Croisés", ":/images/croisade_franque/logement.jpg");
-    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
-    return quartier;
+    m_Quartier = make_shared<Quartier>("Saint Denis", "Quartier des Croisés", ":/images/croisade_franque/logement.jpg", this);
+    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    return m_Quartier;
 }
 
 void CroisadeFranque::GenererTraitCompatibles()
@@ -57,7 +57,7 @@ QString CroisadeFranque::GetNom()
     return "Croisade franque";
 }
 
-float CroisadeFranque::GetPoidsDemo()
+double CroisadeFranque::GetPoidsDemo()
 {
     return 1.0;
 }

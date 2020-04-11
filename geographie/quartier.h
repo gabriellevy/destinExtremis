@@ -10,16 +10,21 @@ class GenHistoire;
 class Effet;
 class Evt;
 class Condition;
+class Coterie;
 
 struct Quartier {
-    Quartier(QString nom, QString desc, QString img):m_Nom(nom), m_Description(desc), m_Image(img) {}
+    Quartier(QString nom, QString desc, QString img, Coterie* cot = nullptr)
+        :m_Nom(nom), m_Description(desc), m_Image(img), m_Coterie(cot) {
+    }
 
     QString m_Nom;
     QString m_Description;
     QString m_Image;
-
+    Coterie* m_Coterie; // pointeur simple sans responsabilité de le détruire
+    double GetPoidsDemo();// 1.0 par défaut (poids normal de population)
 
     static QMap<QString, std::shared_ptr<Quartier>> QUARTIERS;
+    static std::shared_ptr<Quartier> GetQuartierAleatoire(bool selonDemographie = false);
     static void GenererQuartiersAdministratifs();
 };
 

@@ -18,9 +18,9 @@ Conquistadors::Conquistadors()
 
 shared_ptr<Quartier> Conquistadors::GenererQuartier()
 {
-    shared_ptr<Quartier> quartier = make_shared<Quartier>("Honfleur", "Quartier des Conquistadors", "");
-    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
-    return quartier;
+    m_Quartier = make_shared<Quartier>("Honfleur", "Quartier des Conquistadors", "", this);
+    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    return m_Quartier;
 }
 
 QString Conquistadors::GetMusique()
@@ -61,7 +61,7 @@ QString Conquistadors::GetDescription()
     return "Description des Conquistadors";
 }
 
-float Conquistadors::GetPoidsDemo()
+double Conquistadors::GetPoidsDemo()
 {
     return 1.0;
 }

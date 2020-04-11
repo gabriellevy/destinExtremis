@@ -22,6 +22,8 @@ public:
     Coterie();
     virtual ~Coterie() {}
 
+    std::shared_ptr<Quartier> m_Quartier;
+
     void Initialisation();
 
     virtual void GenererTraitCompatibles() = 0;
@@ -36,7 +38,7 @@ public:
      * @return id de la musique de cette faction. Aucune par défaut. Peut tout à fait contenir une liste de musique dont une aléatoire (ou déterminée par calcul) est renvoyée
      */
     virtual QString GetMusique();
-    virtual float GetPoidsDemo() = 0; // poids démographique. 1 = normal, 0.1 très très faible, 2 énorme
+    virtual double GetPoidsDemo() = 0; // poids démographique. 1 = normal, 0.1 très très faible, 2 énorme
     /**
      * @brief Calcul la compatibilité entre le joueur et cette coterie.
      * @param aleatoire résultat semi aléatoire  si true (pour 50% de al valeur grosso modo
@@ -52,7 +54,8 @@ public:
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant) = 0;
 
-    static QVector<std::shared_ptr<Coterie>>GetNRandomCoteries(int n);
+    static QVector<std::shared_ptr<Coterie>> GetNRandomCoteries(int nombre, bool selonPoidsDemographique = false);
+    static std::shared_ptr<Coterie> GetCoterieAleatoire(bool selonPoidsDemographique = false);
 
     static void AjouterModifProbaSiDeCetteCoterie(Condition* CondProba, double proba, QString nomCoterie);
 

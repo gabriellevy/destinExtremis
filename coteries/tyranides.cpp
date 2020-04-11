@@ -15,9 +15,9 @@ Tyranides::Tyranides()
 
 shared_ptr<Quartier> Tyranides::GenererQuartier()
 {
-    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Ouen", "Quartier des Tyranides", "");
-    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
-    return quartier;
+    m_Quartier = make_shared<Quartier>("Saint Ouen", "Quartier des Tyranides", "", this);
+    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    return m_Quartier;
 }
 
 void Tyranides::GenererTraitCompatibles()
@@ -48,7 +48,7 @@ QString Tyranides::GetNom()
     return "Tyranides";
 }
 
-float Tyranides::GetPoidsDemo()
+double Tyranides::GetPoidsDemo()
 {
     return 1.0;
 }

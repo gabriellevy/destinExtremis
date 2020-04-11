@@ -39,6 +39,38 @@ void Quartier::GenererQuartiersAdministratifs()
     Quartier::QUARTIERS[quartierAdmin1->m_Nom] = quartierAdmin1;
 }
 
+double Quartier::GetPoidsDemo()
+{
+    if ( m_Coterie == nullptr) return 1.0;
+    return m_Coterie->GetPoidsDemo();
+}
+
+shared_ptr<Quartier> Quartier::GetQuartierAleatoire(bool selonDemographie)
+{
+    if ( selonDemographie ) {
+        double poidsDemoTotal = 0;
+        for ( shared_ptr<Quartier> quart: QUARTIERS) {
+            poidsDemoTotal += quart->GetPoidsDemo();
+        }
+
+        double alPoidsDemo = Aleatoire::GetAl()->Entre0Et1() * poidsDemoTotal;
+
+        for ( shared_ptr<Quartier> quart: QUARTIERS) {
+            alPoidsDemo -= quart->GetPoidsDemo();
+            if ( alPoidsDemo <= 0)
+                return quart;
+        }
+
+    }
+    int val = Aleatoire::GetAl()->EntierInferieurA(QUARTIERS.size());
+    for ( shared_ptr<Quartier> quart: QUARTIERS) {
+        if ( val <= 0)
+            return quart;
+        val--;
+    }
+    return nullptr;
+}
+
 QuartierEffets::QuartierEffets(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     switch (indexEvt) {

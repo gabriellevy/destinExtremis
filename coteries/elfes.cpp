@@ -16,9 +16,9 @@ Elfes::Elfes()
 
 shared_ptr<Quartier> Elfes::GenererQuartier()
 {
-    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Germain en Laye", "Quartier des Elfes", "");
-    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
-    return quartier;
+    m_Quartier = make_shared<Quartier>("Saint Germain en Laye", "Quartier des Elfes", "", this);
+    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    return m_Quartier;
 }
 
 void Elfes::GenererTraitCompatibles()
@@ -76,7 +76,7 @@ QString Elfes::GetId()
     return Coterie::ELFES;
 }
 
-float Elfes::GetPoidsDemo()
+double Elfes::GetPoidsDemo()
 {
     return 0.4;
 }

@@ -22,9 +22,9 @@ Orks::Orks()
 
 shared_ptr<Quartier> Orks::GenererQuartier()
 {
-    shared_ptr<Quartier> quartier = make_shared<Quartier>("Poissy", "Quartier des Orks", ":/images/orks/quartier.jpg");
-    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
-    return quartier;
+    m_Quartier = make_shared<Quartier>("Poissy", "Quartier des Orks", ":/images/orks/quartier.jpg", this);
+    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    return m_Quartier;
 }
 
 void Orks::GenererTraitCompatibles()
@@ -60,9 +60,9 @@ void Orks::GenererTraitCompatibles()
     };
 }
 
-float Orks::GetPoidsDemo()
+double Orks::GetPoidsDemo()
 {
-    return 1.1f;
+    return 1.1;
 }
 
 QString Orks::GetNom()

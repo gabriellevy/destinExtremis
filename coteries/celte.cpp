@@ -15,9 +15,9 @@ Celte::Celte()
 
 shared_ptr<Quartier> Celte::GenererQuartier()
 {
-    shared_ptr<Quartier> quartier = make_shared<Quartier>("Fontainebleau", "Quartier des Celtes", "");
-    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
-    return quartier;
+    m_Quartier = make_shared<Quartier>("Fontainebleau", "Quartier des Celtes", "", this);
+    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    return m_Quartier;
 }
 
 void Celte::GenererTraitCompatibles()
@@ -66,7 +66,7 @@ QString Celte::GetImage()
     return ":/images/celtes/description.jpg";
 }
 
-float Celte::GetPoidsDemo()
+double Celte::GetPoidsDemo()
 {
     return 1.3f;
 }
