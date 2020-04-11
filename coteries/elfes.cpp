@@ -4,6 +4,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
 #include "humanite/pbsante.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -11,6 +12,13 @@ using std::shared_ptr;
 Elfes::Elfes()
 {
     Initialisation();
+}
+
+shared_ptr<Quartier> Elfes::GenererQuartier()
+{
+    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Germain en Laye", "Quartier des Elfes", "");
+    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
+    return quartier;
 }
 
 void Elfes::GenererTraitCompatibles()

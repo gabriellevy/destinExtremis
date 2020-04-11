@@ -25,6 +25,7 @@
 #include "politique/propagande.h"
 #include "violence/combat.h"
 #include "religion/religion.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 
@@ -56,6 +57,7 @@ shared_ptr<Hist> GenVieHumain::GenererHistoire()
 void GenVieHumain::GenererDataUnivers()
 {
     // pour les données d'univers dépendantes de l'histoire
+    Quartier::GenererQuartiersAdministratifs();
 }
 
 void GenVieHumain::GenererPersos()

@@ -10,6 +10,7 @@
 #include "../destinLib/exec/exechistoire.h"
 #include "humain.h"
 #include "../destinLib/abs/condition.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -17,6 +18,13 @@ using std::shared_ptr;
 Orks::Orks()
 {
     Initialisation();
+}
+
+shared_ptr<Quartier> Orks::GenererQuartier()
+{
+    shared_ptr<Quartier> quartier = make_shared<Quartier>("Poissy", "Quartier des Orks", ":/images/orks/quartier.jpg");
+    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
+    return quartier;
 }
 
 void Orks::GenererTraitCompatibles()

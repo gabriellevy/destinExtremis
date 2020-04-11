@@ -6,13 +6,21 @@
 #include "../destinLib/abs/univers.h"
 #include "../destinLib/abs/condition.h"
 #include "socio_eco/metier.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
 
-Cathares::Cathares()
+Cathares::Cathares():Coterie()
 {
     GenererTraitCompatibles();
+}
+
+shared_ptr<Quartier> Cathares::GenererQuartier()
+{
+    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Maur des fossés", "Quartier des cathares", "");
+    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
+    return quartier;
 }
 
 void Cathares::GenererTraitCompatibles()

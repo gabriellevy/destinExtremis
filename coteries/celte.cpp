@@ -3,6 +3,7 @@
 #include "socio_eco/metier.h"
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -10,6 +11,13 @@ using std::shared_ptr;
 Celte::Celte()
 {
     Initialisation();
+}
+
+shared_ptr<Quartier> Celte::GenererQuartier()
+{
+    shared_ptr<Quartier> quartier = make_shared<Quartier>("Fontainebleau", "Quartier des Celtes", "");
+    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
+    return quartier;
 }
 
 void Celte::GenererTraitCompatibles()

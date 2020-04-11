@@ -3,6 +3,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
 #include "humain.h"
+#include "geographie/quartier.h"
 
 using std::shared_ptr;
 using std::make_shared;
@@ -21,7 +22,12 @@ QString Coterie::TYRANIDES = "Tyranides";
 
 Coterie::Coterie()
 {
+    this->GenererQuartier();
+}
 
+shared_ptr<Quartier> Coterie::GenererQuartier()
+{
+    return nullptr;
 }
 
 double Coterie::Compatibilite(Humain* hum, bool aleatoire)

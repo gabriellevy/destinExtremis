@@ -18,6 +18,7 @@ public:
     QString GetDescriptionUniversite();
     QString GetImage();
     QString GetMusique();
+    virtual std::shared_ptr<Quartier> GenererQuartier();
     QString CreerPatronyme(bool masculin = true);
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant );

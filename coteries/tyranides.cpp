@@ -3,6 +3,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
 #include "socio_eco/metier.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -10,6 +11,13 @@ using std::shared_ptr;
 Tyranides::Tyranides()
 {
     Initialisation();
+}
+
+shared_ptr<Quartier> Tyranides::GenererQuartier()
+{
+    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Ouen", "Quartier des Tyranides", "");
+    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
+    return quartier;
 }
 
 void Tyranides::GenererTraitCompatibles()

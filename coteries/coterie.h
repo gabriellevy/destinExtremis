@@ -10,6 +10,7 @@ class Evt;
 class GenHistoire;
 class Condition;
 class Humain;
+class Quartier;
 
 class Coterie
 {
@@ -30,6 +31,7 @@ public:
     virtual QString GetDescription() = 0;
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
+    virtual std::shared_ptr<Quartier> GenererQuartier();
     /**
      * @return id de la musique de cette faction. Aucune par défaut. Peut tout à fait contenir une liste de musique dont une aléatoire (ou déterminée par calcul) est renvoyée
      */

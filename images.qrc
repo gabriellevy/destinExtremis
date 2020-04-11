@@ -34,5 +34,7 @@
         <file>images/croisade_franque/chateau.jpg</file>
         <file>images/croisade_franque/priant_guerre.jpg</file>
         <file>images/orks/avion.jpg</file>
+        <file>images/orks/quartier.jpg</file>
+        <file>images/croisade_franque/logement.jpg</file>
     </qresource>
 </RCC>

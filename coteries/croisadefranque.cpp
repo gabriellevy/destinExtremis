@@ -7,6 +7,7 @@
 #include "../destinLib/exec/exechistoire.h"
 #include "humain.h"
 #include "../destinLib/abs/condition.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -14,6 +15,13 @@ using std::shared_ptr;
 CroisadeFranque::CroisadeFranque()
 {
     GenererTraitCompatibles();
+}
+
+shared_ptr<Quartier> CroisadeFranque::GenererQuartier()
+{
+    shared_ptr<Quartier> quartier = make_shared<Quartier>("Saint Denis", "Quartier des Croisés", ":/images/croisade_franque/logement.jpg");
+    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
+    return quartier;
 }
 
 void CroisadeFranque::GenererTraitCompatibles()

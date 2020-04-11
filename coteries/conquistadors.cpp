@@ -6,6 +6,7 @@
 #include "humanite/trait.h"
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -13,6 +14,13 @@ using std::shared_ptr;
 Conquistadors::Conquistadors()
 {
     Initialisation();
+}
+
+shared_ptr<Quartier> Conquistadors::GenererQuartier()
+{
+    shared_ptr<Quartier> quartier = make_shared<Quartier>("Honfleur", "Quartier des Conquistadors", "");
+    Quartier::QUARTIERS[quartier->m_Nom] = quartier;
+    return quartier;
 }
 
 QString Conquistadors::GetMusique()
