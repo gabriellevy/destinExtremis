@@ -6,13 +6,14 @@
 #include "generateurnoeudsprobables.h"
 
 class GenEvt;
-class Effet;
+class ExecEffet;
 class Condition;
+class Humain;
 
 class Crime : public GenerateurNoeudsProbables
 {
 private:
-    static void PrononcerLaSentence();
+    static void PrononcerLaSentence(Humain* humain, ExecEffet* effet);
 
 public:
     Crime(int indexEvt);

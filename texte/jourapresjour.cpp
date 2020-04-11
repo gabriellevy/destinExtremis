@@ -81,6 +81,15 @@ void JourApresJour::RafraichirPhrases()
                     Phrase("Une famille d'amis vous invite à boire un petit Recaf avec des biscuits Nafar."));
         JourApresJour::PHRASES.push_back(
                     Phrase("Vous mangez un bon rôti de Grox."));
+    } else {
+        JourApresJour::PHRASES.push_back(
+                    Phrase("La nourriture de la prison est toujours aussi immonde."));
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Vous êtes chargé de nettoyer la prison."));
+        JourApresJour::PHRASES.push_back(
+                    Phrase("La même routine encore et toujours."));
+        JourApresJour::PHRASES.push_back(
+                    Phrase("Encore un mois d'ennui."));
     }
 
 

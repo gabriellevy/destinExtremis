@@ -26,10 +26,10 @@ QString Crime::PRISON = "En prison";
 
 Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
-    case 0 : { // misérable qui devient délinquant
-        m_Nom = "devient_" + Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
+    case 0 : { // misérable qui devient voleur/délinquant
+        m_Nom = "devient_voleur_" + ClasseSociale::PAUVRES;
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, paresseux);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cupide);
@@ -85,9 +85,12 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                                   Comparateur::c_Different));
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
+        // perd son métier :
+        m_ModificateursCaracs[Metier::C_METIER] = "";
+        m_ModificateursCaracs[Metier::C_COMPETENCE_METIER] = "";
 
     }break;
-    case 6 : { // si déjà criminel et au travail
+    case 4 : { // si déjà criminel et au travail
         m_Nom = "Vendeur de drogue";
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cupide);
@@ -96,7 +99,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, sournois);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
-        m_Description = "VOus mettez en place un petit réseau de revente de drogue sur votre lieu "
+        m_Description = "Vous mettez en place un petit réseau de revente de drogue sur votre lieu "
                 "de travail qui vous fait très bien voir de vos collègues.";
         m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
@@ -105,16 +108,19 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 3;
 
     }break;
-    case 7 : {
+    case 5 : {
         m_Nom = "Jugement !";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
+        m_Description = "Le jour de votre procès est venu. \n";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
         m_Conditions.push_back(
              make_shared<Condition>(GenVieHumain::C_LIBERTE, Crime::CAPTURE_POLICE, Comparateur::c_Egal));
         m_CallbackDisplay = [] {
-            Crime::PrononcerLaSentence();
+            Humain* humain = Humain::GetHumainJoue();
+            ExecEffet* effet = ExecHistoire::GetExecEffetActuel();
+            Crime::PrononcerLaSentence(humain, effet);
         };
     }break;
-    case 8 : { // honnête devient petit délinquant par violence et désoeuvrement
+    case 6 : { // honnête devient petit délinquant par violence et désoeuvrement
         m_Nom = "devient_" + Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
         m_ConditionSelecteurProba = make_shared<Condition>(0.002 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, violent);
@@ -138,13 +144,12 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
 
     }break;
-    case 9 : {
+    case 7 : {
         m_Nom = "joint_" + Crime::C_GANG;
         m_ConditionSelecteurProba = make_shared<Condition>(0.002 + tmp_Modificateur, p_Relative);
         QString gang = Crime::GenererNomGang();
         m_Description = "Vous rejoignez le gang " + gang + ".";
         m_Image = ":/images/crime/gang.PNG";
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
         m_Conditions.push_back(Crime::AjouterConditionSiDelinquant());
         m_Conditions.push_back(
                     make_shared<Condition>(Crime::C_GANG,
@@ -153,7 +158,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[Crime::C_GANG] = gang;
 
     }break;
-    case 11 : {
+    case 8 : {
         m_Nom = "Misérable qui devient pauvre par le crime";
         m_ConditionSelecteurProba = make_shared<Condition>(0.001 + tmp_Modificateur, p_Relative);
         Crime::AjouterModificateurDeProbaSiDelinquant(m_ConditionSelecteurProba, 0.01);
@@ -167,7 +172,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
 
     }break;
-    case 12 : {
+    case 9 : {
         m_Nom = "Pauvre qui devient classe moyenne par le crime";
         m_ConditionSelecteurProba = make_shared<Condition>(0.001 + tmp_Modificateur, p_Relative);
         Crime::AjouterModificateurDeProbaSiDelinquant(m_ConditionSelecteurProba, 0.01);
@@ -185,12 +190,10 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }
 }
 
-void Crime::PrononcerLaSentence()
+void Crime::PrononcerLaSentence(Humain* humain, ExecEffet* execEffet)
 {
-    Humain* humain = Humain::GetHumainJoue();
-    QString texte = "??? PrononcerLaSentence ???";
+    QString texte = execEffet->GetEffet()->m_Texte;
     QString imgPath = "";
-    ExecEffet* execEffet = ExecHistoire::GetExecEffetActuel();
 
     int graviteCrime = Aleatoire::GetAl()->EntierInferieurA(7);
     // < 5  = petit délinquant
