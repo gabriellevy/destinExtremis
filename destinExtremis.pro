@@ -52,7 +52,8 @@ SOURCES += \
     generateurnoeudsprobables.cpp \
     genviehumain.cpp \
     humain.cpp \
-        extremis.cpp
+        extremis.cpp \
+    caracpnj.cpp
 
 HEADERS += \
     ../destinLib/gestionnairecarac.h \
@@ -65,7 +66,8 @@ HEADERS += \
     generateurnoeudsprobables.h \
     genviehumain.h \
     humain.h \
-        extremis.h
+        extremis.h \
+    caracpnj.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

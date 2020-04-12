@@ -42,6 +42,10 @@ void PNJ::SauverPNJ(QString prefixe, Humain* hum)
 
 shared_ptr<PNJ> PNJ::ChargerPNJ(QString prefixe, Humain* hum)
 {
+    // le nom est l'identifiant. Si il n'est aps là inutile de charger un truc invalide
+    if ( hum->GetValeurCarac(prefixe + PNJ::C_NOM) == "")
+        return nullptr;
+
     shared_ptr<PNJ> pnj = make_shared<PNJ>(prefixe);
     pnj->m_Coterie = Extremis::GetCoterie( hum->GetValeurCarac(prefixe + PNJ::C_COTERIE));
     pnj->m_Nom = hum->GetValeurCarac(prefixe + PNJ::C_NOM);

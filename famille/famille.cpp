@@ -51,7 +51,7 @@ void Famille::GenererParents(std::shared_ptr<Effet> effetNarrationVide)
     effetNarrationVide->m_CallbackDisplay = [pere, mere] {
         Humain* hum = Humain::GetHumainJoue();
         pere->SauverPNJ(Famille::PRE_PERE, hum);
-        mere->SauverPNJ(Famille::PRE_PERE, hum);
+        mere->SauverPNJ(Famille::PRE_MERE, hum);
     };
 
     effetNarrationVide->m_Texte += "\nVotre père s'appelle " + pere->m_Nom +

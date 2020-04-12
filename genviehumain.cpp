@@ -20,12 +20,15 @@
 #include "techno/vehicule.h"
 #include "techno/bionique.h"
 #include "age.h"
+#include "famille/famille.h"
 #include "humanite/trait.h"
 #include "politique/education.h"
 #include "politique/propagande.h"
 #include "violence/combat.h"
 #include "religion/religion.h"
 #include "geographie/quartier.h"
+#include "humanite/pnj.h"
+#include "caracpnj.h"
 
 using std::make_shared;
 
@@ -71,14 +74,15 @@ void GenVieHumain::GenererPersos()
 void GenVieHumain::GenererCaracs()
 {
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
+    //GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(
-                new Age(180)); // début à 15 ans (180)
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new Age(180)); // début à 15 ans (180)
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImageValeur(Religion::C_RELIGION);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
 
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
     // afficher tous les traits et blessures du personnage
     for (int i = 0; i < eTrait::nb_Traits; i++) {
         GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
@@ -139,6 +143,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<Combat>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Religion>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Vehicule>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Famille>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>
