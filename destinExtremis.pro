@@ -31,6 +31,7 @@ include(politique/politique.pri)
 include(violence/violence.pri)
 include(religion/religion.pri)
 include(geographie/geographie.pri)
+include(famille/famille.pri)
 
 CONFIG += c++11
 CONFIG += resources_big
