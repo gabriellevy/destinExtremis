@@ -9,6 +9,7 @@
 #include "geographie/quartier.h"
 #include <memory>
 #include "humanite/pnj.h"
+#include "humain.h"
 
 using std::make_shared;
 
@@ -29,13 +30,13 @@ QString Famille::PRE_MERE = "Mère_";
 void Famille::GenererParents(std::shared_ptr<Effet> effetNarrationVide)
 {
     // coterie des parents :
-    shared_ptr<PNJ> pere = PNJ::GenererPersoAleatoire(es_Masculin);
+    shared_ptr<PNJ> pere = PNJ::GenererPersoAleatoire(Famille::PRE_PERE, es_Masculin);
     shared_ptr<Coterie> cotMere  = Coterie::GetCoterieAleatoire(true);
     double proba = Aleatoire::GetAl()->Entre0Et1();
     if ( proba <= 0.6) {// bonnes chances que père et mère aient la même coterie
         cotMere = pere->m_Coterie;
     }
-    shared_ptr<PNJ> mere = PNJ::GenererPersoAleatoire(es_Feminin, cotMere);
+    shared_ptr<PNJ> mere = PNJ::GenererPersoAleatoire(Famille::PRE_MERE, es_Feminin, cotMere);
 
     shared_ptr<Quartier> quartierNaissance = pere->m_Coterie->m_Quartier;
     proba = Aleatoire::GetAl()->Entre0Et1();
@@ -46,6 +47,12 @@ void Famille::GenererParents(std::shared_ptr<Effet> effetNarrationVide)
     }
     effetNarrationVide->m_Texte += "Vous êtes né à " + quartierNaissance->m_Nom + ". " +
             quartierNaissance->m_Description + ".";
+
+    effetNarrationVide->m_CallbackDisplay = [pere, mere] {
+        Humain* hum = Humain::GetHumainJoue();
+        pere->SauverPNJ(Famille::PRE_PERE, hum);
+        mere->SauverPNJ(Famille::PRE_PERE, hum);
+    };
 
     effetNarrationVide->m_Texte += "\nVotre père s'appelle " + pere->m_Nom +
             ". C'est un " + pere->m_Coterie->GetNom();

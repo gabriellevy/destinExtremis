@@ -36,3 +36,12 @@ void Extremis::GenererCoteries()
         make_shared<CroisadeFranque>()
     };
 }
+
+std::shared_ptr<Coterie> Extremis::GetCoterie(QString id)
+{
+    for ( auto cot: COTERIES) {
+        if ( id == cot->GetId())
+            return cot;
+    }
+    return nullptr;
+}

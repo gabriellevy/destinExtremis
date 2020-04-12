@@ -19,6 +19,7 @@ public:
     static QString VIE_HUMAIN;
 
     static QVector<std::shared_ptr<Coterie>> COTERIES;
+    static std::shared_ptr<Coterie> GetCoterie(QString id);
 };
 
 #endif // EXTREMIS_H
