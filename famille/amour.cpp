@@ -1,0 +1,151 @@
+#include "amour.h"
+#include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/aleatoire.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
+#include "extremis.h"
+#include "genviehumain.h"
+#include "geographie/quartier.h"
+#include <memory>
+#include "humanite/pnj.h"
+#include "humain.h"
+
+using std::make_shared;
+
+Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+{
+    double tmpModificateur = 0.0;
+    switch (indexEvt) {
+    case 0 : {
+        m_Nom = "Rencontre amoureuse";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmpModificateur, p_Relative);
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {make_shared<Condition>(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {make_shared<Condition>(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
+        );
+        m_Description = "hop";
+        m_CallbackDisplay = [] {
+          Humain* hum = Humain::GetHumainJoue();
+          shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+          Amour::GenererRencontreAmoureuse(hum, effet);
+        };
+        m_Conditions.push_back(
+            make_shared<Condition>(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX, "", Comparateur::c_Egal)
+        );
+    }break;
+    }
+}
+
+// caracs liées :
+QString Amour::PRE_AMOUREUSE1 = "Amoureuse_"; // pas forcément amoureuse, ça peut être juste le perso qui est amoureux d'elle
+QString Amour::PRE_AMOUREUSE2 = "Amoureuse 2_"; // triangles moureux...
+QString Amour::PRE_AMOUREUSE3 = "Amoureuse 3_"; // triangles moureux...
+QString Amour::C_ETAT_MARITAL = "État marital";
+QString Amour::C_ETAT_AMOUREUX = "Etat amoureux";
+// valeurs de C_ETAT_MARITAL
+QString Amour::CELIBATAIRE = "Célibataire";
+QString Amour::FIANCE = "Fiancé";//
+QString Amour::MARIE = "Marié";
+QString Amour::CONCUBIN = "Concubin";
+QString Amour::REGULIERE = "Régulière";// relations sexuelle régulières sans engagement
+// valeurs de C_ETAT_AMOUREUX
+QString Amour::LUI_AMOUREUX = "lui amoureux"; // et pas elle
+QString Amour::ELLE_AMOUREUX = "elle amoureuse"; // et pas lui
+QString Amour::AMOUREUX = "amoureux"; // les deux
+
+
+void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarration)
+{
+    // génération des traits :
+    int nb = 2 + Aleatoire::GetAl()->EntierInferieurA(4);
+    QVector<eTrait> traits = {};
+    while(nb-->0) {
+        shared_ptr<Trait> trait = Trait::GetTrait(traits, false);
+        traits.push_back(trait->m_eTrait);
+    }
+    shared_ptr<Coterie> saCoterie = Coterie::GetCoterieAleatoire(true);
+
+    double probaElleTombeAmoureuse = Aleatoire::GetAl()->Entre0Et1();
+    if ( hum->ACeTrait(beau) ) probaElleTombeAmoureuse += 0.05;
+    if ( hum->ACeTrait(charmeur) ) probaElleTombeAmoureuse += 0.05;
+    if ( hum->ACeTrait(grand) ) probaElleTombeAmoureuse += 0.03;
+    if ( hum->ACeTrait(artiste) ) probaElleTombeAmoureuse += 0.02;
+    if ( hum->ACeTrait(fort) ) probaElleTombeAmoureuse += 0.02;
+    if ( hum->ACeTrait(angoisse) ) probaElleTombeAmoureuse -= 0.02;
+    if ( hum->ACeTrait(faible) ) probaElleTombeAmoureuse -= 0.02;
+    if ( hum->ACeTrait(laid) ) probaElleTombeAmoureuse -= 0.03;
+    if ( hum->ACeTrait(bete) ) probaElleTombeAmoureuse -= 0.03;
+    if ( hum->ACeTrait(chetif) ) probaElleTombeAmoureuse -= 0.03;
+    if ( hum->ACeTrait(paresseux) ) probaElleTombeAmoureuse -= 0.02;
+    bool elleAmoureuse = probaElleTombeAmoureuse>=0.5;
+
+
+    double probaIlTombeAmoureuse = Aleatoire::GetAl()->Entre0Et1();
+    if ( hum->ACeTrait(jouisseur) ) probaIlTombeAmoureuse += 0.05;
+    if ( hum->ACeTrait(sensible) ) probaIlTombeAmoureuse += 0.02;
+    if ( hum->ACeTrait(pervers_sexuel) ) probaIlTombeAmoureuse += 0.02;
+    if ( traits.indexOf(beau) != -1 ) probaIlTombeAmoureuse += 0.1;
+    if ( hum->ACeTrait(angoisse) ) probaIlTombeAmoureuse -= 0.04;
+    if ( hum->ACeTrait(spirituel) ) probaIlTombeAmoureuse -= 0.04;
+    if ( traits.indexOf(laid) != -1 ) probaIlTombeAmoureuse -= 0.6;
+    if ( traits.indexOf(cruel) != -1 ) probaIlTombeAmoureuse -= 0.3;
+    bool ilAmoureux = probaIlTombeAmoureuse >= 0.5;
+
+    // forcément un des deux tombe amoureux quoiqu'il arrive :
+    if ( !ilAmoureux && !elleAmoureuse) {
+        if ( probaElleTombeAmoureuse > probaIlTombeAmoureuse)
+            elleAmoureuse = true;
+        else ilAmoureux = true;
+    }
+
+    // si un des deux amoureux alors on modifie les caracs :
+    if ( elleAmoureuse || ilAmoureux) {
+        // 1ère, 2ème ou 3ème ?
+        QString prefixe = "";
+        if (hum->GetValeurCarac(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX) == "")
+            prefixe = PRE_AMOUREUSE1;
+        else if (hum->GetValeurCarac(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX) == "")
+            prefixe = PRE_AMOUREUSE2;
+        else if (hum->GetValeurCarac(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX) == "")
+            prefixe = PRE_AMOUREUSE3;
+        else {
+            // déjà trop d'amoureuses : il perd de vue
+        }
+
+
+        for (eTrait trait: traits) {
+            hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, Trait::GetNomTrait(trait));
+        }
+
+        QString sonNom = saCoterie->CreerPatronyme(false);
+
+        effetNarration->m_Texte = "Vous rencontrez " + sonNom + "\n";
+        if ( elleAmoureuse && !ilAmoureux) {
+            effetNarration->m_Texte += "Elle tombe amoureuse de vous.";
+            hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, ELLE_AMOUREUX);
+        }
+        else if ( elleAmoureuse && ilAmoureux) {
+            effetNarration->m_Texte += "Vous tombez amoureux l'un de l'autre.";
+            hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, AMOUREUX);
+        }
+        else if ( !elleAmoureuse && ilAmoureux) {
+            effetNarration->m_Texte += "Vous tombez amoureux d'elle.";
+            hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, LUI_AMOUREUX);
+        }
+
+        hum->SetValeurACaracId(prefixe + PNJ::C_NOM, sonNom);
+        hum->SetValeurACaracId(prefixe + PNJ::C_SEXE, PNJ::FEMME);
+        hum->SetValeurACaracId(prefixe + PNJ::C_COTERIE, saCoterie->GetId());
+
+
+        // son statut marital
+
+    }
+
+
+
+
+}

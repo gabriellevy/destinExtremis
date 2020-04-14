@@ -35,6 +35,9 @@ public:
     static QString C_NOM;
     static QString C_SEXE;
     static QString C_COTERIE;
+    // valeurs de C_SEXE :
+    static QString HOMME;
+    static QString FEMME;
 
     /**
      * @brief génère un perso aléatoire sauf pour les param fournis

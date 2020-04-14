@@ -29,6 +29,7 @@
 #include "geographie/quartier.h"
 #include "humanite/pnj.h"
 #include "caracpnj.h"
+#include "famille/amour.h"
 
 using std::make_shared;
 
@@ -77,6 +78,9 @@ void GenVieHumain::GenererCaracs()
     //GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new Age(180)); // début à 15 ans (180)
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_AMOUREUSE1, "Amoureuse"));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_AMOUREUSE2, "Amoureuse"));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_AMOUREUSE3, "Amoureuse"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
@@ -144,6 +148,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<Religion>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Vehicule>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Famille>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Amour>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>
