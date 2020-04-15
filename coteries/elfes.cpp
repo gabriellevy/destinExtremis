@@ -5,6 +5,7 @@
 #include "../destinLib/abs/condition.h"
 #include "humanite/pbsante.h"
 #include "geographie/quartier.h"
+#include <QDebug>
 
 using std::make_shared;
 using std::shared_ptr;
@@ -240,12 +241,13 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
 
 QString Elfes::CreerPatronyme(bool masculin)
 {
+    qDebug()<<"Elfes::CreerPatronyme"<<endl;
     return (masculin?
                Elfes::NOMS_M1[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_M1.size())] +
             Elfes::NOMS_M2[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_M2.size())] +
             Elfes::NOMS_M3[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_M3.size())]:
-               Elfes::NOMS_F1[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_M1.size())] +
-               Elfes::NOMS_F2[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_M2.size())]
+               Elfes::NOMS_F1[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_F1.size())] +
+               Elfes::NOMS_F2[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_F2.size())]
             );
 }
 

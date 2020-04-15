@@ -7,6 +7,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
+#include <QDebug>
 
 using std::make_shared;
 using std::shared_ptr;
@@ -200,9 +201,12 @@ QString Conquistadors::GetId()
 
 QString Conquistadors::CreerPatronyme(bool masculin)
 {
+    qDebug()<<"Conquistadors::CreerPatronyme"<<endl;
     return (masculin?
-               Conquistadors::PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(Conquistadors::PRENOMS_M.size())] + " " + Conquistadors::NOMS[Aleatoire::GetAl()->EntierInferieurA(Conquistadors::NOMS.size())]:
-               Conquistadors::PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(Conquistadors::PRENOMS_F.size())] + " " + Conquistadors::NOMS[Aleatoire::GetAl()->EntierInferieurA(Conquistadors::NOMS.size())]
+               PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_M.size())] + " " +
+                         NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]:
+               PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_F.size())] + " " +
+                       NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]
             );
 }
 

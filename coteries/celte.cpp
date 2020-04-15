@@ -4,6 +4,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
+#include <QDebug>
 
 using std::make_shared;
 using std::shared_ptr;
@@ -124,9 +125,12 @@ std::shared_ptr<Effet> Celte::AjouterEffetUniversite(GenHistoire* genHist, share
 
 QString Celte::CreerPatronyme(bool masculin)
 {
+    qDebug()<<"Celte::CreerPatronyme"<<endl;
     return (masculin?
-               Celte::PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(Celte::PRENOMS_M.size())] + " " + Celte::NOMS_M[Aleatoire::GetAl()->EntierInferieurA(Celte::NOMS_M.size())]:
-               Celte::PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(Celte::PRENOMS_F.size())] + " " + Celte::NOMS_F[Aleatoire::GetAl()->EntierInferieurA(Celte::NOMS_F.size())]
+               PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_M.size())] +
+                        " " + NOMS_M[Aleatoire::GetAl()->EntierInferieurA(NOMS_M.size())]:
+               PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_F.size())] +
+                       " " + NOMS_F[Aleatoire::GetAl()->EntierInferieurA(NOMS_F.size())]
             );
 }
 

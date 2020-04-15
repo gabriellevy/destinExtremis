@@ -7,6 +7,7 @@
 #include "../destinLib/abs/condition.h"
 #include "socio_eco/metier.h"
 #include "geographie/quartier.h"
+#include <QDebug>
 
 using std::make_shared;
 using std::shared_ptr;
@@ -159,9 +160,12 @@ QString Cathares::GetId()
 
 QString Cathares::CreerPatronyme(bool masculin)
 {
+    qDebug()<<"Cathares::CreerPatronyme"<<endl;
     return (masculin?
-               Cathares::PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(Cathares::PRENOMS_M.size())] + " " + Cathares::NOMS[Aleatoire::GetAl()->EntierInferieurA(Cathares::NOMS.size())]:
-               Cathares::PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(Cathares::PRENOMS_F.size())] + " " + Cathares::NOMS[Aleatoire::GetAl()->EntierInferieurA(Cathares::NOMS.size())]
+               Cathares::PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_M.size())] +
+                        " " + NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]:
+               Cathares::PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_F.size())] +
+                       " " + NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]
             );
 }
 

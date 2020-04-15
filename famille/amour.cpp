@@ -136,7 +136,10 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
 
         QString sonNom = saCoterie->CreerPatronyme(false);
 
+        qDebug()<<"GenererRencontreAmoureuse 4b"<<endl;
+
         effetNarration->m_Texte = "Vous rencontrez " + sonNom + "\n";
+        qDebug()<<"GenererRencontreAmoureuse 4c"<<endl;
         if ( elleAmoureuse && !ilAmoureux) {
             effetNarration->m_Texte += "Elle tombe amoureuse de vous.";
             hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, ELLE_AMOUREUX);

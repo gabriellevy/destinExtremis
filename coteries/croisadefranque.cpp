@@ -8,6 +8,7 @@
 #include "humain.h"
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
+#include <QDebug>
 
 using std::make_shared;
 using std::shared_ptr;
@@ -225,9 +226,12 @@ QString CroisadeFranque::GetId()
 
 QString CroisadeFranque::CreerPatronyme(bool masculin)
 {
+    qDebug()<<"CroisadeFranque::CreerPatronyme"<<endl;
     return (masculin?
-               CroisadeFranque::PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(CroisadeFranque::PRENOMS_M.size())] + " " + CroisadeFranque::NOMS[Aleatoire::GetAl()->EntierInferieurA(CroisadeFranque::NOMS.size())]:
-               CroisadeFranque::PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(CroisadeFranque::PRENOMS_F.size())] + " " + CroisadeFranque::NOMS[Aleatoire::GetAl()->EntierInferieurA(CroisadeFranque::NOMS.size())]
+               PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_M.size())] + " " +
+                            NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]:
+               PRENOMS_F[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_F.size())] + " " +
+                       NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]
             );
 }
 

@@ -11,6 +11,7 @@
 #include "humain.h"
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
+#include <QDebug>
 
 using std::make_shared;
 using std::shared_ptr;
@@ -102,9 +103,10 @@ QString Orks::GetImage()
 
 QString Orks::CreerPatronyme(bool masculin)
 {
+    qDebug()<<"Orks::CreerPatronyme"<<endl;
     return (masculin?
-               Orks::NOMS_M[Aleatoire::GetAl()->EntierInferieurA(Orks::NOMS_M.size())]:
-               Orks::NOMS_F[Aleatoire::GetAl()->EntierInferieurA(Orks::NOMS_M.size())]
+               NOMS_M[Aleatoire::GetAl()->EntierInferieurA(NOMS_M.size())]:
+               NOMS_F[Aleatoire::GetAl()->EntierInferieurA(NOMS_F.size())]
             );
 }
 

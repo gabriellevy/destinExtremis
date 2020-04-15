@@ -179,6 +179,7 @@ shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effe
     effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";
     effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_AMOUREUSE1 + GenVieHumain::AGE, 1);
     effet->AjouterAjouteurACarac(Crime::C_MOIS_PRISON, -1);
     return effet;
 }

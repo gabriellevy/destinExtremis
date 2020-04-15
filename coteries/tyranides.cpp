@@ -4,6 +4,7 @@
 #include "../destinLib/abs/condition.h"
 #include "socio_eco/metier.h"
 #include "geographie/quartier.h"
+#include <QDebug>
 
 using std::make_shared;
 using std::shared_ptr;
@@ -99,9 +100,10 @@ std::shared_ptr<Effet> Tyranides::AjouterEffetUniversite(GenHistoire* genHist, s
 
 QString Tyranides::CreerPatronyme(bool masculin)
 {
+    qDebug()<<"Tyranides::CreerPatronyme"<<endl;
     return (masculin?
-               Tyranides::NOMS_M[Aleatoire::GetAl()->EntierInferieurA(Tyranides::NOMS_M.size())]:
-               Tyranides::NOMS_F[Aleatoire::GetAl()->EntierInferieurA(Tyranides::NOMS_M.size())]
+               NOMS_M[Aleatoire::GetAl()->EntierInferieurA(NOMS_M.size())]:
+               NOMS_F[Aleatoire::GetAl()->EntierInferieurA(NOMS_F.size())]
             );
 }
 
