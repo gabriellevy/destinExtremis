@@ -51,8 +51,24 @@ bool CaracPNJ::AfficherValeur()
     {
         ui->labelValeur->show();
         ui->labelValeur->setFont( *Univers::BASE_FONT);
+
         QString txt = m_Pnj->m_Nom +
                 "\n" + m_Pnj->m_Coterie->GetNom();
+
+        if ( m_Pnj->m_Age != -1) {
+            int ageMois = m_Pnj->m_Age;
+            int ageAnnee = ageMois/12;
+            ageMois = (ageMois % 12);
+            QString ageStr = QString::number(ageAnnee) + " ans " +
+                    (ageMois> 0 ? (QString::number(ageMois) + " mois"):"");
+
+            txt += "\n" + ageStr;
+        }
+
+        if ( m_Pnj->m_EtatMarital != "") {
+            txt += "\n" + m_Pnj->m_EtatMarital;
+        }
+
         ui->labelValeurDansBox->setText(txt);
         QString desc = this->GetCaracDescription();
         ui->labelValeur->setToolTip(desc);

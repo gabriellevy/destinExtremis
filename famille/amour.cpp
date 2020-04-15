@@ -10,34 +10,9 @@
 #include <memory>
 #include "humanite/pnj.h"
 #include "humain.h"
+#include <QDebug>
 
 using std::make_shared;
-
-Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
-{
-    double tmpModificateur = 0.0;
-    switch (indexEvt) {
-    case 0 : {
-        m_Nom = "Rencontre amoureuse";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmpModificateur, p_Relative);
-        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
-            {make_shared<Condition>(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
-        );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
-            {make_shared<Condition>(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
-        );
-        m_Description = "hop";
-        m_CallbackDisplay = [] {
-          Humain* hum = Humain::GetHumainJoue();
-          shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
-          Amour::GenererRencontreAmoureuse(hum, effet);
-        };
-        m_Conditions.push_back(
-            make_shared<Condition>(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX, "", Comparateur::c_Egal)
-        );
-    }break;
-    }
-}
 
 // caracs liées :
 QString Amour::PRE_AMOUREUSE1 = "Amoureuse_"; // pas forcément amoureuse, ça peut être juste le perso qui est amoureux d'elle
@@ -56,9 +31,38 @@ QString Amour::LUI_AMOUREUX = "lui amoureux"; // et pas elle
 QString Amour::ELLE_AMOUREUX = "elle amoureuse"; // et pas lui
 QString Amour::AMOUREUX = "amoureux"; // les deux
 
+Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+{
+    double tmpModificateur = 0.0;
+    switch (indexEvt) {
+    case 0 : {
+        m_Nom = "Rencontre amoureuse";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmpModificateur, p_Relative);
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {make_shared<Condition>(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
+        );
+        m_ConditionSelecteurProba->AjouterModifProba(-0.004,
+            {make_shared<Condition>(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
+        );
+        m_Description = "hop";
+        m_CallbackDisplay = [] {
+            qDebug()<<" ---- m_CallbackDisplay début"<<endl;
+          Humain* hum = Humain::GetHumainJoue();
+          shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+          Amour::GenererRencontreAmoureuse(hum, effet);
+          qDebug()<<" ---- m_CallbackDisplay fin"<<endl;
+        };
+        m_Conditions.push_back(
+            make_shared<Condition>(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX, "", Comparateur::c_Egal)
+        );
+    }break;
+    }
+}
+
 
 void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarration)
 {
+    qDebug()<<"--- GenererRencontreAmoureuse début"<<endl;
     // génération des traits :
     int nb = 2 + Aleatoire::GetAl()->EntierInferieurA(4);
     QVector<eTrait> traits = {};
@@ -81,6 +85,7 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
     if ( hum->ACeTrait(chetif) ) probaElleTombeAmoureuse -= 0.03;
     if ( hum->ACeTrait(paresseux) ) probaElleTombeAmoureuse -= 0.02;
     bool elleAmoureuse = probaElleTombeAmoureuse>=0.5;
+    qDebug()<<"GenererRencontreAmoureuse 1"<<endl;
 
 
     double probaIlTombeAmoureuse = Aleatoire::GetAl()->Entre0Et1();
@@ -100,6 +105,7 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
             elleAmoureuse = true;
         else ilAmoureux = true;
     }
+    qDebug()<<"GenererRencontreAmoureuse 2"<<endl;
 
     // si un des deux amoureux alors on modifie les caracs :
     if ( elleAmoureuse || ilAmoureux) {
@@ -114,11 +120,13 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
         else {
             // déjà trop d'amoureuses : il perd de vue
         }
+        qDebug()<<"GenererRencontreAmoureuse 3"<<endl;
 
 
         for (eTrait trait: traits) {
             hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, Trait::GetNomTrait(trait));
         }
+        qDebug()<<"GenererRencontreAmoureuse 4"<<endl;
 
         QString sonNom = saCoterie->CreerPatronyme(false);
 
@@ -135,15 +143,31 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
             effetNarration->m_Texte += "Vous tombez amoureux d'elle.";
             hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, LUI_AMOUREUX);
         }
+        qDebug()<<"GenererRencontreAmoureuse 5"<<endl;
 
         hum->SetValeurACaracId(prefixe + PNJ::C_NOM, sonNom);
         hum->SetValeurACaracId(prefixe + PNJ::C_SEXE, PNJ::FEMME);
         hum->SetValeurACaracId(prefixe + PNJ::C_COTERIE, saCoterie->GetId());
-
+        // son age :
+        int ageP = hum->GetValeurCaracAsInt(GenVieHumain::AGE);
+        int age = ageP + (ageP/2 - ageP*Aleatoire::GetAl()->EntierEntreAEtB(1,4)/2);
+        hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, age);
+        qDebug()<<"GenererRencontreAmoureuse 6"<<endl;
 
         // son statut marital
+        double proba = Aleatoire::GetAl()->Entre0Et1();
+        if ( proba <=0.5) {
+            hum->SetValeurACaracId(prefixe + Amour::C_ETAT_MARITAL,Amour::CELIBATAIRE);
+        } else if ( proba <=0.6) {
+            hum->SetValeurACaracId(prefixe + Amour::C_ETAT_MARITAL,Amour::FIANCE);
+        } else if ( proba <=0.9) {
+            hum->SetValeurACaracId(prefixe + Amour::C_ETAT_MARITAL,Amour::MARIE);
+        } else {
+            hum->SetValeurACaracId(prefixe + Amour::C_ETAT_MARITAL,Amour::REGULIERE);
+        }
 
     }
+    qDebug()<<" ---- GenererRencontreAmoureuse fin"<<endl;
 
 
 

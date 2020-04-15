@@ -30,6 +30,8 @@ public:
     std::shared_ptr<Coterie> m_Coterie;
     QString m_Nom;
     bool m_SexeMasculin;
+    int m_Age = -1;
+    QString m_EtatMarital = "";
 
     // CARAC associées aux valeurs de pnj
     static QString C_NOM;
