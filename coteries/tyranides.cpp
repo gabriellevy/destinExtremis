@@ -20,6 +20,11 @@ shared_ptr<Quartier> Tyranides::GenererQuartier()
     return m_Quartier;
 }
 
+QString Tyranides::GetGentile(bool masculin)
+{
+    return "tyranide";
+}
+
 void Tyranides::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {

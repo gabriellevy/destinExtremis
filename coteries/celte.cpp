@@ -20,6 +20,11 @@ shared_ptr<Quartier> Celte::GenererQuartier()
     return m_Quartier;
 }
 
+QString Celte::GetGentile(bool masculin)
+{
+    return "celte";
+}
+
 void Celte::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {

@@ -53,7 +53,7 @@ bool CaracPNJ::AfficherValeur()
         ui->labelValeur->setFont( *Univers::BASE_FONT);
 
         QString txt = m_Pnj->m_Nom +
-                "\n" + m_Pnj->m_Coterie->GetNom();
+                "\n" + m_Pnj->m_Coterie->GetGentile();
 
         if ( m_Pnj->m_Age != -1) {
             int ageMois = m_Pnj->m_Age;

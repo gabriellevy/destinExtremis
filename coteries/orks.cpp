@@ -27,6 +27,11 @@ shared_ptr<Quartier> Orks::GenererQuartier()
     return m_Quartier;
 }
 
+QString Orks::GetGentile(bool masculin)
+{
+    return "ork";
+}
+
 void Orks::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {

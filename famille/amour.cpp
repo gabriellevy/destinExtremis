@@ -11,13 +11,14 @@
 #include "humanite/pnj.h"
 #include "humain.h"
 #include <QDebug>
+#include <QtMath>
 
 using std::make_shared;
 
 // caracs liées :
 QString Amour::PRE_AMOUREUSE1 = "Amoureuse_"; // pas forcément amoureuse, ça peut être juste le perso qui est amoureux d'elle
-QString Amour::PRE_AMOUREUSE2 = "Amoureuse 2_"; // triangles moureux...
-QString Amour::PRE_AMOUREUSE3 = "Amoureuse 3_"; // triangles moureux...
+QString Amour::PRE_AMOUREUSE2 = "Amoureuse 2_"; // triangle moureux...
+QString Amour::PRE_AMOUREUSE3 = "Amoureuse 3_"; // triangle moureux...
 QString Amour::C_ETAT_MARITAL = "État marital";
 QString Amour::C_ETAT_AMOUREUX = "Etat amoureux";
 // valeurs de C_ETAT_MARITAL
@@ -33,9 +34,11 @@ QString Amour::AMOUREUX = "amoureux"; // les deux
 
 Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
+    qDebug()<<" ---- Amour début"<<endl;
     double tmpModificateur = 0.0;
     switch (indexEvt) {
     case 0 : {
+        qDebug()<<" ---- Amour 1"<<endl;
         m_Nom = "Rencontre amoureuse";
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmpModificateur, p_Relative);
         m_ConditionSelecteurProba->AjouterModifProba(-0.004,
@@ -45,6 +48,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {make_shared<Condition>(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
         );
         m_Description = "hop";
+        qDebug()<<" ---- Amour 2"<<endl;
         m_CallbackDisplay = [] {
             qDebug()<<" ---- m_CallbackDisplay début"<<endl;
           Humain* hum = Humain::GetHumainJoue();
@@ -55,8 +59,10 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(
             make_shared<Condition>(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX, "", Comparateur::c_Egal)
         );
+        qDebug()<<" ---- Amour 3"<<endl;
     }break;
     }
+    qDebug()<<" ---- Amour fin"<<endl;
 }
 
 
@@ -150,7 +156,8 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
         hum->SetValeurACaracId(prefixe + PNJ::C_COTERIE, saCoterie->GetId());
         // son age :
         int ageP = hum->GetValeurCaracAsInt(GenVieHumain::AGE);
-        int age = ageP + (ageP/2 - ageP*Aleatoire::GetAl()->EntierEntreAEtB(1,4)/2);
+        int decal = qMin(ageP/2 - Aleatoire::GetAl()->EntierInferieurA(ageP), ageP-15);
+        int age = ageP + decal;
         hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, age);
         qDebug()<<"GenererRencontreAmoureuse 6"<<endl;
 

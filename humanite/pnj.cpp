@@ -59,6 +59,6 @@ shared_ptr<PNJ> PNJ::ChargerPNJ(QString prefixe, Humain* hum)
     pnj->m_Nom = hum->GetValeurCarac(prefixe + PNJ::C_NOM);
     pnj->m_SexeMasculin = hum->GetValeurCarac(prefixe + PNJ::C_SEXE) == PNJ::HOMME;
     pnj->m_Age = hum->GetValeurCaracAsInt(prefixe + GenVieHumain::AGE);
-    pnj->m_EtatMarital = hum->GetValeurCaracAsInt(prefixe + Amour::C_ETAT_MARITAL);
+    pnj->m_EtatMarital = hum->GetValeurCarac(prefixe + Amour::C_ETAT_MARITAL);
     return pnj;
 }

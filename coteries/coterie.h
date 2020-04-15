@@ -28,6 +28,7 @@ public:
 
     virtual void GenererTraitCompatibles() = 0;
     virtual QString GetNom() = 0;
+    virtual QString GetGentile(bool masculin = true) = 0;
     virtual QString CreerPatronyme(bool masculin = true) = 0;
     virtual QString GetId() = 0;
     virtual QString GetDescription() = 0;

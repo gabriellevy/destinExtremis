@@ -55,9 +55,9 @@ void Famille::GenererParents(std::shared_ptr<Effet> effetNarrationVide)
     };
 
     effetNarrationVide->m_Texte += "\nVotre père s'appelle " + pere->m_Nom +
-            ". C'est un " + pere->m_Coterie->GetNom();
+            ". C'est un " + pere->m_Coterie->GetGentile();
     effetNarrationVide->m_Texte += "\nVotre mère s'appelle " + mere->m_Nom +
-            ". C'est une " + mere->m_Coterie->GetNom();
+            ". C'est une " + mere->m_Coterie->GetGentile();
 
 
 }

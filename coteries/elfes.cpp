@@ -21,6 +21,11 @@ shared_ptr<Quartier> Elfes::GenererQuartier()
     return m_Quartier;
 }
 
+QString Elfes::GetGentile(bool masculin)
+{
+    return "elfe";
+}
+
 void Elfes::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {

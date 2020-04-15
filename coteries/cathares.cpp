@@ -23,6 +23,11 @@ shared_ptr<Quartier> Cathares::GenererQuartier()
     return m_Quartier;
 }
 
+QString Cathares::GetGentile(bool masculin)
+{
+    return "cathare";
+}
+
 void Cathares::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {

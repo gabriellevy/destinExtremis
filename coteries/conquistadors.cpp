@@ -51,6 +51,11 @@ void Conquistadors::GenererTraitCompatibles()
     };
 }
 
+QString Conquistadors::GetGentile(bool masculin)
+{
+    return "conquistador";
+}
+
 QString Conquistadors::GetNom()
 {
     return "Conquistadors";
@@ -484,7 +489,15 @@ QVector<QString> Conquistadors::PRENOMS_F = {
 
 QVector<QString> Conquistadors::NOMS = {
     "Acosta", "Acuña", "Adalbéron",     "Abril",
-    "AbadÃ­a","Abarca","AbellÃ¡n","Abiego","Acorella","AdriÃ¡n","Agea","Ager","Agramunt","AgustÃ­n","AlbarracÃ­n","AlberÃ³","AlcalÃ¡","Alcolea","Alfaro","Alicante","Almunia","Alos","Amalric","AragonÃ©s","Arcas","Aymerich","Aznar","Balaguer","Baldovinos","BandrÃ©s","Baptista","Barrachina","Batista","Bautista","Bermund","Boix","Bonfill","Borrell","Bruguer","Burguera","Burrell","CaballerÃ­a","Caballero","Cabra","Cacho","Cajal","Calasanz","CalderÃ³n","Canyelles","Castellblanc","CebriÃ¡n","Centelles","CerdÃ¡n","Ceret","Cirera","Claver","Clemente","Desclot","Donat","Egea","Ena","Entenza","Ermengol","Escolano","EstÃ©banez","Estanyol","Feliu","Ferrer","Font","FortiÃ ","Garcia","Gironella","Grau","Gualba","Guitarra","Jofre","Lagos","Latorre","March","Marquet","Martell","Martorell","Mas","Massa","Massot","MirÃ³","Morer","Muntaner","Murillo","Navarro","Noguera","Notario","NovÃ©s","Oms","Penyafort","Planas","Ponts","Prat","Puig","Rami­rez","Ramon","Riba","Riera","Roca","Roig","Roldaño","Romero","Rosellao","Rovira","Sacristaño","Sagarra","Samper","Sanz","Segarra","Texidor","Torquelles","VallÃ¨s","Vilagrassa","Vilaregut","de Arcas","de la CaballerÃ­a"
+    "AbadÃ­a","Abarca","AbellÃ¡n","Abiego","Acorella","AdriÃ¡n","Agea","Ager","Agramunt","AgustÃ­n","AlbarracÃ­n",
+    "AlberÃ³","AlcalÃ¡","Alcolea","Alfaro","Alicante","Almunia","Alos","Amalric","AragonÃ©s","Arcas","Aymerich",
+    "Aznar","Balaguer","Baldovinos","BandrÃ©s","Baptista","Barrachina","Batista","Bautista","Bermund","Boix",
+    "Bonfill","Borrell","Bruguer","Burguera","Burrell","CaballerÃ­a","Caballero","Cabra","Cacho","Cajal","Calasanz",
+    "CalderÃ³n","Canyelles","Castellblanc","CebriÃ¡n","Centelles","CerdÃ¡n","Ceret","Cirera","Claver","Clemente",
+    "Desclot","Donat","Egea","Ena","Entenza","Ermengol","Escolano","EstÃ©banez","Estanyol","Feliu","Ferrer",
+    "Font","FortiÃ ","Garcia","Gironella","Grau","Gualba","Guitarra","Jofre","Lagos","Latorre","March","Marquet",
+    "Martell","Martorell","Mas","Massa","Massot","MirÃ³","Morer","Muntaner","Murillo","Navarro","Noguera","Notario",
+    "Oms","Penyafort","Planas","Ponts","Prat","Puig","Rami­rez","Ramon","Riba","Riera","Roca","Roig","Roldaño","Romero","Rosellao","Rovira","Sacristaño","Sagarra","Samper","Sanz","Segarra","Texidor","Torquelles","VallÃ¨s","Vilagrassa","Vilaregut","de Arcas","de la CaballerÃ­a"
     "Aguilar",
     "Aguilera",
     "Aguirre",

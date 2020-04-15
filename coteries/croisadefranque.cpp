@@ -24,6 +24,11 @@ shared_ptr<Quartier> CroisadeFranque::GenererQuartier()
     return m_Quartier;
 }
 
+QString CroisadeFranque::GetGentile(bool masculin)
+{
+    return masculin?"croisé":"croisée";
+}
+
 void CroisadeFranque::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
