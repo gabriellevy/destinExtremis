@@ -10,7 +10,6 @@
 #include <memory>
 #include "humanite/pnj.h"
 #include "humain.h"
-#include <QDebug>
 #include <QtMath>
 
 using std::make_shared;
@@ -34,11 +33,9 @@ QString Amour::AMOUREUX = "amoureux"; // les deux
 
 Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    qDebug()<<" ---- Amour début"<<endl;
     double tmpModificateur = 0.0;
     switch (indexEvt) {
     case 0 : {
-        qDebug()<<" ---- Amour 1"<<endl;
         m_Nom = "Rencontre amoureuse";
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmpModificateur, p_Relative);
         m_ConditionSelecteurProba->AjouterModifProba(-0.004,
@@ -48,27 +45,21 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             {make_shared<Condition>(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX, "", Comparateur::c_Different)}
         );
         m_Description = "hop";
-        qDebug()<<" ---- Amour 2"<<endl;
         m_CallbackDisplay = [] {
-            qDebug()<<" ---- m_CallbackDisplay début"<<endl;
           Humain* hum = Humain::GetHumainJoue();
           shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
           Amour::GenererRencontreAmoureuse(hum, effet);
-          qDebug()<<" ---- m_CallbackDisplay fin"<<endl;
         };
         m_Conditions.push_back(
             make_shared<Condition>(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX, "", Comparateur::c_Egal)
         );
-        qDebug()<<" ---- Amour 3"<<endl;
     }break;
     }
-    qDebug()<<" ---- Amour fin"<<endl;
 }
 
 
 void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarration)
 {
-    qDebug()<<"--- GenererRencontreAmoureuse début"<<endl;
     // génération des traits :
     int nb = 2 + Aleatoire::GetAl()->EntierInferieurA(4);
     QVector<eTrait> traits = {};
@@ -91,7 +82,6 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
     if ( hum->ACeTrait(chetif) ) probaElleTombeAmoureuse -= 0.03;
     if ( hum->ACeTrait(paresseux) ) probaElleTombeAmoureuse -= 0.02;
     bool elleAmoureuse = probaElleTombeAmoureuse>=0.5;
-    qDebug()<<"GenererRencontreAmoureuse 1"<<endl;
 
 
     double probaIlTombeAmoureuse = Aleatoire::GetAl()->Entre0Et1();
@@ -111,7 +101,6 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
             elleAmoureuse = true;
         else ilAmoureux = true;
     }
-    qDebug()<<"GenererRencontreAmoureuse 2"<<endl;
 
     // si un des deux amoureux alors on modifie les caracs :
     if ( elleAmoureuse || ilAmoureux) {
@@ -126,17 +115,14 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
         else {
             // déjà trop d'amoureuses : il perd de vue
         }
-        qDebug()<<"GenererRencontreAmoureuse 3"<<endl;
 
 
         for (eTrait trait: traits) {
             hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, Trait::GetNomTrait(trait));
         }
-        qDebug()<<"GenererRencontreAmoureuse 4"<<endl;
 
         QString sonNom = saCoterie->CreerPatronyme(false);
 
-        qDebug()<<"GenererRencontreAmoureuse 4b"<<endl;
 
         effetNarration->m_Texte = "Vous rencontrez " + sonNom + "\n";
         qDebug()<<"GenererRencontreAmoureuse 4c"<<endl;
@@ -152,7 +138,6 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
             effetNarration->m_Texte += "Vous tombez amoureux d'elle.";
             hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX, LUI_AMOUREUX);
         }
-        qDebug()<<"GenererRencontreAmoureuse 5"<<endl;
 
         hum->SetValeurACaracId(prefixe + PNJ::C_NOM, sonNom);
         hum->SetValeurACaracId(prefixe + PNJ::C_SEXE, PNJ::FEMME);
@@ -162,7 +147,6 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
         int decal = qMin(ageP/2 - Aleatoire::GetAl()->EntierInferieurA(ageP), ageP-15);
         int age = ageP + decal;
         hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, age);
-        qDebug()<<"GenererRencontreAmoureuse 6"<<endl;
 
         // son statut marital
         double proba = Aleatoire::GetAl()->Entre0Et1();
@@ -177,7 +161,6 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
         }
 
     }
-    qDebug()<<" ---- GenererRencontreAmoureuse fin"<<endl;
 
 
 

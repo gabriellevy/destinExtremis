@@ -241,7 +241,6 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
 
 QString Elfes::CreerPatronyme(bool masculin)
 {
-    qDebug()<<"Elfes::CreerPatronyme"<<endl;
     return (masculin?
                Elfes::NOMS_M1[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_M1.size())] +
             Elfes::NOMS_M2[Aleatoire::GetAl()->EntierInferieurA(Elfes::NOMS_M2.size())] +

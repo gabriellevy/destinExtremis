@@ -84,7 +84,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImageValeur(Religion::C_RELIGION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImage(Religion::C_RELIGION);
 
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
     // afficher tous les traits et blessures du personnage

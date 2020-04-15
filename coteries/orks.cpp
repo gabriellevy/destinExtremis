@@ -103,7 +103,6 @@ QString Orks::GetImage()
 
 QString Orks::CreerPatronyme(bool masculin)
 {
-    qDebug()<<"Orks::CreerPatronyme"<<endl;
     return (masculin?
                NOMS_M[Aleatoire::GetAl()->EntierInferieurA(NOMS_M.size())]:
                NOMS_F[Aleatoire::GetAl()->EntierInferieurA(NOMS_F.size())]

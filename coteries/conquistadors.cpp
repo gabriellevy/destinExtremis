@@ -201,7 +201,6 @@ QString Conquistadors::GetId()
 
 QString Conquistadors::CreerPatronyme(bool masculin)
 {
-    qDebug()<<"Conquistadors::CreerPatronyme"<<endl;
     return (masculin?
                PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_M.size())] + " " +
                          NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]:
