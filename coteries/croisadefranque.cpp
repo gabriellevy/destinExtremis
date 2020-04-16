@@ -9,6 +9,9 @@
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
 #include <QDebug>
+#include "genviehumain.h"
+#include "socio_eco/crime.h"
+#include "extremis.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -212,6 +215,32 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
         noeudsProbaEducation.push_back(noeudCombat);
     }
 
+    // honneur et traditions
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Un croisé digne de ce nom doit avoir un honneur sans faille ce qui passe avant tout par le respect de la parole donné et la fidélité au seigneur."
+                    "\nEst requis aussi un grand courage dans la guerre comme dans la protection de la veuve et de l'orphelin."
+                    "\nVous devenez 'honorable'.",
+                    ":/images/croisade_franque/priant_guerre.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->m_CallbackDisplay = [] {
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            Humain* humain = Humain::GetHumainJoue();
+            humain->SetValeurACaracId(Trait::GetNomTrait(honorable), "1");
+            double proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba <= 0.6 && !humain->ACeTrait(sens_du_sacrifice)) {
+                effet->m_Texte += " Ainsi que 'sens du sacrifice'.";
+                humain->SetValeurACaracId(Trait::GetNomTrait(sens_du_sacrifice), "1");
+            }
+        };
+        shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeud);
+    }
+
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
@@ -226,7 +255,6 @@ QString CroisadeFranque::GetId()
 
 QString CroisadeFranque::CreerPatronyme(bool masculin)
 {
-    qDebug()<<"CroisadeFranque::CreerPatronyme"<<endl;
     return (masculin?
                PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_M.size())] + " " +
                             NOMS[Aleatoire::GetAl()->EntierInferieurA(NOMS.size())]:
@@ -321,4 +349,41 @@ QVector<QString> CroisadeFranque::PRENOMS_F = {
     "Iseult", "Léonor", "Letgarde", "Mahaut", "Mélissande", "Mélusine", "Milesende", "Morgane", "Ursule", "Viviane"
 };
 
+EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+{
+    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
+    switch (indexEvt) {
+    case 0 : {
+        m_Nom = "Conversion en prison";
+        m_Description = "Un prêcheur de la croisade franque rend une visite dans votre prison."
+                "\nIl entame de longs discours sur l'honneur, le devoir la force et le sens de la vie et vous appelle à la rédemption en rejoignant les croisés qui s'engagent à vous aider à votre sortie de prison si vous preêtez serment.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(
+             make_shared<Condition>(Crime::C_MOIS_PRISON, "", Comparateur::c_Different));
+        m_CallbackDisplay = [] {
+            Humain* humain = Humain::GetHumainJoue();
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            double proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                humain->GagneCeTrait(honorable, effet);
+            }
+            proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                humain->PerdCeTrait(sournois, effet);
+            }
+            proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                Religion::ModifierEffetEnEffetConversion(effet,
+                          Religion::CHRETIEN);
+            }
 
+            // devient croisé ??
+            shared_ptr<Coterie> croisade = Extremis::GetCoterie(Coterie::CROISADE);
+            proba = croisade->Compatibilite(humain);
+            if ( proba >= Coterie::SEUIL_CONVERSION) {
+                croisade->RejoindreCoterie(humain, effet);
+            }
+        };
+    }break;
+    }
+}

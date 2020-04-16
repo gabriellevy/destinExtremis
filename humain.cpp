@@ -21,6 +21,24 @@ bool Humain::ACeTrait(eTrait trait)
     return ( GetValeurCarac(Trait::GetNomTrait(trait)) == "1");
 }
 
+bool Humain::GagneCeTrait(eTrait trait, std::shared_ptr<Effet> effet)
+{
+    if ( !ACeTrait(trait)) {
+        QString nomTrait = Trait::GetNomTrait(trait);
+        this->SetValeurACaracId(nomTrait, "1");
+        effet->m_Texte += "\nVous gagnez " + nomTrait;
+    }
+}
+
+bool Humain::PerdCeTrait(eTrait trait, std::shared_ptr<Effet> effet)
+{
+    if ( ACeTrait(trait)) {
+        QString nomTrait = Trait::GetNomTrait(trait);
+        this->SetValeurACaracId(nomTrait, "1");
+        effet->m_Texte += "\nVous perdez " + nomTrait;
+    }
+}
+
 Humain* Humain::GetHumainJoue()
 {
     if ( Humain::ME == nullptr )

@@ -6,6 +6,8 @@
 #include <memory>
 #include "humanite/trait.h"
 
+
+class Effet;
 class JourApresJour;
 
 class Humain : public DPerso
@@ -25,6 +27,8 @@ public:
     virtual void ExecutionPostChangeCarac();
     virtual void InitialiserPerso();
     bool ACeTrait(eTrait trait);
+    bool GagneCeTrait(eTrait trait, std::shared_ptr<Effet> effet);
+    bool PerdCeTrait(eTrait trait, std::shared_ptr<Effet> effet);
 
 };
 

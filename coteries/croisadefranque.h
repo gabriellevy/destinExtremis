@@ -2,6 +2,14 @@
 #define CROISADEFRANQUE_H
 
 #include "coterie.h"
+#include <QString>
+#include <QMap>
+#include "generateurnoeudsprobables.h"
+
+class GenEvt;
+class ExecEffet;
+class Condition;
+class Humain;
 
 class CroisadeFranque : public Coterie
 {
@@ -27,6 +35,14 @@ public:
     static QVector<QString> PRENOMS_M;
     static QVector<QString> PRENOMS_F;
     static QVector<QString> NOMS;
+};
+
+class EvtCroisadeFranque : public GenerateurNoeudsProbables
+{
+private:
+
+public:
+    EvtCroisadeFranque(int indexEvt);
 };
 
 #endif // CROISADEFRANQUE_H

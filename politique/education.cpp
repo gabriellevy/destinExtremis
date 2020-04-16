@@ -55,7 +55,7 @@ std::shared_ptr<Evt> Education::GenererEvtEducationPolitique(GenHistoire* genHis
         double compat = 0.0;
         for ( auto cot: m_Coteries) {
             double nouvCompat = cot->Compatibilite(humain);
-            if ( nouvCompat > 0.9  && nouvCompat > compat) {
+            if ( nouvCompat > Coterie::SEUIL_CONVERSION  && nouvCompat > compat) {
                 cotchoisie = cot;
                 nouvCompat = compat;
             }

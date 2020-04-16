@@ -19,6 +19,7 @@ QString Coterie::ELFES = "Elfes";
 QString Coterie::ORKS = "Orks";
 QString Coterie::TYRANIDES = "Tyranides";
 
+double Coterie::SEUIL_CONVERSION = 0.9;
 
 Coterie::Coterie()
 {}

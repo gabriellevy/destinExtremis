@@ -24,6 +24,7 @@ public:
     static QString CHRETIEN;
     static QString ATHEE; // différent de "" car l'athée a développé une aversion à la religion, il sera dur à reconvertir
 
+    static QString GetNomReligion(QString religion);
     static std::shared_ptr<Condition> AjouterCondACetteReligion(QString religion);
 
     static void ModifierEffetEnEffetConversion(std::shared_ptr<Effet> &effet, QString religion, int ajoutEnFoi = 1, bool convertitAthees = false);
