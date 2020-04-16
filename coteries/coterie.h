@@ -47,7 +47,7 @@ public:
      */
     virtual double Compatibilite(Humain* hum, bool aleatoire = false);
     /**
-     * @brief Fonction runtime exécutée quand un eprsonnage rejoint cette coetrie.
+     * @brief Fonction runtime exécutée quand un personnage rejoint cette coetrie.
      * A surclasser dès que la coterie implique des effets particuliers quand on la rejoint (en appelant tout de même cette fonction super)
      */
     virtual void RejoindreCoterie(Humain* hum, std::shared_ptr<Effet> eff);

@@ -24,6 +24,7 @@ public:
     virtual std::shared_ptr<Quartier> GenererQuartier();
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant);
+    virtual void RejoindreCoterie(Humain* hum, std::shared_ptr<Effet> eff);
 
     static QVector<QString> NOMS_M;
     static QVector<QString> NOMS_F;

@@ -109,6 +109,54 @@ QString Orks::CreerPatronyme(bool masculin)
             );
 }
 
+void Orks::RejoindreCoterie(Humain* hum, shared_ptr<Effet> eff)
+{
+    // fonction de base
+    Coterie::RejoindreCoterie(hum, eff);
+
+    // transformation en ork
+    eff->m_Texte += "\nVous prenez enfin le redouté sérum d'orkission qui fera de vous un véritable ork.";
+    double scoreTransformation = Aleatoire::GetAl()->Entre0Et1();
+    if ( hum->ACeTrait(franc)) scoreTransformation += 0.01;
+    if ( hum->ACeTrait(fort)) scoreTransformation += 0.05;
+    if ( hum->ACeTrait(resistant)) scoreTransformation += 0.05;
+    if ( hum->ACeTrait(violent)) scoreTransformation += 0.05;
+    if ( hum->ACeTrait(industrieux)) scoreTransformation -= 0.02;
+    if ( hum->ACeTrait(intelligent)) scoreTransformation -= 0.02;
+    if ( hum->ACeTrait(angoisse)) scoreTransformation -= 0.02;
+    if ( hum->ACeTrait(faible)) scoreTransformation -= 0.03;
+    if ( hum->ACeTrait(chetif)) scoreTransformation -= 0.03;
+    if ( hum->ACeTrait(intellectuel)) scoreTransformation -= 0.02;
+    if ( scoreTransformation < 0) {
+        eff->m_Texte += "Malheureusement le résultat est catastrophique. Votre faible volonté ou juste la malchance font de vous un simple gretchin. Esclave pitoyable des ork que vous rêviez d'être.";
+        hum->GagneCeTrait(petit, eff);
+        hum->GagneCeTrait(chetif, eff);
+        hum->GagneCeTrait(faible, eff);
+    } else  if ( scoreTransformation > 1 ) {
+        eff->m_Texte += "Le résultat dépasse toutes vos espérances. Vous devenez un gros et errible nob. Un chef né tout en muscle à la mesure des orks.";
+        hum->GagneCeTrait(fort, eff);
+        hum->GagneCeTrait(resistant, eff);
+        hum->GagneCeTrait(grand, eff);
+    } else  {
+        eff->m_Texte += "Cela marche à merveille. Vous sentez votre corps se renforcer, votre esprit se libérer. Vous êtes maintenant un ork !";
+        hum->GagneCeTrait(resistant, eff);
+    }
+    hum->PerdCeTrait(angoisse, eff);
+    hum->PerdCeTrait(pacifiste, eff);
+    hum->GagneCeTrait(laid, eff);
+
+    // guérison des blessures :
+    for ( QString blessure: PbSante::BLESSURES_LEGERES) {
+        if ( hum->GetValeurCarac(blessure) == "1") {
+            scoreTransformation = Aleatoire::GetAl()->Entre0Et1();
+            if ( scoreTransformation >= 0.2) {
+                eff->m_Texte +="\nL'incroyable pouvoir de régénération du sérum ork fait que vous n'êtes plus " + blessure + ".";
+                hum->SetValeurACaracId(blessure, "");
+            }
+        }
+    }
+}
+
 std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
