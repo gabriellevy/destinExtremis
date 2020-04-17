@@ -155,6 +155,15 @@ void Orks::RejoindreCoterie(Humain* hum, shared_ptr<Effet> eff)
             }
         }
     }
+    for ( QString blessure: PbSante::BLESSURES_GRAVES) {
+        if ( hum->GetValeurCarac(blessure) == "1") {
+            scoreTransformation = Aleatoire::GetAl()->Entre0Et1();
+            if ( scoreTransformation >= 0.2) {
+                eff->m_Texte +="\nL'incroyable pouvoir de régénération du sérum ork fait que vous n'êtes plus " + blessure + ".";
+                hum->SetValeurACaracId(blessure, "");
+            }
+        }
+    }
 }
 
 std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
@@ -174,7 +183,7 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
         effet1->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
         effet1->AjouterChangeurDeCarac((make_shared<Trait>(eTrait::beau))->GetNom(), ""); // le joueur perd son éventuelle beauté...
         effet1->m_GoToEffetId = go_to_effet_suivant;
-        shared_ptr<Condition> cond1 = make_shared<Condition>(1.3, TypeProba::p_Relative);
+        shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
                     effet1,
                     cond1);

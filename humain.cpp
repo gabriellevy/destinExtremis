@@ -26,12 +26,15 @@ bool Humain::GagneCeTrait(eTrait trait, std::shared_ptr<Effet> effet)
     if ( !ACeTrait(trait)) {
         // perd le trait opposé :
         if ( Trait::GetTraitOppose(trait) != nb_Traits) {
-            this->PerdCeTrait(Trait::GetTraitOppose(trait, effet));
+            this->PerdCeTrait(Trait::GetTraitOppose(trait), effet);
         }
         QString nomTrait = Trait::GetNomTrait(trait);
         this->SetValeurACaracId(nomTrait, "1");
         effet->m_Texte += "\nVous gagnez " + nomTrait;
+
+        return true;
     }
+    return false;
 }
 
 bool Humain::PerdCeTrait(eTrait trait, std::shared_ptr<Effet> effet)
@@ -40,7 +43,10 @@ bool Humain::PerdCeTrait(eTrait trait, std::shared_ptr<Effet> effet)
         QString nomTrait = Trait::GetNomTrait(trait);
         this->SetValeurACaracId(nomTrait, "1");
         effet->m_Texte += "\nVous perdez " + nomTrait;
+
+        return true;
     }
+    return false;
 }
 
 Humain* Humain::GetHumainJoue()

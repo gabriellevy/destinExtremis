@@ -75,6 +75,7 @@ void GenVieHumain::GenererPersos()
 void GenVieHumain::GenererCaracs()
 {
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new Age(180)); // début à 15 ans (180)
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(PbSante::C_MOIS_HOPITAL);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
@@ -92,6 +93,9 @@ void GenVieHumain::GenererCaracs()
         GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
     }
     for ( QString bless: PbSante::BLESSURES_LEGERES) {
+        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
+    }
+    for ( QString bless: PbSante::BLESSURES_GRAVES) {
         GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
     }
 
@@ -181,6 +185,7 @@ shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effe
     effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);
     effet->AjouterAjouteurACarac(Amour::PRE_AMOUREUSE1 + GenVieHumain::AGE, 1);
     effet->AjouterAjouteurACarac(Crime::C_MOIS_PRISON, -1);
+    effet->AjouterAjouteurACarac(PbSante::C_MOIS_HOPITAL, -1);
     return effet;
 }
 

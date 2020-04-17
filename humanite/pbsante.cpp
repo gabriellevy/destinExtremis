@@ -8,9 +8,11 @@
 #include "genviehumain.h"
 #include "socio_eco/classesociale.h"
 #include "techno/bionique.h"
+#include "humain.h"
 
 QString PbSante::PESTE = "Peste";
 QString PbSante::C_SANTE = "Sante";
+QString PbSante::C_MOIS_HOPITAL = "Mois d'hopital";
 QString PbSante::C_CONSTITUTION = "Constitution";
 // valeurs de C_CONSTITUTION normal = ""
 QString PbSante::RESISTANT = "Résistant";
@@ -24,13 +26,26 @@ QString PbSante::BORGNE = "Borgne";
 QString PbSante::BOITEUX = "Boiteux";
 QString PbSante::CICATRICE_AU_VISAGE = "Cicatrice au visage";
 QString PbSante::DOIGT_COUPE = "Doigt coupé";
-QString PbSante::OREILLE_COUPEE = "Oreille coupée";
 QString PbSante::DEFIGURE = "Défiguré";
+
+QString PbSante::JAMBE_AMPUTEE = "Jambe amputée";
+QString PbSante::BRAS_AMPUTEE = "Bras amputé";
+QString PbSante::TRAUMATISME_CRANIEN = "Traumatisme cranien";
+QString PbSante::HEMORAGIE_INTERNE = "Hémoragie interne";
+QString PbSante::OREILLE_COUPEE = "Oreille coupée";
+
 QVector<QString> PbSante::BLESSURES_LEGERES = { // appliquer aussi PbSante::DEFIGURE éventuellement
     PbSante::BORGNE,
     PbSante::BOITEUX,
     PbSante::CICATRICE_AU_VISAGE,
     PbSante::DOIGT_COUPE,
+    PbSante::OREILLE_COUPEE
+};
+QVector<QString> PbSante::BLESSURES_GRAVES = {
+    PbSante::JAMBE_AMPUTEE,
+    PbSante::BRAS_AMPUTEE,
+    PbSante::TRAUMATISME_CRANIEN,
+    PbSante::HEMORAGIE_INTERNE,
     PbSante::OREILLE_COUPEE
 };
 
@@ -107,7 +122,7 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[PbSante::PESTE] = "1";
 
     }break;
-    case 3 : {
+    case 2 : {
         m_Nom = "mort de la peste";
         m_ConditionSelecteurProba = make_shared<Condition>(0.01, p_Relative);
         m_Description = "Vous mourez des suites de la peste.";
@@ -116,6 +131,24 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     }
+}
+
+
+void PbSante::BlessureLegere(Humain* hum, std::shared_ptr<Effet> effet, int& nbMoisHopital)
+{
+    QString blessure = GetBlessureLegereAleatoire();
+    effet->m_Texte += "\nVous êtes maintenant : " + blessure + ".";
+    hum->SetValeurACaracId(blessure, "1");
+    nbMoisHopital += 1;
+}
+
+void PbSante::BlessureGrave(Humain* hum, shared_ptr<Effet> effet, int& nbMoisHopital)
+{
+    QString blessure = BLESSURES_GRAVES[Aleatoire::GetAl()->EntierInferieurA(BLESSURES_GRAVES.size())];
+    effet->m_Texte += "\nVous êtes maintenant : " + blessure + ".";
+    // TODO effet des diverses blessures...
+    hum->SetValeurACaracId(blessure, "1");
+    nbMoisHopital += 10;
 }
 
 std::shared_ptr<Condition> PbSante::AjouterConditionSiAgeSuperieurA(int ageAnnees)
