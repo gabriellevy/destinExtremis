@@ -34,6 +34,34 @@ QString Orks::GetGentile(bool masculin)
     return "ork";
 }
 
+void Orks::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+{
+    if (hum->ACeTrait(chetif) && hum->ACeTrait(petit)) {
+        // gobelins
+        if ( ageAnnees > 15 ) {
+            if ( metier == Metier::MUSICIEN ) {
+                images.push_back(":/images/orks/portrait_gobelin_musicien_15+.jpg");
+            }
+            if ( ageAnnees > 25 ) {
+                images.push_back(":/images/orks/portrait_gobelin_25+.jpg");
+            }
+        }
+    }
+    else
+    {
+        // orks
+        if ( ageAnnees > 15 ) {
+            images.push_back(":/images/orks/portrait_15+.jpg");
+            if ( ageAnnees > 30 ) {
+                images.push_back(":/images/orks/portrait_30+.jpg");
+                if ( ageAnnees > 40 ) {
+                    images.push_back(":/images/orks/portrait_40+.jpg");
+                }
+            }
+        }
+    }
+}
+
 void Orks::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {

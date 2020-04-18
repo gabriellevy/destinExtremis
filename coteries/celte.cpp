@@ -134,6 +134,9 @@ QString Celte::CreerPatronyme(bool masculin)
             );
 }
 
+void Celte::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+{}
+
 QVector<QString> Celte::PRENOMS_F = {
     "Áilís","Áilísh","Áine","Álmath","Éabha","Éadaoin","Éibhleann","Éile","Éimhear","Émer","Érne","Étaín","Étain","Órfhlaith","Órla","Órlaith","Órnait","Órnat","Úna","Aíbell",
     "Aíbhinn","Abaigeal","Abhlach","Achall","Affraic","Agata","Aghna","Aibhilín","Aifric","Aigneis","Ailbhe","Ailionóra","Ailis","Ailish","Ailleann","Ainfean","Ainnir","Aislin",

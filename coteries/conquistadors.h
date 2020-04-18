@@ -19,6 +19,7 @@ public:
     QString GetMusique();
     virtual QString GetGentile(bool masculin = true);
     virtual std::shared_ptr<Quartier> GenererQuartier();
+    virtual void GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images);
     QString CreerPatronyme(bool masculin = true);
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(

@@ -49,7 +49,7 @@ void Famille::GenererParents(std::shared_ptr<Effet> effetNarrationVide)
             quartierNaissance->m_Description + ".";
 
     effetNarrationVide->AjouterChangeurDeCarac(QuartierEffets::C_QUARTIER_HABITE,
-                                               quartierNaissance->m_Nom;
+                                               quartierNaissance->m_Nom);
 
     effetNarrationVide->m_CallbackDisplay = [pere, mere] {
         Humain* hum = Humain::GetHumainJoue();

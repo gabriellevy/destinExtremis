@@ -349,20 +349,40 @@ QVector<QString> CroisadeFranque::PRENOMS_F = {
     "Iseult", "Léonor", "Letgarde", "Mahaut", "Mélissande", "Mélusine", "Milesende", "Morgane", "Ursule", "Viviane"
 };
 
+void CroisadeFranque::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+{
+    if ( ageAnnees > 20 ) {
+        if ( ageAnnees < 40 ) {
+            images.push_back(":/images/croisade_franque/portrait_20-40.jpg");
+        }
+        if ( ageAnnees > 30 ) {
+            images.push_back(":/images/croisade_franque/portrait_30+.jpg");
+            if ( ageAnnees > 50 ) {
+                images.push_back(":/images/croisade_franque/portrait_50+.jpg");
+                images.push_back(":/images/croisade_franque/portrait_50+_b.jpg");
+            }
+        }
+    }
+}
+
 EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Conversion en prison";
-        m_Description = "Un prêcheur de la croisade franque rend une visite dans votre prison."
-                "\nIl entame de longs discours sur l'honneur, le devoir la force et le sens de la vie et vous appelle à la rédemption en rejoignant les croisés qui s'engagent à vous aider à votre sortie de prison si vous preêtez serment.";
+        m_Description = "???";
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
         m_Conditions.push_back(
              make_shared<Condition>(Crime::C_MOIS_PRISON, "0", Comparateur::c_Superieur));
         m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+
+            effet->m_Texte = "Un prêcheur de la croisade franque rend une visite dans votre prison."
+                    "\nIl entame de longs discours sur l'honneur, le devoir la force et le sens de la vie et vous appelle à la rédemption en rejoignant les croisés qui s'engagent à vous aider à votre sortie de prison si vous preêtez serment.";
+
+
             double proba = Aleatoire::GetAl()->Entre0Et1();
             if ( proba < 0.3 ) {
                 humain->GagneCeTrait(honorable, effet);
@@ -382,6 +402,9 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
             proba = croisade->Compatibilite(humain);
             if ( proba >= Coterie::SEUIL_CONVERSION) {
                 croisade->RejoindreCoterie(humain, effet);
+            } else
+            {
+                effet->m_Texte += "\nSes arguments ne vous convainquent pas de le rejoindre.";
             }
         };
     }break;

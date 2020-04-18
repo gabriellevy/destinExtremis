@@ -36,5 +36,40 @@
         <file>images/orks/avion.jpg</file>
         <file>images/orks/quartier.jpg</file>
         <file>images/croisade_franque/logement.jpg</file>
+        <file>images/portraits/portrait_15-40.jpg</file>
+        <file>images/portraits/portrait_15-40_b.jpg</file>
+        <file>images/portraits/portrait_20-50.jpg</file>
+        <file>images/portraits/portrait_bucheron_20-60.jpg</file>
+        <file>images/portraits/portrait_forgeron_60+.jpg</file>
+        <file>images/cathares/portrait_20-50.jpg</file>
+        <file>images/cathares/portrait_20-50_b.jpg</file>
+        <file>images/cathares/portrait_50+_b.jpg</file>
+        <file>images/conquistadors/portrait_15-40.jpg</file>
+        <file>images/conquistadors/portrait_15-40_b.jpg</file>
+        <file>images/conquistadors/portrait_15-40_c.jpg</file>
+        <file>images/conquistadors/portrait_20-40.jpg</file>
+        <file>images/conquistadors/portrait_20-50.jpg</file>
+        <file>images/conquistadors/portrait_20-50_b.jpg</file>
+        <file>images/conquistadors/portrait_20-50_c.jpg</file>
+        <file>images/conquistadors/portrait_20-50_d.jpg</file>
+        <file>images/conquistadors/portrait_20-50_e.jpg</file>
+        <file>images/conquistadors/portrait_40+.jpg</file>
+        <file>images/conquistadors/portrait_marchand_15-50.jpg</file>
+        <file>images/conquistadors/portrait_marchand_50+.jpg</file>
+        <file>images/croisade_franque/portrait_20-40.jpg</file>
+        <file>images/croisade_franque/portrait_30+.jpg</file>
+        <file>images/croisade_franque/portrait_50+.jpg</file>
+        <file>images/croisade_franque/portrait_50+_b.jpg</file>
+        <file>images/elfes/portrait_15-30.jpg</file>
+        <file>images/elfes/portrait_15-40_b.jpg</file>
+        <file>images/elfes/portrait_15-40_c.jpg</file>
+        <file>images/elfes/portrait_15-40_d.jpg</file>
+        <file>images/elfes/portrait_30+.jpg</file>
+        <file>images/elfes/portrait_50+.jpg</file>
+        <file>images/orks/portrait_15+.jpg</file>
+        <file>images/orks/portrait_30+.jpg</file>
+        <file>images/orks/portrait_40+.jpg</file>
+        <file>images/orks/portrait_gobelin_25+.jpg</file>
+        <file>images/orks/portrait_gobelin_musicien_15+.jpg</file>
     </qresource>
 </RCC>

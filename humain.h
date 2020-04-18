@@ -14,6 +14,7 @@ class Humain : public DPerso
 {
     static Humain* ME;
     JourApresJour* m_JourApresJour;
+    int m_SeedPortrait = -1;
 
 public:
     Humain(QString nom);
@@ -30,6 +31,11 @@ public:
     bool GagneCeTrait(eTrait trait, std::shared_ptr<Effet> effet);
     bool PerdCeTrait(eTrait trait, std::shared_ptr<Effet> effet);
 
+    /**
+     * @brief met à jour le portrait du personnage sleon ses caracs actuelles
+     * à Appeler quand il change  de carac mais avec un aléatoire "seed" fixe qui fait que l'image ne change aps à chaque actualisation amis seulement si une carac déterminante a changée
+     */
+    void ActualisationPortrait();
 };
 
 #endif // HUMAIN_H

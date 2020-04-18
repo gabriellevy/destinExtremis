@@ -199,6 +199,39 @@ QString Conquistadors::GetId()
     return Coterie::CONQUISTADORS;
 }
 
+void Conquistadors::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+{
+    if ( ageAnnees > 15 ) {
+        if ( ageAnnees < 40 ) {
+            images.push_back(":/images/conquistadors/portrait_15-40.jpg");
+            images.push_back(":/images/conquistadors/portrait_15-40_b.jpg");
+            images.push_back(":/images/conquistadors/portrait_15-40_c.jpg");
+            if ( ageAnnees > 20 ) {
+                images.push_back(":/images/conquistadors/portrait_20-40.jpg");
+            }
+        } else {
+            images.push_back(":/images/conquistadors/portrait_40+.jpg");
+        }
+    }
+    if ( ageAnnees > 20 ) {
+        if ( ageAnnees < 50 ) {
+            if ( metier == Metier::MARCHAND) {
+                images.push_back(":/images/conquistadors/portrait_marchand_15-50.jpg");
+            }
+            images.push_back(":/images/conquistadors/portrait_20-50.jpg");
+            images.push_back(":/images/conquistadors/portrait_20-50_b.jpg");
+            images.push_back(":/images/conquistadors/portrait_20-50_c.jpg");
+            images.push_back(":/images/conquistadors/portrait_20-50_d.jpg");
+            images.push_back(":/images/conquistadors/portrait_20-50_e.jpg");
+        } else {
+            // > 50
+            if ( metier == Metier::MARCHAND) {
+                images.push_back(":/images/conquistadors/portrait_marchand_50+.jpg");
+            }
+        }
+    }
+}
+
 QString Conquistadors::CreerPatronyme(bool masculin)
 {
     return (masculin?

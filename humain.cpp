@@ -3,6 +3,7 @@
 #include "genviehumain.h"
 #include "texte/jourapresjour.h"
 #include "../destinLib/aleatoire.h"
+#include "socio_eco/metier.h"
 
 Humain* Humain::ME = nullptr;
 
@@ -10,6 +11,44 @@ Humain::Humain(QString nom):DPerso(nom, nom, nom, "")
 {
     Humain::ME = this;
     m_JourApresJour = new JourApresJour();
+}
+
+void Humain::ActualisationPortrait()
+{
+    QVector<QString> images = {};
+
+    int age = this->GetValeurCaracAsInt(GenVieHumain::AGE)/12;
+    QString metier = this->GetValeurCarac(Metier::C_METIER);
+    shared_ptr<Coterie> coterie = Extremis::GetCoterie(this->GetValeurCarac(Coterie::C_COTERIE));
+
+
+    //coterie->GenererPortraits(this, age, metier, images);
+
+    if ( images.size() == 0 ) {
+        if ( age > 15 ) {
+            if ( age < 40 ) {
+                images.push_back(":/images/portraits/portrait_15-40.jpg");
+                images.push_back(":/images/portraits/portrait_15-40_b.jpg");
+            }
+        }
+
+        if ( age > 20 ) {
+            if ( age < 60 ) {
+                images.push_back(":/images/portraits/portrait_bucheron_20-60.jpg");
+                if ( age < 50 ) {
+                    images.push_back(":/images/portraits/portrait_20-50.jpg");
+                }
+            }
+        }
+    }
+
+    if ( images.size() == 0 )
+        return;
+
+    if ( m_SeedPortrait == -1 || m_SeedPortrait >= images.size())
+        m_SeedPortrait = Aleatoire::GetAl()->EntierInferieurA(images.size());
+
+    MajCheminImage(images[m_SeedPortrait]);
 }
 
 void Humain::InitialiserPerso()
@@ -84,5 +123,6 @@ int Humain::GetValeurCaracAsInt(QString id)
 void Humain::ExecutionPostChangeCarac()
 {
     m_JourApresJour->RafraichirPhrases();
+    ActualisationPortrait();
 }
 

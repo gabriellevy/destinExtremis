@@ -87,6 +87,26 @@ double Elfes::GetPoidsDemo()
     return 0.4;
 }
 
+void Elfes::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+{
+    if ( ageAnnees > 15 ) {
+        if ( ageAnnees < 40 ) {
+            images.push_back(":/images/elfes/portrait_15-40_b.jpg");
+            images.push_back(":/images/elfes/portrait_15-40_c.jpg");
+            images.push_back(":/images/elfes/portrait_15-40_d.jpg");
+            if ( ageAnnees < 30 ) {
+                images.push_back(":/images/elfes/portrait_15-30.jpg");
+            }
+        }
+        if ( ageAnnees > 30 ) {
+            images.push_back(":/images/elfes/portrait_30+.jpg");
+            if ( ageAnnees > 50 ) {
+                images.push_back(":/images/elfes/portrait_50+.jpg");
+            }
+        }
+    }
+}
+
 std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
@@ -115,7 +135,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
     // effet gagne beau
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "La beauté est primordiale pour les elfes et ils font en sorte que votre médiocrité ne soit aps un frein pour vous intégrer et vous sentir l'un des leurs. "
+                    "La beauté est primordiale pour les elfes et ils font en sorte que votre médiocrité ne soit pas un frein pour vous intégrer et vous sentir l'un des leurs. "
                     "Pour cela ils utilisent une myriades d'outils et d'objets merveilleux. Des pommades, des bains, des amulettes et même des potions enchantées."
                     "Le résultat est stupéfiant. "
                     "\nVous gagnez la compétence 'beau'.",

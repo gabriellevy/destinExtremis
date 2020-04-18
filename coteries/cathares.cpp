@@ -169,6 +169,18 @@ QString Cathares::CreerPatronyme(bool masculin)
             );
 }
 
+void Cathares::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+{
+    if ( ageAnnees > 20 ) {
+        if ( ageAnnees < 50 ) {
+            images.push_back(":/images/cathares/portrait_20-50.jpg");
+            images.push_back(":/images/cathares/portrait_20-50_b.jpg");
+        } else {
+            images.push_back(":/images/cathares/portrait_50+_b.jpg");
+        }
+    }
+}
+
 QVector<QString> Cathares::PRENOMS_M = {
     "ALPHONSE", "AMEDEE", "AMINA", "ARNAUD", "ARTHUR", "AUDOIN", "BAUDOIN",
     "Aalongue", "Abbaud", "Abbon", "Abelène", "Abran", "Abzal", "Acelin", "Achaire",
