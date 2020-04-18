@@ -12,6 +12,7 @@
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
 #include <QDebug>
+#include "extremis.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -402,3 +403,33 @@ QVector<QString> Orks::NOMS_F = {
     "Batul","Borba","Bumph","Homraz","Rogbut","Mazoga","Mog","Mor","Oghash","Rogmesh","Snak","Ugak","Umog","Arob","Atub","Bagrak","Bolar","Bor",
     "Borgakh","Dulug","Garakh","Ghak","Gharol","Ghorza","Gul","Lash","Murbol","Sharamph","Shel","Shufharz","Ugor","Urog","Yotul"
 };
+
+
+EvtOrks::EvtOrks(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+{
+    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
+    switch (indexEvt) {
+    case 0 : {
+        m_Nom = "Conversion à l'hôpital";
+        m_Description = "Un médiko ork vient rendre des visites à l'hopital et s'attarde dans votre chambre."
+                "\nD'ordinaire les médikos sont plutôt des être terrifiants vu leurs habitudes de faire des expériences sur leurs patients mais cette fois et vu votre état ses arguments attirent votre attention. En particulier quand il parle du miracle du sérum orkoïde qui quand on le boît guérit presque toutes les blessures."
+                "\nCa a l'air fou mais vous avez entendu beaucoup de témoignages sur la résistance surnaturelle des orks.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(
+             make_shared<Condition>(PbSante::C_MOIS_HOPITAL, "0", Comparateur::c_Superieur));
+        m_CallbackDisplay = [] {
+            Humain* humain = Humain::GetHumainJoue();
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+
+            // devient ork ??
+            shared_ptr<Coterie> orks = Extremis::GetCoterie(Coterie::ORKS);
+            double proba = orks->Compatibilite(humain);
+            if ( proba >= Coterie::SEUIL_CONVERSION) {
+                orks->RejoindreCoterie(humain, effet);
+            } else {
+                effet->m_Texte += "Ca ne suffit néanmoins pas à vous cnovaincre de devenir un ork.";
+            }
+        };
+    }break;
+    }
+}

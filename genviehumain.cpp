@@ -30,6 +30,8 @@
 #include "humanite/pnj.h"
 #include "caracpnj.h"
 #include "famille/amour.h"
+#include "coteries/orks.h"
+#include "coteries/croisadefranque.h"
 
 using std::make_shared;
 
@@ -86,6 +88,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImage(Religion::C_RELIGION);
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracStringIntitule(QuartierEffets::C_QUARTIER_HABITE);
 
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
     // afficher tous les traits et blessures du personnage
@@ -153,6 +156,8 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<Vehicule>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Famille>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Amour>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<EvtOrks>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<EvtCroisadeFranque>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>

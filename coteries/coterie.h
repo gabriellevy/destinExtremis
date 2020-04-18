@@ -76,4 +76,15 @@ public:
     static double SEUIL_CONVERSION; // à partir de quelle valeur retournée par la fonction "compatibilité" le eprsonnage rejoint-il al coterie ?
 };
 
+/* modèle pour gestion des événements liés à la coterie :
+ *  pensez à ajouter au moins un événement de "propagande" permettant de rejoindre la coterie durant sa vie
+class EvtCroisadeFranque : public GenerateurNoeudsProbables
+{
+private:
+
+public:
+    EvtCroisadeFranque(int indexEvt);
+};
+*/
+
 #endif // COTERIE_H

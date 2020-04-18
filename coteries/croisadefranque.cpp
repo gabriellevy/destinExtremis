@@ -359,7 +359,7 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
                 "\nIl entame de longs discours sur l'honneur, le devoir la force et le sens de la vie et vous appelle à la rédemption en rejoignant les croisés qui s'engagent à vous aider à votre sortie de prison si vous preêtez serment.";
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
         m_Conditions.push_back(
-             make_shared<Condition>(Crime::C_MOIS_PRISON, "", Comparateur::c_Different));
+             make_shared<Condition>(Crime::C_MOIS_PRISON, "0", Comparateur::c_Superieur));
         m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();

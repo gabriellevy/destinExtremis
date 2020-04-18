@@ -2,6 +2,12 @@
 #define ORKS_H
 
 #include "coterie.h"
+#include "generateurnoeudsprobables.h"
+
+class GenEvt;
+class ExecEffet;
+class Condition;
+class Humain;
 
 class Evt;
 
@@ -28,6 +34,14 @@ public:
 
     static QVector<QString> NOMS_M;
     static QVector<QString> NOMS_F;
+};
+
+class EvtOrks : public GenerateurNoeudsProbables
+{
+private:
+
+public:
+    EvtOrks(int indexEvt);
 };
 
 #endif // ORKS_H
