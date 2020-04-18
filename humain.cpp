@@ -19,10 +19,12 @@ void Humain::ActualisationPortrait()
 
     int age = this->GetValeurCaracAsInt(GenVieHumain::AGE)/12;
     QString metier = this->GetValeurCarac(Metier::C_METIER);
-    shared_ptr<Coterie> coterie = Extremis::GetCoterie(this->GetValeurCarac(Coterie::C_COTERIE));
+    QString strCoterie = this->GetValeurCarac(Coterie::C_COTERIE);
+    if ( strCoterie != "" ) {
+        shared_ptr<Coterie> coterie = Extremis::GetCoterie(strCoterie);
 
-
-    //coterie->GenererPortraits(this, age, metier, images);
+        coterie->GenererPortraits(this, age, metier, images);
+    }
 
     if ( images.size() == 0 ) {
         if ( age > 15 ) {
@@ -45,9 +47,11 @@ void Humain::ActualisationPortrait()
     if ( images.size() == 0 )
         return;
 
-    if ( m_SeedPortrait == -1 || m_SeedPortrait >= images.size())
+    if ( m_SeedPortrait == -1 || m_SeedPortrait >= images.size() ||
+         images.size() != m_NombreImagesPrecedent)
         m_SeedPortrait = Aleatoire::GetAl()->EntierInferieurA(images.size());
 
+    m_NombreImagesPrecedent = images.size();
     MajCheminImage(images[m_SeedPortrait]);
 }
 

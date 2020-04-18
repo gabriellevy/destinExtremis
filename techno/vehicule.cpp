@@ -33,21 +33,24 @@ Vehicule::Vehicule(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                 hum->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
                 return;
             }
+            else
+            {
 
-            // blessure légère ?
-            proba = Aleatoire::GetAl()->Entre0Et1();
-            if ( proba > 0.6) {
-                PbSante::BlessureLegere(hum, effet, nbMoisHopital);
-            }
-            // blessure grave ?
-            proba = Aleatoire::GetAl()->Entre0Et1();
-            if ( proba > 0.8) {
-                PbSante::BlessureGrave(hum, effet, nbMoisHopital);
-            }
+                // blessure légère ?
+                proba = Aleatoire::GetAl()->Entre0Et1();
+                if ( proba > 0.6) {
+                    PbSante::BlessureLegere(hum, effet, nbMoisHopital);
+                }
+                // blessure grave ?
+                proba = Aleatoire::GetAl()->Entre0Et1();
+                if ( proba > 0.8) {
+                    PbSante::BlessureGrave(hum, effet, nbMoisHopital);
+                }
 
-            nbMoisHopital += Aleatoire::GetAl()->EntierEntreAEtB(1,6);
-            hum->SetValeurACaracId(PbSante::C_MOIS_HOPITAL, nbMoisHopital);
-            effet->m_Texte += "\nVous devez rester " + QString::number(nbMoisHopital) + " mois à l'hopital.";
+                nbMoisHopital += Aleatoire::GetAl()->EntierEntreAEtB(1,6);
+                hum->SetValeurACaracId(PbSante::C_MOIS_HOPITAL, nbMoisHopital);
+                effet->m_Texte += "\nVous devez rester " + QString::number(nbMoisHopital) + " mois à l'hopital.";
+            }
         };
 
     }break;
