@@ -6,6 +6,8 @@
 #include "coteries/coterie.h"
 #include <memory>
 
+class Quartier;
+
 class Extremis : public Univers
 {
     Q_OBJECT
@@ -19,6 +21,7 @@ public:
     static QString VIE_HUMAIN;
 
     static QVector<std::shared_ptr<Coterie>> COTERIES;
+    static QMap<QString, std::shared_ptr<Quartier>> QUARTIERS;
     static std::shared_ptr<Coterie> GetCoterie(QString id);
 };
 

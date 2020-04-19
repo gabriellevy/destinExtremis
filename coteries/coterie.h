@@ -34,7 +34,7 @@ public:
     virtual QString GetDescription() = 0;
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
-    virtual void GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images) {}
+    virtual void GenererPortraits(Humain* /*hum*/, int /*ageAnnees*/, QString /*metier*/, QVector<QString>& /*images*/) {}
     virtual std::shared_ptr<Quartier> GenererQuartier();
     /**
      * @return id de la musique de cette faction. Aucune par défaut. Peut tout à fait contenir une liste de musique dont une aléatoire (ou déterminée par calcul) est renvoyée

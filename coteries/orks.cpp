@@ -25,11 +25,11 @@ Orks::Orks()
 shared_ptr<Quartier> Orks::GenererQuartier()
 {
     m_Quartier = make_shared<Quartier>("Poissy", "Quartier des Orks", ":/images/orks/quartier.jpg", this);
-    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    Extremis::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
     return m_Quartier;
 }
 
-QString Orks::GetGentile(bool masculin)
+QString Orks::GetGentile(bool /*masculin*/)
 {
     return "ork";
 }

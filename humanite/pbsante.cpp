@@ -9,6 +9,7 @@
 #include "socio_eco/classesociale.h"
 #include "techno/bionique.h"
 #include "humain.h"
+#include "geographie/quartier.h"
 
 QString PbSante::PESTE = "Peste";
 QString PbSante::C_SANTE = "Sante";
@@ -133,6 +134,16 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }
 }
 
+
+void PbSante::AllerAHopital(Humain* hum, std::shared_ptr<Effet> effet, int& nbMoisHopital)
+{
+    hum->SetValeurACaracId(PbSante::C_MOIS_HOPITAL, nbMoisHopital);
+    shared_ptr<Quartier> quartier = hum->GetQuartierCourant();
+    effet->m_Texte += "\nVous devez rester " + QString::number(nbMoisHopital) +
+            " mois à l'hopital. C'est un hopital " + quartier->m_Coterie->GetGentile() +
+            " du quartier " + quartier->m_Nom + ".";
+
+}
 
 void PbSante::BlessureLegere(Humain* hum, std::shared_ptr<Effet> effet, int& nbMoisHopital)
 {

@@ -5,6 +5,7 @@
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
 #include <QDebug>
+#include "extremis.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -17,11 +18,11 @@ Celte::Celte()
 shared_ptr<Quartier> Celte::GenererQuartier()
 {
     m_Quartier = make_shared<Quartier>("Fontainebleau", "Quartier des Celtes", "", this);
-    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    Extremis::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
     return m_Quartier;
 }
 
-QString Celte::GetGentile(bool masculin)
+QString Celte::GetGentile(bool /*masculin*/)
 {
     return "celte";
 }
@@ -134,7 +135,7 @@ QString Celte::CreerPatronyme(bool masculin)
             );
 }
 
-void Celte::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+void Celte::GenererPortraits(Humain* /*hum*/, int /*ageAnnees*/, QString /*metier*/, QVector<QString>& /*images*/)
 {}
 
 QVector<QString> Celte::PRENOMS_F = {

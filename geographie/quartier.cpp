@@ -13,30 +13,29 @@ using std::shared_ptr;
 using std::make_shared;
 
 
-QMap<QString, shared_ptr<Quartier>> Quartier::QUARTIERS = {};
 
 void Quartier::GenererQuartiersAdministratifs()
 {
     shared_ptr<Quartier> tour = make_shared<Quartier>("Tour de la convention", "Centre du gouvernement mondial", "");
-    Quartier::QUARTIERS[tour->m_Nom] = tour;
+    Extremis::QUARTIERS[tour->m_Nom] = tour;
 
     shared_ptr<Quartier> quartierAdmin6 = make_shared<Quartier>("6eme Quartier administratif", "6eme Quartier administratif", "");
-    Quartier::QUARTIERS[quartierAdmin6->m_Nom] = quartierAdmin6;
+    Extremis::QUARTIERS[quartierAdmin6->m_Nom] = quartierAdmin6;
 
     shared_ptr<Quartier> quartierAdmin5 = make_shared<Quartier>("5eme Quartier administratif", "5eme Quartier administratif", "");
-    Quartier::QUARTIERS[quartierAdmin5->m_Nom] = quartierAdmin5;
+    Extremis::QUARTIERS[quartierAdmin5->m_Nom] = quartierAdmin5;
 
     shared_ptr<Quartier> quartierAdmin4 = make_shared<Quartier>("4eme Quartier administratif", "4eme Quartier administratif", "");
-    Quartier::QUARTIERS[quartierAdmin4->m_Nom] = quartierAdmin4;
+    Extremis::QUARTIERS[quartierAdmin4->m_Nom] = quartierAdmin4;
 
     shared_ptr<Quartier> quartierAdmin3 = make_shared<Quartier>("3eme Quartier administratif", "3eme Quartier administratif", "");
-    Quartier::QUARTIERS[quartierAdmin3->m_Nom] = quartierAdmin3;
+    Extremis::QUARTIERS[quartierAdmin3->m_Nom] = quartierAdmin3;
 
     shared_ptr<Quartier> quartierAdmin2 = make_shared<Quartier>("2eme Quartier administratif", "2eme Quartier administratif", "");
-    Quartier::QUARTIERS[quartierAdmin2->m_Nom] = quartierAdmin2;
+    Extremis::QUARTIERS[quartierAdmin2->m_Nom] = quartierAdmin2;
 
     shared_ptr<Quartier> quartierAdmin1 = make_shared<Quartier>("1er Quartier administratif", "1er Quartier administratif", "");
-    Quartier::QUARTIERS[quartierAdmin1->m_Nom] = quartierAdmin1;
+    Extremis::QUARTIERS[quartierAdmin1->m_Nom] = quartierAdmin1;
 }
 
 double Quartier::GetPoidsDemo()
@@ -49,21 +48,21 @@ shared_ptr<Quartier> Quartier::GetQuartierAleatoire(bool selonDemographie)
 {
     if ( selonDemographie ) {
         double poidsDemoTotal = 0;
-        for ( shared_ptr<Quartier> quart: QUARTIERS) {
+        for ( shared_ptr<Quartier> quart: Extremis::QUARTIERS) {
             poidsDemoTotal += quart->GetPoidsDemo();
         }
 
         double alPoidsDemo = Aleatoire::GetAl()->Entre0Et1() * poidsDemoTotal;
 
-        for ( shared_ptr<Quartier> quart: QUARTIERS) {
+        for ( shared_ptr<Quartier> quart: Extremis::QUARTIERS) {
             alPoidsDemo -= quart->GetPoidsDemo();
             if ( alPoidsDemo <= 0)
                 return quart;
         }
 
     }
-    int val = Aleatoire::GetAl()->EntierInferieurA(QUARTIERS.size());
-    for ( shared_ptr<Quartier> quart: QUARTIERS) {
+    int val = Aleatoire::GetAl()->EntierInferieurA(Extremis::QUARTIERS.size());
+    for ( shared_ptr<Quartier> quart: Extremis::QUARTIERS) {
         if ( val <= 0)
             return quart;
         val--;

@@ -52,6 +52,7 @@ public:
     static void BlessureLegere(Humain* hum, std::shared_ptr<Effet> effet, int& nbMoisHopital);
     static void BlessureGrave(Humain* hum, std::shared_ptr<Effet> effet, int& nbMoisHopital);
 
+    static void AllerAHopital(Humain* hum, std::shared_ptr<Effet> effet, int& nbMoisHopital);
     static std::shared_ptr<Condition> AjouterModifProbaSiMort(std::shared_ptr<Condition> cond, double poidsProba);
     static std::shared_ptr<Condition> AjouterConditionSiVivant();
     static std::shared_ptr<Condition> AjouterConditionSiAgeSuperieurA(int ageAnnees);

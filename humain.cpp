@@ -4,6 +4,7 @@
 #include "texte/jourapresjour.h"
 #include "../destinLib/aleatoire.h"
 #include "socio_eco/metier.h"
+#include "geographie/quartier.h"
 
 Humain* Humain::ME = nullptr;
 
@@ -107,6 +108,16 @@ int Humain::GetAge()
 QString Humain::GetValeurCarac(QString id)
 {
     return DPerso::GetValeurCarac(id);
+}
+
+
+std::shared_ptr<Quartier> Humain::GetQuartierCourant()
+{
+    QString quartier = this->GetValeurCarac(QuartierEffets::C_QUARTIER_ACTUEL);
+    if ( quartier == "") {
+        quartier = this->GetValeurCarac(QuartierEffets::C_QUARTIER_HABITE);
+    }
+    return Extremis::QUARTIERS[quartier];
 }
 
 int Humain::GetValeurCaracAsInt(QString id)

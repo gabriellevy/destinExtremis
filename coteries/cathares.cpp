@@ -8,6 +8,7 @@
 #include "socio_eco/metier.h"
 #include "geographie/quartier.h"
 #include <QDebug>
+#include "extremis.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -20,11 +21,11 @@ Cathares::Cathares()
 shared_ptr<Quartier> Cathares::GenererQuartier()
 {
     m_Quartier = make_shared<Quartier>("Saint Maur des fossés", "Quartier des cathares", "", this);
-    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    Extremis::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
     return m_Quartier;
 }
 
-QString Cathares::GetGentile(bool masculin)
+QString Cathares::GetGentile(bool /*masculin*/)
 {
     return "cathare";
 }
@@ -169,7 +170,7 @@ QString Cathares::CreerPatronyme(bool masculin)
             );
 }
 
-void Cathares::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+void Cathares::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
 {
     if ( ageAnnees > 20 ) {
         if ( ageAnnees < 50 ) {

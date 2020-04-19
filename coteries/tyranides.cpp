@@ -5,6 +5,7 @@
 #include "socio_eco/metier.h"
 #include "geographie/quartier.h"
 #include <QDebug>
+#include "extremis.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -17,11 +18,11 @@ Tyranides::Tyranides()
 shared_ptr<Quartier> Tyranides::GenererQuartier()
 {
     m_Quartier = make_shared<Quartier>("Saint Ouen", "Quartier des Tyranides", "", this);
-    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    Extremis::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
     return m_Quartier;
 }
 
-QString Tyranides::GetGentile(bool masculin)
+QString Tyranides::GetGentile(bool /*masculin*/)
 {
     return "tyranide";
 }

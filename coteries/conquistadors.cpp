@@ -8,6 +8,7 @@
 #include "../destinLib/abs/condition.h"
 #include "geographie/quartier.h"
 #include <QDebug>
+#include "extremis.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -20,7 +21,7 @@ Conquistadors::Conquistadors()
 shared_ptr<Quartier> Conquistadors::GenererQuartier()
 {
     m_Quartier = make_shared<Quartier>("Honfleur", "Quartier des Conquistadors", "", this);
-    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    Extremis::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
     return m_Quartier;
 }
 
@@ -52,7 +53,7 @@ void Conquistadors::GenererTraitCompatibles()
     };
 }
 
-QString Conquistadors::GetGentile(bool masculin)
+QString Conquistadors::GetGentile(bool /*masculin*/)
 {
     return "conquistador";
 }

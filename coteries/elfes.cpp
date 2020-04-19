@@ -6,6 +6,7 @@
 #include "humanite/pbsante.h"
 #include "geographie/quartier.h"
 #include <QDebug>
+#include "extremis.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -18,11 +19,11 @@ Elfes::Elfes()
 shared_ptr<Quartier> Elfes::GenererQuartier()
 {
     m_Quartier = make_shared<Quartier>("Saint Germain en Laye", "Quartier des Elfes", "", this);
-    Quartier::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
+    Extremis::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
     return m_Quartier;
 }
 
-QString Elfes::GetGentile(bool masculin)
+QString Elfes::GetGentile(bool /*masculin*/)
 {
     return "elfe";
 }
@@ -87,7 +88,7 @@ double Elfes::GetPoidsDemo()
     return 0.4;
 }
 
-void Elfes::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+void Elfes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
 {
     if ( ageAnnees > 15 ) {
         if ( ageAnnees < 40 ) {

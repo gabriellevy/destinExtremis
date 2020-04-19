@@ -34,12 +34,13 @@ bool CaracPNJ::AfficherIntitule()
         ui->caracBox->setFont( *Univers::BASE_FONT);
         ui->caracBox->setTitle(m_DataCarac.m_Intitule);
         ui->caracBox->setToolTip(this->GetCaracDescription());
+        return true;
     }
     else
     {
         qDebug()<<"Tentative d'afficher une carac dénuée d'intitulé"<<endl;
-        return false;
     }
+    return false;
 }
 
 bool CaracPNJ::AfficherValeur()

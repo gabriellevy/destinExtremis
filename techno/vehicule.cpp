@@ -14,7 +14,7 @@ QString Vehicule::C_CONDUITE_AVION = "Pilotage avion";
 
 Vehicule::Vehicule(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmpModif = 0.0;
+    double tmpModif = 1.0;
     switch (indexEvt) {
     case 0 : {
         m_Nom = "accident de circulation";
@@ -48,8 +48,8 @@ Vehicule::Vehicule(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                 }
 
                 nbMoisHopital += Aleatoire::GetAl()->EntierEntreAEtB(1,6);
-                hum->SetValeurACaracId(PbSante::C_MOIS_HOPITAL, nbMoisHopital);
-                effet->m_Texte += "\nVous devez rester " + QString::number(nbMoisHopital) + " mois à l'hopital.";
+
+                PbSante::AllerAHopital(hum, effet, nbMoisHopital);
             }
         };
 

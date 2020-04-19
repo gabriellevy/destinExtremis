@@ -9,6 +9,7 @@
 
 class Effet;
 class JourApresJour;
+class Quartier;
 
 class Humain : public DPerso
 {
@@ -31,6 +32,7 @@ public:
     bool ACeTrait(eTrait trait);
     bool GagneCeTrait(eTrait trait, std::shared_ptr<Effet> effet);
     bool PerdCeTrait(eTrait trait, std::shared_ptr<Effet> effet);
+    std::shared_ptr<Quartier> GetQuartierCourant();
 
     /**
      * @brief met à jour le portrait du personnage sleon ses caracs actuelles

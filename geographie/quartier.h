@@ -23,7 +23,6 @@ struct Quartier {
     Coterie* m_Coterie; // pointeur simple sans responsabilité de le détruire
     double GetPoidsDemo();// 1.0 par défaut (poids normal de population)
 
-    static QMap<QString, std::shared_ptr<Quartier>> QUARTIERS;
     static std::shared_ptr<Quartier> GetQuartierAleatoire(bool selonDemographie = false);
     static void GenererQuartiersAdministratifs();
 };

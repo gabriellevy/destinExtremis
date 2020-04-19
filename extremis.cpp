@@ -12,6 +12,7 @@
 QString Extremis::VIE_HUMAIN = "Vie d'un humain";
 
 QVector<std::shared_ptr<Coterie>> Extremis::COTERIES = {};
+QMap<QString, shared_ptr<Quartier>> Extremis::QUARTIERS = {};
 
 Extremis::Extremis(ModeAffichage modeAffichage,
                    QWidget *parent)
