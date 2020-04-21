@@ -12,6 +12,7 @@
 #include "humanite/pbsante.h"
 #include "socio_eco/economieevt.h"
 #include "humain.h"
+#include "extremis.h"
 
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
@@ -42,7 +43,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Description = "Vous vous mettez à voler à droite à gauche pour survivre";
         m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
 
     }break;
@@ -54,7 +55,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, sournois);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_Description = "Vos perversions vous poussent à devenir un violeur de plus en plus dépravé.";
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
 
@@ -71,7 +72,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         m_Description = "Votre soif de richesse fait de vous un criminel de plus en plus violent.";
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
 
     }break;
@@ -83,7 +84,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                     make_shared<Condition>(Crime::C_CRIMINEL,
                                   "",
                                   Comparateur::c_Different));
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = Crime::CAPTURE_POLICE;
         // perd son métier :
         m_ModificateursCaracs[Metier::C_METIER] = "";
@@ -101,7 +102,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         m_Description = "Vous mettez en place un petit réseau de revente de drogue sur votre lieu "
                 "de travail qui vous fait très bien voir de vos collègues.";
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(Crime::AjouterConditionSiMalhonnete());
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
@@ -140,7 +141,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
                     make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE,
                                   ClasseSociale::PAUVRES,
                                   Comparateur::c_Egal));
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
 
     }break;
@@ -166,7 +167,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, opportuniste);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
@@ -180,7 +181,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, opportuniste);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
-        m_Conditions.push_back(Crime::AjouterConditionSiLibre());
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;

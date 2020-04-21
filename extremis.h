@@ -7,6 +7,7 @@
 #include <memory>
 
 class Quartier;
+class Condition;
 
 class Extremis : public Univers
 {
@@ -16,6 +17,8 @@ public:
     explicit Extremis(ModeAffichage modeAffichage = ModeAffichage::ema_Jeu,
              QWidget *parent = nullptr);
     void GenererCoteries();
+    // un perso est actif si il n'est aps en prison ni à l'hopial, qu'il est libre de ses mouvements
+    static void AjouterConditionSiActif(QList<std::shared_ptr<Condition>>& conditions);
 
     // noms d'aventures
     static QString VIE_HUMAIN;

@@ -34,6 +34,7 @@
 #include "coteries/croisadefranque.h"
 
 using std::make_shared;
+using std::shared_ptr;
 
 QString GenVieHumain::AGE = "Age";
 QString GenVieHumain::C_LIBERTE = "Liberté";
@@ -127,6 +128,7 @@ void GenVieHumain::GenererEvtsAccueil()
 
     AjouterEffetGoToEvt(GenVieHumain::EVT_SELECTEUR_ID, "finNaissance");
 }
+
 
 void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
 {

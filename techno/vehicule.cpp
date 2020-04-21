@@ -14,12 +14,13 @@ QString Vehicule::C_CONDUITE_AVION = "Pilotage avion";
 
 Vehicule::Vehicule(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmpModif = 1.0;
+    double tmpModif = 0.0;
     switch (indexEvt) {
     case 0 : {
         m_Nom = "accident de circulation";
         m_ConditionSelecteurProba = make_shared<Condition>(0.005 + tmpModif, p_Relative);
         m_Description = "????";
+        Extremis::AjouterConditionSiActif(m_Conditions);
         m_CallbackDisplay = [] {
             Humain* hum = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();

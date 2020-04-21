@@ -116,6 +116,7 @@ std::shared_ptr<Quartier> Humain::GetQuartierCourant()
     QString quartier = this->GetValeurCarac(QuartierEffets::C_QUARTIER_ACTUEL);
     if ( quartier == "") {
         quartier = this->GetValeurCarac(QuartierEffets::C_QUARTIER_HABITE);
+        this->SetValeurACaracId(QuartierEffets::C_QUARTIER_ACTUEL, quartier);
     }
     return Extremis::QUARTIERS[quartier];
 }
