@@ -375,13 +375,14 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
         m_Conditions.push_back(
              make_shared<Condition>(Crime::C_MOIS_PRISON, "0", Comparateur::c_Superieur));
+        m_Conditions.push_back(
+             make_shared<Condition>(Coterie::C_COTERIE, Coterie::CROISADE, Comparateur::c_Different));
         m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
 
             effet->m_Texte = "Un prêcheur de la croisade franque rend une visite dans votre prison."
                     "\nIl entame de longs discours sur l'honneur, le devoir la force et le sens de la vie et vous appelle à la rédemption en rejoignant les croisés qui s'engagent à vous aider à votre sortie de prison si vous preêtez serment.";
-
 
             double proba = Aleatoire::GetAl()->Entre0Et1();
             if ( proba < 0.3 ) {

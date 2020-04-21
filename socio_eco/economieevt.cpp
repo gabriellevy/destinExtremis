@@ -16,6 +16,7 @@ using std::make_shared;
 
 EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
+    double tmp_Modificateur = 1.0;
     switch (indexEvt) {
     case 0 : {
         m_Nom = "bon travail";
@@ -50,7 +51,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 1 : {
         m_Nom = "mauvais travail";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, maladroit);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, paresseux);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.02, travailleur);

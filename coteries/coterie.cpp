@@ -64,7 +64,7 @@ void Coterie::RejoindreCoterie(Humain* hum, shared_ptr<Effet> eff)
     hum->SetValeurACaracId(Coterie::C_COTERIE, GetId());
     QString nom = this->CreerPatronyme();
     hum->MajNom(nom);
-    eff->m_Texte += "\nVous rejoignez la coterie : " + GetNom() + " et vous êtes nummé " + nom + ".";
+    eff->m_Texte += "\nVous rejoignez la coterie : " + GetNom() + " et vous êtes nommé " + nom + ".";
     QString musique = GetMusique();
     if ( musique != "") {
         eff->m_Son = musique;

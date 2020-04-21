@@ -32,6 +32,7 @@
 #include "famille/amour.h"
 #include "coteries/orks.h"
 #include "coteries/croisadefranque.h"
+#include "coteries/conquistadors.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -160,6 +161,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<Amour>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtOrks>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtCroisadeFranque>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<EvtConquistadors>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>

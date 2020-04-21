@@ -9,6 +9,9 @@
 #include "geographie/quartier.h"
 #include <QDebug>
 #include "extremis.h"
+#include "humain.h"
+#include "../destinLib/abs/condition.h"
+#include "socio_eco/economieevt.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -703,3 +706,49 @@ QVector<QString> Conquistadors::NOMS = {
     "Zapatero",
     "Zaplana"
 };
+
+EvtConquistadors::EvtConquistadors(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+{
+    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
+    switch (indexEvt) {
+    case 0 : {
+        m_Nom = "Conversion des pauvres";
+        m_Description = "????";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(
+             make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-4", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(
+             make_shared<Condition>(Coterie::C_COTERIE, Coterie::CONQUISTADORS, Comparateur::c_Different));
+        m_CallbackDisplay = [] {
+            Humain* humain = Humain::GetHumainJoue();
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            effet->m_Texte = "Alors que vous êtes au plus bas à déprimer dans un bar vous êtes abordé par un conquistador en armure jovial."
+                            "Il vous vante la vie aventureuse aux confins du monde où vous pourrez avoir une vie aventureuse pleine de combats et de pillages. "
+                            "Là où la fortune se fait au mérite loin des magouilles politiciennes.";
+
+            // devient conquistador ??
+            shared_ptr<Coterie> conqui = Extremis::GetCoterie(Coterie::CONQUISTADORS);
+
+            double proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                humain->GagneCeTrait(aventureux, effet);
+            }
+            proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                humain->GagneCeTrait(cupide, effet);
+            }
+            proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                humain->GagneCeTrait(opportuniste, effet);
+            }
+
+            proba = conqui->Compatibilite(humain);
+            if ( proba >= Coterie::SEUIL_CONVERSION) {
+                conqui->RejoindreCoterie(humain, effet);
+            } else {
+                effet->m_Texte += "Ca ne suffit néanmoins pas à vous convaincre de devenir un conquistador.";
+            }
+        };
+    }break;
+    }
+}

@@ -445,6 +445,8 @@ EvtOrks::EvtOrks(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
         m_Conditions.push_back(
              make_shared<Condition>(PbSante::C_MOIS_HOPITAL, "0", Comparateur::c_Superieur));
+        m_Conditions.push_back(
+             make_shared<Condition>(Coterie::C_COTERIE, Coterie::ORKS, Comparateur::c_Different));
         m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
@@ -455,7 +457,7 @@ EvtOrks::EvtOrks(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             if ( proba >= Coterie::SEUIL_CONVERSION) {
                 orks->RejoindreCoterie(humain, effet);
             } else {
-                effet->m_Texte += "Ca ne suffit néanmoins pas à vous cnovaincre de devenir un ork.";
+                effet->m_Texte += "Ca ne suffit néanmoins pas à vous convaincre de devenir un ork.";
             }
         };
     }break;

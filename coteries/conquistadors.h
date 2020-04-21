@@ -2,6 +2,7 @@
 #define CONQUISTADORS_H
 
 #include "coterie.h"
+#include "generateurnoeudsprobables.h"
 
 class Conquistadors : public Coterie
 {
@@ -28,6 +29,14 @@ public:
     static QVector<QString> PRENOMS_M;
     static QVector<QString> PRENOMS_F;
     static QVector<QString> NOMS;
+};
+
+class EvtConquistadors : public GenerateurNoeudsProbables
+{
+private:
+
+public:
+    EvtConquistadors(int indexEvt);
 };
 
 #endif // CONQUISTADORS_H
