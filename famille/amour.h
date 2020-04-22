@@ -23,7 +23,8 @@ public:
     static QString PRE_AMOUREUSE1;
     static QString PRE_AMOUREUSE2; // triangles amoureux...
     static QString PRE_AMOUREUSE3; // triangles amoureux...
-    static QString C_ETAT_AMOUREUX;
+    static QString C_ETAT_AMOUREUX_M; // état amoureux de l'homme
+    static QString C_ETAT_AMOUREUX_F; // .. de la femme
     static QString C_ETAT_MARITAL;
     // valeurs de C_ETAT_MARITAL
     static QString CELIBATAIRE;
@@ -32,11 +33,18 @@ public:
     static QString CONCUBIN;
     static QString REGULIERE;// relations sexuelle régulières sans engagement
     // valeurs de C_ETAT_AMOUREUX
-    static QString LUI_AMOUREUX; // et pas elle
-    static QString ELLE_AMOUREUX; // et pas lui
-    static QString AMOUREUX; // les deux
+    static QString INDIFERENT;
+    static QString INTERESSE;
+    static QString AMOUREUX;
+    static QString ENGAGE; // engagé ensemble => pas plus d'un à la fois !!
+    static QString MEPRIS; // et autres sentiments négatifs
+    static QString AMOUREUX_OBSESSIONEL;
 
-    static void GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarrationVide);
+    static QString DeterminerNumeroAmoureuse(Humain* hum);
+    static void GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::shared_ptr<Effet> effetNarrationVide);
+    static void GenererTombeAmoureux(Humain* hum, std::shared_ptr<Effet> effetNarrationVide);
+    static void GenererAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarrationVide);
+    static void GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarrationVide); // mutuelle
 };
 
 #endif // AMOUR_H

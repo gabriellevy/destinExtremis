@@ -52,20 +52,20 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 1 : {
         m_Nom = "mauvais travail";
         m_ConditionSelecteurProba = make_shared<Condition>(0.02 + tmp_Modificateur, p_Relative);
-        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, maladroit);
-        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.02, paresseux);
-        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.02, travailleur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, maladroit);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, paresseux);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, travailleur);
         // plus la compétence est basse plus il  a de chances de se planter
-        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+        m_ConditionSelecteurProba->AjouterModifProba(0.005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "4", Comparateur::c_InferieurEgal)}
         );
-        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+        m_ConditionSelecteurProba->AjouterModifProba(0.005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "3", Comparateur::c_InferieurEgal)}
         );
-        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+        m_ConditionSelecteurProba->AjouterModifProba(0.005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "2", Comparateur::c_InferieurEgal)}
         );
-        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+        m_ConditionSelecteurProba->AjouterModifProba(0.005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "1", Comparateur::c_InferieurEgal)}
         );
         m_Description = "Vos nombreuses gaffes au travail mettent votre carrière en danger.";
