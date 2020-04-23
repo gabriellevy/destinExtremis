@@ -11,16 +11,19 @@
 #include "humanite/pnj.h"
 #include "humain.h"
 #include <QtMath>
+#include "socio_eco/economieevt.h"
 
 using std::make_shared;
 
 // caracs liées :
-QString Amour::PRE_AMOUREUSE1 = "Amoureuse_"; // pas forcément amoureuse, ça peut être juste le perso qui est amoureux d'elle
-QString Amour::PRE_AMOUREUSE2 = "Amoureuse 2_"; // triangle moureux...
-QString Amour::PRE_AMOUREUSE3 = "Amoureuse 3_"; // triangle moureux...
+QString Amour::PRE_COUPLE = "Couple_"; // pas forcément amoureuse, ça peut être juste le perso qui est amoureux d'elle
+QString Amour::PRE_MAITRESSE = "Maitresse_"; // triangle moureux...
+QString Amour::PRE_ELLE_AMOUREUSE = "Amoureuse_"; // triangle moureux...
+QString Amour::PRE_LUI_AMOUREUX = "Amoureux_"; // triangle moureux...
 QString Amour::C_ETAT_MARITAL = "État marital";
 QString Amour::C_ETAT_AMOUREUX_M = "Etat amoureux homme";
 QString Amour::C_ETAT_AMOUREUX_F = "Etat amoureux homme";
+QString Amour::C_FAIT_LA_COUR = "Fait la cour";
 // valeurs de C_ETAT_MARITAL
 QString Amour::CELIBATAIRE = "Célibataire";
 QString Amour::FIANCE = "Fiancé";//
@@ -37,8 +40,9 @@ QString Amour::AMOUREUX_OBSESSIONEL = "Obsessionnel";
 
 Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmpModificateur = 0.0;
+    double tmpModificateur = 1.0;
     switch (indexEvt) {
+    // tomber amoureux
     case 0 : {
         m_Nom = "Tombe amoureux d'une femme"; // mais pas elle de lui
         m_ConditionSelecteurProba = make_shared<Condition>(0.008 + tmpModificateur, p_Relative);
@@ -61,39 +65,15 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
           shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
           Amour::GenererTombeAmoureux(hum, effet);
         };
-        // ne retombe pas amoureux si il l'est déjà (et limite dure à 3 amoureuses)
-        m_Conditions.push_back( make_shared<Condition>(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Different));
-        m_Conditions.push_back( make_shared<Condition>(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Different)        );
-        m_Conditions.push_back( make_shared<Condition>(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX_M, "", Comparateur::c_Egal)        );
-        m_Conditions.push_back( make_shared<Condition>(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX_F, "", Comparateur::c_Egal)        );
+        // ne retombe pas amoureux si il l'est déjà
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Different));
+        m_Conditions.push_back( make_shared<Condition>(PRE_MAITRESSE + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Different));
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Different));
     }break;
     case 1 : {
         m_Nom = "Une femme tombe amoureuse de lui"; // mais pas lui d'elle
         m_ConditionSelecteurProba = make_shared<Condition>(0.008 + tmpModificateur, p_Relative);
-        m_ConditionSelecteurProba->AjouterModifProba(0.005,
-            { make_shared<Condition>(Trait::GetNomTrait(beau), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.002,
-            { make_shared<Condition>(Trait::GetNomTrait(grand), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.002,
-            { make_shared<Condition>(Trait::GetNomTrait(artiste), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.002,
-            { make_shared<Condition>(Trait::GetNomTrait(fort), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.002,
-            { make_shared<Condition>(Trait::GetNomTrait(angoisse), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.002,
-            { make_shared<Condition>(Trait::GetNomTrait(faible), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.003,
-            { make_shared<Condition>(Trait::GetNomTrait(laid), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.003,
-            { make_shared<Condition>(Trait::GetNomTrait(chetif), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.002,
-            { make_shared<Condition>(Trait::GetNomTrait(bete), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.002,
-            { make_shared<Condition>(Trait::GetNomTrait(paresseux), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.005,
-            { make_shared<Condition>(Trait::GetNomTrait(charmeur), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.005,
-            { make_shared<Condition>(GenVieHumain::AGE, "40", Comparateur::c_Superieur) } );
+        AjouterModifProbaSeduisant();
 
         m_Description = "hop";
         m_CallbackDisplay = [] {
@@ -105,30 +85,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 2 : {
         m_Nom = "Coup de foudre";
         m_ConditionSelecteurProba = make_shared<Condition>(0.003 + tmpModificateur, p_Relative);
-        m_ConditionSelecteurProba->AjouterModifProba(0.0005,
-            { make_shared<Condition>(Trait::GetNomTrait(beau), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.0002,
-            { make_shared<Condition>(Trait::GetNomTrait(grand), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.0002,
-            { make_shared<Condition>(Trait::GetNomTrait(artiste), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.0002,
-            { make_shared<Condition>(Trait::GetNomTrait(fort), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.0002,
-            { make_shared<Condition>(Trait::GetNomTrait(angoisse), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.0002,
-            { make_shared<Condition>(Trait::GetNomTrait(faible), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.0003,
-            { make_shared<Condition>(Trait::GetNomTrait(laid), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.0003,
-            { make_shared<Condition>(Trait::GetNomTrait(chetif), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.0002,
-            { make_shared<Condition>(Trait::GetNomTrait(bete), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.0002,
-            { make_shared<Condition>(Trait::GetNomTrait(paresseux), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(0.0005,
-            { make_shared<Condition>(Trait::GetNomTrait(charmeur), "1", Comparateur::c_Egal) } );
-        m_ConditionSelecteurProba->AjouterModifProba(-0.0005,
-            { make_shared<Condition>(GenVieHumain::AGE, "40", Comparateur::c_Superieur) } );
+        AjouterModifProbaSeduisant();
 
         m_Description = "hop";
         m_CallbackDisplay = [] {
@@ -137,9 +94,99 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
           Amour::GenererRencontreAmoureuse(hum, effet);
         };
     }break;
+
+        // séduction
+    case 3 : {
+        m_Nom = "Séduction de la femme";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.5 + tmpModificateur, p_Relative);
+        m_Description = "Fou de cette femme vous faites tout ce que vous pouvez pour la séduire.";
+        m_ModificateursCaracs[PRE_LUI_AMOUREUX + C_FAIT_LA_COUR] = "1";
+        // il est amoureux et pas déjà en séduction
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_FAIT_LA_COUR, "1", Comparateur::c_Different));
+    }break;
+    case 4 : {
+        m_Nom = "Séduction de la femme réussie";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmpModificateur, p_Relative);
+        AjouterModifProbaSeduisant();
+        m_Description = "???";
+        m_ModificateursCaracs[PRE_LUI_AMOUREUX + C_FAIT_LA_COUR] = "";
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
+        m_CallbackDisplay = [] {
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            Humain* hum  = Humain::GetHumainJoue();
+            effet->m_Texte = "Votre cour assidue porte ses fruits. La belle " +
+                    hum->GetValeurCarac( PRE_LUI_AMOUREUX + PNJ::C_NOM) +
+                    "est séduite.";
+            // transfert des caracs de elle amoureuse vers couple (ou maîtresse)
+            QString prefixe = PRE_COUPLE;
+            // si déjà en couple alors elle est sa maîtresse
+            if ( hum->GetValeurCarac(PRE_COUPLE + C_ETAT_MARITAL) != "")
+                prefixe = PRE_MAITRESSE;
+            hum->SetValeurACaracId(prefixe + PNJ::C_NOM, hum->GetValeurCarac(PRE_LUI_AMOUREUX + PNJ::C_NOM));
+            hum->SetValeurACaracId(prefixe + PNJ::C_COTERIE, hum->GetValeurCarac(PRE_LUI_AMOUREUX + PNJ::C_COTERIE));
+            hum->SetValeurACaracId(prefixe + PNJ::C_SEXE, hum->GetValeurCarac(PRE_LUI_AMOUREUX + PNJ::C_SEXE));
+            hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, hum->GetValeurCarac(PRE_LUI_AMOUREUX + GenVieHumain::AGE));
+            hum->SetValeurACaracId(prefixe + Amour::C_ETAT_MARITAL, hum->GetValeurCarac(PRE_LUI_AMOUREUX + Amour::C_ETAT_MARITAL));
+            hum->SetValeurACaracId(PRE_LUI_AMOUREUX + PNJ::C_NOM, "");
+
+        };
+        // il est amoureux et en séduction
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_FAIT_LA_COUR, "1", Comparateur::c_Egal));
+    }break;
+    case 5 : {
+        m_Nom = "Séduction de la femme ratée mais persévère";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmpModificateur, p_Relative);
+        m_Description = "Votre charme ne semble pas fonctionner. Mais vous ne désespérez pas, elle finira par reconnaître votre valeur.";
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
+        // il est amoureux et en séduction
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_FAIT_LA_COUR, "1", Comparateur::c_Egal));
+    }break;
+    case 6 : {
+        m_Nom = "Séduction de la femme ratée, abandonne";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.3 + tmpModificateur, p_Relative);
+        m_Description = "Votre charme ne semble pas fonctionner. Tant pis. Une autre finira par reconnaître votre valeur.";
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
+        m_ModificateursCaracs[PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M] = "";
+        m_ModificateursCaracs[PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M] = "";
+        m_ModificateursCaracs[PRE_LUI_AMOUREUX + PNJ::C_NOM] = "";
+        // il est amoureux et en séduction
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_LUI_AMOUREUX + C_FAIT_LA_COUR, "1", Comparateur::c_Egal));
+    }break;
+
     }
 }
 
+void Amour::AjouterModifProbaSeduisant()
+{
+    m_ConditionSelecteurProba->AjouterModifProba(0.005,
+        { make_shared<Condition>(Trait::GetNomTrait(beau), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(0.002,
+        { make_shared<Condition>(Trait::GetNomTrait(grand), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(0.002,
+        { make_shared<Condition>(Trait::GetNomTrait(artiste), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(0.002,
+        { make_shared<Condition>(Trait::GetNomTrait(fort), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(-0.002,
+        { make_shared<Condition>(Trait::GetNomTrait(angoisse), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(-0.002,
+        { make_shared<Condition>(Trait::GetNomTrait(faible), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(-0.003,
+        { make_shared<Condition>(Trait::GetNomTrait(laid), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(-0.003,
+        { make_shared<Condition>(Trait::GetNomTrait(chetif), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(-0.002,
+        { make_shared<Condition>(Trait::GetNomTrait(bete), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(-0.002,
+        { make_shared<Condition>(Trait::GetNomTrait(paresseux), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(0.005,
+        { make_shared<Condition>(Trait::GetNomTrait(charmeur), "1", Comparateur::c_Egal) } );
+    m_ConditionSelecteurProba->AjouterModifProba(-0.005,
+        { make_shared<Condition>(GenVieHumain::AGE, "40", Comparateur::c_Superieur) } );
+}
 
 void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::shared_ptr<Effet> effetNarration)
 {
@@ -163,7 +210,11 @@ void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::share
 
     // son age :
     int ageP = hum->GetValeurCaracAsInt(GenVieHumain::AGE);
-    int decal = qMin(ageP/2 - Aleatoire::GetAl()->EntierInferieurA(ageP), ageP-15);
+    int predecal = ageP/2 - Aleatoire::GetAl()->EntierInferieurA(ageP);
+    int decal = ageP-15;
+    if (qAbs(predecal) < decal) {
+        decal = predecal;
+    }
     int age = ageP + decal;
     hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, age);
 
@@ -184,8 +235,7 @@ void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::share
 
 void Amour::GenererTombeAmoureux(Humain* hum, std::shared_ptr<Effet> effetNarration)
 {
-    // 1ère, 2ème ou 3ème ?
-    QString prefixe = Amour::DeterminerNumeroAmoureuse(hum);
+    QString prefixe = PRE_LUI_AMOUREUX;
 
     Amour::GenererAmoureusePotentielle(prefixe, hum, effetNarration);
 
@@ -193,53 +243,12 @@ void Amour::GenererTombeAmoureux(Humain* hum, std::shared_ptr<Effet> effetNarrat
     hum->SetValeurACaracId(prefixe + C_ETAT_AMOUREUX_M, AMOUREUX);
 }
 
-QString Amour::DeterminerNumeroAmoureuse(Humain* hum)
-{
-    QString prefixe = "";
-    if (hum->GetValeurCarac(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX_M) == "" &&
-            hum->GetValeurCarac(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX_F) == "")
-        prefixe = PRE_AMOUREUSE1;
-    else if (hum->GetValeurCarac(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX_M) == "" &&
-             hum->GetValeurCarac(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX_F) == "")
-        prefixe = PRE_AMOUREUSE2;
-    else if (hum->GetValeurCarac(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX_M) == "" &&
-             hum->GetValeurCarac(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX_F) == "")
-        prefixe = PRE_AMOUREUSE3;
-    else {
-        // déjà trop d'amoureuses : il en perd une de vue
-        // on liquide les histoires où seule la femme est amoureuse :
-        if (hum->GetValeurCarac(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX_M) == "" )
-            prefixe = PRE_AMOUREUSE1;
-        else if (hum->GetValeurCarac(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX_M) == "" )
-            prefixe = PRE_AMOUREUSE2;
-        else if (hum->GetValeurCarac(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX_M) == "" )
-            prefixe = PRE_AMOUREUSE3;
-        else {
-            // on liquide les histore juste "intéressées"
-            if (hum->GetValeurCarac(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX_M) == Amour::INTERESSE )
-                prefixe = PRE_AMOUREUSE1;
-            else if (hum->GetValeurCarac(PRE_AMOUREUSE2 + C_ETAT_AMOUREUX_M) == Amour::INTERESSE )
-                prefixe = PRE_AMOUREUSE2;
-            else if (hum->GetValeurCarac(PRE_AMOUREUSE3 + C_ETAT_AMOUREUX_M) == Amour::INTERESSE )
-                prefixe = PRE_AMOUREUSE3;
-            else {
-                // on liquide ce qui n'est pas mariage ou concubin
-                if (hum->GetValeurCarac(PRE_AMOUREUSE1 + C_ETAT_AMOUREUX_M) != Amour::ENGAGE )
-                    prefixe = PRE_AMOUREUSE1;
-                else
-                    prefixe = PRE_AMOUREUSE2;
-            }
-        }
-    }
-
-
-    return prefixe;
-}
-
 void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarration)
 {
-    // 1ère, 2ème ou 3ème ?
-    QString prefixe = Amour::DeterminerNumeroAmoureuse(hum);
+    QString prefixe = PRE_COUPLE;
+    // si déjà en couple alors elle est sa maîtresse
+    if ( hum->GetValeurCarac(PRE_COUPLE + C_ETAT_MARITAL) != "")
+        prefixe = PRE_MAITRESSE;
 
     Amour::GenererAmoureusePotentielle(prefixe, hum, effetNarration);
 
@@ -250,8 +259,7 @@ void Amour::GenererRencontreAmoureuse(Humain* hum, std::shared_ptr<Effet> effetN
 
 void Amour::GenererAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarration)
 {
-    // 1ère, 2ème ou 3ème ?
-    QString prefixe = Amour::DeterminerNumeroAmoureuse(hum);
+    QString prefixe = PRE_ELLE_AMOUREUSE;
 
     Amour::GenererAmoureusePotentielle(prefixe, hum, effetNarration);
 

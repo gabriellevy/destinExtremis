@@ -83,9 +83,10 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_AMOUREUSE1, "Amoureuse"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_AMOUREUSE2, "Amoureuse"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_AMOUREUSE3, "Amoureuse"));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_COUPLE, "Couple"));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_MAITRESSE, "Maitresse"));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_ELLE_AMOUREUSE, "Amoureuse"));
+    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_LUI_AMOUREUX, "Convoitée"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
@@ -192,7 +193,10 @@ shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effe
     effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";
     effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);
-    effet->AjouterAjouteurACarac(Amour::PRE_AMOUREUSE1 + GenVieHumain::AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_COUPLE + GenVieHumain::AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_MAITRESSE + GenVieHumain::AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_ELLE_AMOUREUSE + GenVieHumain::AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_LUI_AMOUREUX + GenVieHumain::AGE, 1);
     effet->AjouterAjouteurACarac(Crime::C_MOIS_PRISON, -1);
     effet->AjouterAjouteurACarac(PbSante::C_MOIS_HOPITAL, -1);
     return effet;

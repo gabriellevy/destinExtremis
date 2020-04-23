@@ -250,14 +250,14 @@ QVector<QString> Conquistadors::PRENOMS_M = {
     "Rodigo", 	"Adis",	"Albertino",	"Alcidès",
     "Ãšrbez","AgostÃ­n","Aimadeio","Aimadeo","Aimau","Aimor","Albaro","Aleixandro","Aleixo","Alexandro","Alexo","Alfons","Alfred","Alifonso","Alixandre",
     "Alodio","Alois","AltabÃ¡s","Alvaro","Alziz","Amancio","Amanzio","Amat","Anchel","Andreu","Anizeto","AntÃ³n","Antoni","Aparizio","Arbert","Archentino",
-    "Archimiro","Armenchol","Arnau","Artal","Ato","Augusto","AusiÃ¡s","BalandÃ­n","BalantÃ­n","BaldobÃ­n","BaldovÃ­n","Baleriano","Balero","Bartomeu","BascuÃ©s",
-    "BastiÃ¡n","Bauzis","Belasco","BeliÃ¡n","Benanzio","BenchamÃ­n","Benet","Benino","Bentura","Beremundo","Berenguer","Berenice","Bernal","Bernat",
+    "Archimiro","Armenchol","Arnau","Artal","Ato","Augusto","AusiÃ¡s","Balanda­n","BalantÃ­n","BaldobÃ­n","BaldovÃ­n","Baleriano","Balero","Bartomeu","BascuÃ©s",
+    "BastiÃ¡n","Bauzis","Belasco","Belian","Benanzio","BenchamÃ­n","Benet","Benino","Bentura","Beremundo","Berenguer","Berenice","Bernal","Bernat",
     "BertolomÃ©","BertrÃ¡n","Bertran","BeturiÃ¡n","Beturio","BibiÃ¡n","Bisorio","Bital","Bitelio","Bitor","BizÃ©n","Blasco","Boecio","Boezio","Borrell",
-    "Borxa","Bras","Bruis","Buil","Burnau","Calisto","Calixto","Calvet","Cancio","Canzio","Carapas","Carles","CeferÃ­n","Celdoni","CelestÃ­n","Celidonio",
+    "Borxa","Bras","Bruis","Buil","Burnau","Calisto","Calixto","Calvet","Cancio","Canzio","Carapas","Carles","CeferÃ­n","Celdoni","Celesta­n","Celidonio",
     "Celipe","Cerilo","Cesar","Chabier","Chacinto","Chacobo","Chaime","Chavier","Chazinto","Chenaro","ChentÃ­l","Cherardo","Cherbasio","CheremÃ­as","CheriÃ³n",
-    "ChermÃ¡n","Cheromo","Cheronimo","Chervasio","ChesÃºs","Chil","ChimÃ©n","ChinÃ©s","Chodofrodo","Choel","ChonÃ¡s","ChonatÃ¡n","Chorche","Chuan","ChuaquÃ­n",
-    "Chubenal","Chudes","ChuliÃ¡n","Chulio","ChusÃ©","ChustÃ­n","Chustino","Chusto","Chuvenal","CicerÃ³n","Cilipo","ClimÃ©n","Climent","ColÃ¡s","CristiÃ¡n",
-    "Cristofo","DabÃ­","Dachoberto","Dacil","Dalmacio","Dalmau","Dalmazio","DavÃ­","Dazil","Dimetrio","Diochenes","Diochens","Dolcet","DomÃ¨nech","Domingo",
+    "Cherman","Cheromo","Cheronimo","Chervasio","ChesÃºs","Chil","ChimÃ©n","ChinÃ©s","Chodofrodo","Choel","Chonas","ChonatÃ¡n","Chorche","Chuan","ChuaquÃ­n",
+    "Chubenal","Chudes","Chulian","Chulio","Chusao","ChustÃ­n","Chustino","Chusto","Chuvenal","CicerÃ³n","Cilipo","ClimÃ©n","Climent","ColÃ¡s","CristiÃ¡n",
+    "Cristofo","DabÃ­","Dachoberto","Dacil","Dalmacio","Dalmau","Dalmazio","Davi­","Dazil","Dimetrio","Diochenes","Diochens","Dolcet","DomÃ¨nech","Domingo",
     "Donisio","Ebardo","ElÃ­","Elicio","Eliodoro","Elizio","Emerenziano","ErÃ³n","Ercules","Eriberto","Ermelando","Ermeneixildo","Ermenexildo","Ermengol",
     "Ermes","Esteve","Etelbino","EtelvÃ­n","Euchenio","Euloxio","Eunizie","Euridize","Eustazio","Fabricio","Fabrizio","Feli","Felip","FerrÃ¡n","Ferran",
     "Ferrando","FertÃºs","Filipo","Flabio","Flavio","Florencio","Florenzio","FloriÃ¡n","FrancÃ­","Francesc","Francho","Frederic","GabÃ­n","Gabriel","GalÃ©n",
@@ -746,7 +746,7 @@ EvtConquistadors::EvtConquistadors(int indexEvt):GenerateurNoeudsProbables (inde
             if ( proba >= Coterie::SEUIL_CONVERSION) {
                 conqui->RejoindreCoterie(humain, effet);
             } else {
-                effet->m_Texte += "Ca ne suffit néanmoins pas à vous convaincre de devenir un conquistador.";
+                effet->m_Texte += " Ca ne suffit néanmoins pas à vous convaincre de devenir un conquistador.";
             }
         };
     }break;

@@ -19,13 +19,15 @@ public:
 
     // caracs liées :
     // pas forcément amoureuse, ça peut être juste le perso qui est amoureux d'elle
-    // la mariée ou fiancée est forcément la première
-    static QString PRE_AMOUREUSE1;
-    static QString PRE_AMOUREUSE2; // triangles amoureux...
-    static QString PRE_AMOUREUSE3; // triangles amoureux...
+    // la mariée ou fiancée est forcément la première, les eprsonnages peuvent être transférées de l'une à l'autre dans les événements
+    static QString PRE_COUPLE; // à utiliser quand les deux sont amoureux ou qu'ils sont au moins encore en couple
+    static QString PRE_MAITRESSE; // triangles amoureux...
+    static QString PRE_ELLE_AMOUREUSE; // triangles amoureux...
+    static QString PRE_LUI_AMOUREUX; // triangles amoureux...
     static QString C_ETAT_AMOUREUX_M; // état amoureux de l'homme
     static QString C_ETAT_AMOUREUX_F; // .. de la femme
     static QString C_ETAT_MARITAL;
+    static QString C_FAIT_LA_COUR; // "1" si fait la cour
     // valeurs de C_ETAT_MARITAL
     static QString CELIBATAIRE;
     static QString FIANCE;//
@@ -40,7 +42,8 @@ public:
     static QString MEPRIS; // et autres sentiments négatifs
     static QString AMOUREUX_OBSESSIONEL;
 
-    static QString DeterminerNumeroAmoureuse(Humain* hum);
+    void AjouterModifProbaSeduisant();
+
     static void GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::shared_ptr<Effet> effetNarrationVide);
     static void GenererTombeAmoureux(Humain* hum, std::shared_ptr<Effet> effetNarrationVide);
     static void GenererAmoureuse(Humain* hum, std::shared_ptr<Effet> effetNarrationVide);

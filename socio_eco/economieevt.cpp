@@ -56,16 +56,16 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, paresseux);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, travailleur);
         // plus la compétence est basse plus il  a de chances de se planter
-        m_ConditionSelecteurProba->AjouterModifProba(0.005,
+        m_ConditionSelecteurProba->AjouterModifProba(0.0005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "4", Comparateur::c_InferieurEgal)}
         );
-        m_ConditionSelecteurProba->AjouterModifProba(0.005,
+        m_ConditionSelecteurProba->AjouterModifProba(0.0005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "3", Comparateur::c_InferieurEgal)}
         );
-        m_ConditionSelecteurProba->AjouterModifProba(0.005,
+        m_ConditionSelecteurProba->AjouterModifProba(0.0005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "2", Comparateur::c_InferieurEgal)}
         );
-        m_ConditionSelecteurProba->AjouterModifProba(0.005,
+        m_ConditionSelecteurProba->AjouterModifProba(0.0005,
             { make_shared<Condition>(Metier::C_COMPETENCE_METIER, "1", Comparateur::c_InferieurEgal)}
         );
         m_Description = "Vos nombreuses gaffes au travail mettent votre carrière en danger.";
