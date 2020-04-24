@@ -14,7 +14,7 @@ QString Vehicule::C_CONDUITE_AVION = "Pilotage avion";
 
 Vehicule::Vehicule(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmpModif = 0.0;
+    double tmpModif = 1.0;
     switch (indexEvt) {
     case 0 : {
         m_Nom = "accident de circulation";

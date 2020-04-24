@@ -369,7 +369,7 @@ QVector<QString> Elfes::NOMS_F1 = {
 
 EvtElfes::EvtElfes(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Conversion des malheureux en amour";

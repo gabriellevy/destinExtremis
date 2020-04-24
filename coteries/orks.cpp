@@ -435,7 +435,7 @@ QVector<QString> Orks::NOMS_F = {
 
 EvtOrks::EvtOrks(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Conversion à l'hôpital";
