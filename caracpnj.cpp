@@ -45,7 +45,7 @@ bool CaracPNJ::AfficherIntitule()
 
 bool CaracPNJ::AfficherValeur()
 {
-    if ( m_Pnj == nullptr) // comment détecter quand il change de valeur ?
+    //if ( m_Pnj == nullptr) // lourd de charger à chaque fois... comment détecter quand il change de valeur ?
         m_Pnj = PNJ::ChargerPNJ(GetPrefixe(), Humain::GetHumainJoue());
 
     if ( m_Pnj!= nullptr && m_Pnj->m_Nom != "")

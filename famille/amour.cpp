@@ -81,6 +81,8 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
           shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
           Amour::GenererAmoureuse(hum, effet);
         };
+        // i il n'y a pas déjà une amoureuse
+        m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + PNJ::C_NOM, "", Comparateur::c_Egal));
     }break;
     case 2 : {
         m_Nom = "Coup de foudre";
@@ -93,6 +95,8 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
           shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
           Amour::GenererRencontreAmoureuse(hum, effet);
         };
+        // si il n'y a pas déjà une maîtresse
+        m_Conditions.push_back( make_shared<Condition>(PRE_MAITRESSE + PNJ::C_NOM, "", Comparateur::c_Egal));
     }break;
 
         // séduction
@@ -160,7 +164,8 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 7 : {
         m_Nom = "Séduction par la femme";
         m_ConditionSelecteurProba = make_shared<Condition>(0.5 + tmpModificateur, p_Relative);
-        m_Description = "Folle de vous, elle fait tout ce qu'elle peut pour vous séduire.";
+        m_Description = "Folle de vous,  %%%" + ( PRE_ELLE_AMOUREUSE + PNJ::C_NOM) +
+                " fait tout ce qu'elle peut pour vous séduire.";
         m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + C_FAIT_LA_COUR] = "1";
         // elle est amoureuse et pas déjà en séduction
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
@@ -169,26 +174,19 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 8 : {
         m_Nom = "Séduction par la femme réussie";
         m_ConditionSelecteurProba = make_shared<Condition>(0.2 + tmpModificateur, p_Relative);
-        m_Description = "???";
+        m_Description = "La belle %%%" + ( PRE_ELLE_AMOUREUSE + PNJ::C_NOM) +
+                "a finalement touché votre coeur. Vous êtes sous son charme. Elle devient votre maîtresse.";
         m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + C_FAIT_LA_COUR] = "";
         m_CallbackDisplay = [] {
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
             Humain* hum  = Humain::GetHumainJoue();
-            effet->m_Texte = "La belle " +
-                    hum->GetValeurCarac( PRE_LUI_AMOUREUX + PNJ::C_NOM) +
-                    "a finalement touché votre coeur. Vous êtes sous son charme.";
-            // transfert des caracs de elle amoureuse vers couple (ou maîtresse)
-            QString prefixe = PRE_COUPLE;
-            // si déjà en couple alors elle est sa maîtresse
-            if ( hum->GetValeurCarac(PRE_COUPLE + C_ETAT_MARITAL) != "")
-                prefixe = PRE_MAITRESSE;
-            hum->SetValeurACaracId(prefixe + PNJ::C_NOM, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_NOM));
-            hum->SetValeurACaracId(prefixe + PNJ::C_COTERIE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_COTERIE));
-            hum->SetValeurACaracId(prefixe + PNJ::C_SEXE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_SEXE));
-            hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + GenVieHumain::AGE));
-            hum->SetValeurACaracId(prefixe + Amour::C_ETAT_MARITAL, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + Amour::C_ETAT_MARITAL));
-            hum->SetValeurACaracId(PRE_ELLE_AMOUREUSE + PNJ::C_NOM, "");
 
+            hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_NOM, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_NOM));
+            hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_COTERIE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_COTERIE));
+            hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_SEXE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_SEXE));
+            hum->SetValeurACaracId(PRE_MAITRESSE + GenVieHumain::AGE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + GenVieHumain::AGE));
+            hum->SetValeurACaracId(PRE_MAITRESSE + Amour::C_ETAT_MARITAL, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + Amour::C_ETAT_MARITAL));
+            hum->SetValeurACaracId(PRE_ELLE_AMOUREUSE + PNJ::C_NOM, "");
         };
         // elle est amoureuse et en séduction
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
@@ -197,7 +195,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 9 : {
         m_Nom = "Séduction par la femme ratée mais persévère";
         m_ConditionSelecteurProba = make_shared<Condition>(0.2 + tmpModificateur, p_Relative);
-        m_Description = "Son charme ne semble pas fonctionner. Mais elle ne désespère pas, vous finirez par reconnaître sa valeur.";
+        m_Description = "Son charme ne semble pas fonctionner. Mais %%%" + (PRE_ELLE_AMOUREUSE+PNJ::C_NOM) + "%%% ne désespère pas, vous finirez par reconnaître sa valeur.";
         // elle est amoureuse et en séduction
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_FAIT_LA_COUR, "1", Comparateur::c_Egal));
@@ -205,17 +203,63 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 10 : {
         m_Nom = "Séduction par la femme ratée, abandonne";
         m_ConditionSelecteurProba = make_shared<Condition>(0.5 + tmpModificateur, p_Relative);
-        m_Description = "Son charme ne semble pas fonctionner. Tant pis. Frustrée, elle est bien obligée de apsser à autre chose.";
+        m_Description = "Son charme ne semble pas fonctionner. Tant pis. Frustrée, elle est bien obligée de passer à autre chose.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
-        m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_M] = "";
-        m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_M] = "";
-        m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + PNJ::C_NOM] = "";
+        m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_F] = "";
+        //m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + PNJ::C_NOM] = "";
         // elle est amoureuse et en séduction
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_FAIT_LA_COUR, "1", Comparateur::c_Egal));
     }break;
+        // couple "principal"
+    case 11 : {
+        m_Nom = "Mariage";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmpModificateur, p_Relative);
+        m_ConditionSelecteurProba->AjouterModifProba(0.2,
+                {make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, Amour::REGULIERE, Comparateur::c_Egal)});
+        m_Description = "Vous vous mariez avec %%%" + (PRE_COUPLE+PNJ::C_NOM) + "%%%.";
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -4;
+        m_ModificateursCaracs[PRE_COUPLE + Amour::C_ETAT_MARITAL] = Amour::MARIE;
+        // a une amoureuse, n'est pas marié
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, Amour::MARIE, Comparateur::c_Different));
+    }break;
+    case 12 : {
+        m_Nom = "Engagement amoureux régulier";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.6 + tmpModificateur, p_Relative);
+        m_Description = "Vous sortez avec %%%" + (PRE_COUPLE+PNJ::C_NOM) + "%%%.";
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
+        m_ModificateursCaracs[PRE_COUPLE + Amour::C_ETAT_MARITAL] = Amour::REGULIERE;
+        // a une amoureuse, n'est pas marié
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, "", Comparateur::c_Egal));
+    }break;
+    case 13 : {
+        m_Nom = "Maîtresse devient femme officielle";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.3 + tmpModificateur, p_Relative);
+        m_Description = "Vous affichez maintenant au grand jour votre relation avec %%%" + (PRE_MAITRESSE+PNJ::C_NOM) + "%%%.";
+        m_CallbackDisplay = [] {
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            Humain* hum  = Humain::GetHumainJoue();
 
+            hum->SetValeurACaracId(PRE_COUPLE + PNJ::C_NOM, hum->GetValeurCarac(PRE_MAITRESSE + PNJ::C_NOM));
+            hum->SetValeurACaracId(PRE_COUPLE + PNJ::C_COTERIE, hum->GetValeurCarac(PRE_MAITRESSE + PNJ::C_COTERIE));
+            hum->SetValeurACaracId(PRE_COUPLE + PNJ::C_SEXE, hum->GetValeurCarac(PRE_MAITRESSE + PNJ::C_SEXE));
+            hum->SetValeurACaracId(PRE_COUPLE + GenVieHumain::AGE, hum->GetValeurCarac(PRE_MAITRESSE + GenVieHumain::AGE));
+            hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_NOM, "");
+        };
+        m_ModificateursCaracs[PRE_COUPLE + Amour::C_ETAT_MARITAL] = Amour::REGULIERE;
+
+        m_Conditions.push_back( make_shared<Condition>(PRE_MAITRESSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_MAITRESSE + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, "", Comparateur::c_Egal));
+    }break;
     }
+
+    // seulement si libre
+    Extremis::AjouterConditionSiActif(m_Conditions);
 }
 
 void Amour::AjouterModifProbaSeduisant()
