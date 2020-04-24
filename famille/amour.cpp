@@ -215,8 +215,10 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 11 : {
         m_Nom = "Mariage";
         m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmpModificateur, p_Relative);
-        m_ConditionSelecteurProba->AjouterModifProba(0.2,
+        m_ConditionSelecteurProba->AjouterModifProba(0.1,
                 {make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, Amour::REGULIERE, Comparateur::c_Egal)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.2,
+                {make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, Amour::CONCUBIN, Comparateur::c_Egal)});
         m_Description = "Vous vous mariez avec %%%" + (PRE_COUPLE+PNJ::C_NOM) + "%%%.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -4;
         m_ModificateursCaracs[PRE_COUPLE + Amour::C_ETAT_MARITAL] = Amour::MARIE;
@@ -255,6 +257,19 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back( make_shared<Condition>(PRE_MAITRESSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
         m_Conditions.push_back( make_shared<Condition>(PRE_MAITRESSE + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
         m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, "", Comparateur::c_Egal));
+    }break;
+    case 14 : {
+        m_Nom = "Cohabitation";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.2 + tmpModificateur, p_Relative);
+        m_ConditionSelecteurProba->AjouterModifProba(0.2,
+                {make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, Amour::REGULIERE, Comparateur::c_Egal)});
+        m_Description = "Vous décidez de vivre avec %%%" + (PRE_COUPLE+PNJ::C_NOM) + "%%%.";
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -4;
+        m_ModificateursCaracs[PRE_COUPLE + Amour::C_ETAT_MARITAL] = Amour::CONCUBIN;
+        // a une amoureuse, n'est pas marié
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(PRE_COUPLE + Amour::C_ETAT_MARITAL, Amour::MARIE, Comparateur::c_Different));
     }break;
     }
 
