@@ -40,7 +40,7 @@ QString Amour::AMOUREUX_OBSESSIONEL = "Obsessionnel";
 
 Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmpModificateur = 1.0;
+    double tmpModificateur = 0.0;
     switch (indexEvt) {
     // tomber amoureux
     case 0 : {
@@ -107,7 +107,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 4 : {
         m_Nom = "Séduction de la femme réussie";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmpModificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.2 + tmpModificateur, p_Relative);
         AjouterModifProbaSeduisant();
         m_Description = "???";
         m_ModificateursCaracs[PRE_LUI_AMOUREUX + C_FAIT_LA_COUR] = "";
@@ -137,7 +137,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 5 : {
         m_Nom = "Séduction de la femme ratée mais persévère";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmpModificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.2 + tmpModificateur, p_Relative);
         m_Description = "Votre charme ne semble pas fonctionner. Mais vous ne désespérez pas, elle finira par reconnaître votre valeur.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
         // il est amoureux et en séduction
@@ -146,7 +146,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 6 : {
         m_Nom = "Séduction de la femme ratée, abandonne";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.3 + tmpModificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.5 + tmpModificateur, p_Relative);
         m_Description = "Votre charme ne semble pas fonctionner. Tant pis. Une autre finira par reconnaître votre valeur.";
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -1;
         m_ModificateursCaracs[PRE_LUI_AMOUREUX + C_ETAT_AMOUREUX_M] = "";
@@ -210,11 +210,7 @@ void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::share
 
     // son age :
     int ageP = hum->GetValeurCaracAsInt(GenVieHumain::AGE);
-    int predecal = ageP/2 - Aleatoire::GetAl()->EntierInferieurA(ageP);
-    int decal = ageP-15;
-    if (qAbs(predecal) < decal) {
-        decal = predecal;
-    }
+    int decal = (ageP-14)/2 - Aleatoire::GetAl()->EntierInferieurA(ageP - 14);
     int age = ageP + decal;
     hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, age);
 

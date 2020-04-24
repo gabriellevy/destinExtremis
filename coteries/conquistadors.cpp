@@ -709,7 +709,7 @@ QVector<QString> Conquistadors::NOMS = {
 
 EvtConquistadors::EvtConquistadors(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "Conversion des pauvres";

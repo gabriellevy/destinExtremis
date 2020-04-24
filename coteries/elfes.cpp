@@ -7,6 +7,11 @@
 #include "geographie/quartier.h"
 #include <QDebug>
 #include "extremis.h"
+#include "humanite/pnj.h"
+#include "humain.h"
+#include <QtMath>
+#include "socio_eco/economieevt.h"
+#include "famille/amour.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -361,3 +366,49 @@ QVector<QString> Elfes::NOMS_F1 = {
     "Ti","Tia","Tin","Tinu","Tir","Tis","Ts","Tsa","Ui","Uia","Ul","Ule","Um","Umr","Ur","Urm","Us","Usc","Va","Val","Vas","Ve","Vel","Ver","Ves","Vi","Via",
     "Wy","Wyn","Ya","Yae","Yal","Yat","Yg","Ygr","Yn","Yns","Yr","Yrl","Yrn","Yrt","Ys","Ysm","Yu","Yul","Yun","Zo","Zoa"
 };
+
+EvtElfes::EvtElfes(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+{
+    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
+    switch (indexEvt) {
+    case 0 : {
+        m_Nom = "Conversion des malheureux en amour";
+        m_Description = "????";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
+        // il est amoureux (malheureux) et en séduction
+        m_Conditions.push_back( make_shared<Condition>(
+                                    Amour::PRE_LUI_AMOUREUX + Amour::C_ETAT_AMOUREUX_M, Amour::AMOUREUX, Comparateur::c_Egal));
+        m_Conditions.push_back( make_shared<Condition>(
+                                    Amour::PRE_LUI_AMOUREUX + Amour::C_FAIT_LA_COUR, "1", Comparateur::c_Egal));
+        // et pas elfe
+        m_Conditions.push_back(
+             make_shared<Condition>(Coterie::C_COTERIE, Coterie::ELFES, Comparateur::c_Different));
+        m_CallbackDisplay = [] {
+            Humain* humain = Humain::GetHumainJoue();
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            effet->m_Texte = "Plus le temps passe dans vos échecs en séduction plus vous vous dites que ce serait quand même bien plus simple si vous étiez un elfe beau, grand et poète.";
+            // devient elfe ??
+            shared_ptr<Coterie> cot = Extremis::GetCoterie(Coterie::ELFES);
+
+            double proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                humain->GagneCeTrait(angoisse, effet);
+            }
+            proba = Aleatoire::GetAl()->Entre0Et1();
+            if ( proba < 0.3 ) {
+                humain->GagneCeTrait(rancunier, effet);
+            }
+
+            proba = cot->Compatibilite(humain);
+            if ( proba >= Coterie::SEUIL_CONVERSION) {
+                cot->RejoindreCoterie(humain, effet);
+            } else {
+                proba = Aleatoire::GetAl()->Entre0Et1();
+                if ( proba < 0.3 ) {
+                    humain->GagneCeTrait(opportuniste, effet);
+                }
+            }
+        };
+    }break;
+    }
+}

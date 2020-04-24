@@ -2,6 +2,7 @@
 #define ELFES_H
 
 #include "coterie.h"
+#include "generateurnoeudsprobables.h"
 
 
 class Elfes : public Coterie
@@ -32,6 +33,14 @@ public:
     static QVector<QString> NOMS_F1;
     static QVector<QString> NOMS_F2;
     static QVector<QString> NOMS_F3;
+};
+
+class EvtElfes : public GenerateurNoeudsProbables
+{
+private:
+
+public:
+    EvtElfes(int indexEvt);
 };
 
 #endif // ELFES_H

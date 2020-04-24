@@ -74,7 +74,7 @@ bool Humain::GagneCeTrait(eTrait trait, std::shared_ptr<Effet> effet)
         }
         QString nomTrait = Trait::GetNomTrait(trait);
         this->SetValeurACaracId(nomTrait, "1");
-        effet->m_Texte += "\nVous gagnez " + nomTrait;
+        effet->m_Texte += "\nVous gagnez " + nomTrait + ".";
 
         return true;
     }
@@ -86,7 +86,7 @@ bool Humain::PerdCeTrait(eTrait trait, std::shared_ptr<Effet> effet)
     if ( ACeTrait(trait)) {
         QString nomTrait = Trait::GetNomTrait(trait);
         this->SetValeurACaracId(nomTrait, "1");
-        effet->m_Texte += "\nVous perdez " + nomTrait;
+        effet->m_Texte += "\nVous perdez " + nomTrait + ".";
 
         return true;
     }
