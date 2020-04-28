@@ -13,6 +13,7 @@
 #include "geographie/quartier.h"
 #include <QDebug>
 #include "extremis.h"
+#include "geographie/quartier.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -435,6 +436,8 @@ QVector<QString> Orks::NOMS_F = {
 
 EvtOrks::EvtOrks(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
+    shared_ptr<Coterie> cotOrk = Extremis::GetCoterie(Coterie::ORKS);
+
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
@@ -462,5 +465,37 @@ EvtOrks::EvtOrks(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             }
         };
     }break;
+    case 1 : {
+        m_Nom = "Opération surprise médiko dans un hopital ork";
+        m_Description = "???";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.15 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(
+             make_shared<Condition>(PbSante::C_MOIS_HOPITAL, "0", Comparateur::c_Superieur));
+        m_Conditions.push_back(
+             make_shared<Condition>(QuartierEffets::C_QUARTIER_ACTUEL, cotOrk->m_Quartier->m_Nom, Comparateur::c_Egal));
+        m_CallbackDisplay = [] {
+            Humain* humain = Humain::GetHumainJoue();
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            effet->m_Texte = "Un médiko ork vient rendre des visites à l'hopital et s'attarde dans votre chambre."
+                             "\nIl trouve que vous êtes idéal pour faire une expérience amusante et vous assomme pour que vous arrêtiez de vous plaindre.";
+
+            int nbMoisHopital = 0;
+            PbSante::BlessureLegere(humain, effet, nbMoisHopital);
+            effet->AjouterAjouteurACarac(PbSante::C_MOIS_HOPITAL, nbMoisHopital);
+            QString bionique = Bionique::AppliquerBionique(humain);
+            effet->m_Texte += "\nEt vous avez le bionique : " + bionique;
+        };
+    }break;
+    case 2 : {
+        m_Nom = "Les orks guérissent plus vite";
+        m_Description = "Votre corps d'ork vous fait guérir plus vite.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.4 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(
+             make_shared<Condition>(PbSante::C_MOIS_HOPITAL, "1", Comparateur::c_Superieur));
+        m_Conditions.push_back(
+             make_shared<Condition>(Coterie::C_COTERIE, Coterie::ORKS, Comparateur::c_Egal));
+        m_IncrementeursCaracs[PbSante::C_MOIS_HOPITAL] = -1;
+    }break;
     }
+
 }

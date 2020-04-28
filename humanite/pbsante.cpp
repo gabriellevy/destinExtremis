@@ -150,7 +150,7 @@ void PbSante::BlessureLegere(Humain* hum, std::shared_ptr<Effet> effet, int& nbM
     QString blessure = GetBlessureLegereAleatoire();
     effet->m_Texte += "\nVous êtes maintenant : " + blessure + ".";
     hum->SetValeurACaracId(blessure, "1");
-    nbMoisHopital += 1;
+    nbMoisHopital += 2;
 }
 
 void PbSante::BlessureGrave(Humain* hum, shared_ptr<Effet> effet, int& nbMoisHopital)
