@@ -20,7 +20,7 @@ QString Coterie::ELFES = "Elfes";
 QString Coterie::ORKS = "Orks";
 QString Coterie::TYRANIDES = "Tyranides";
 
-double Coterie::SEUIL_CONVERSION = 0.9;
+double Coterie::SEUIL_CONVERSION = 0.7;
 
 Coterie::Coterie()
 {}
@@ -51,6 +51,10 @@ double Coterie::Compatibilite(Humain* hum, bool aleatoire)
             proba += 0.3;
         }
     }
+
+    // baisse de compatibilité si déjà dans une coterie :
+    if ( hum->GetValeurCarac(Coterie::C_COTERIE) != "")
+       proba -= 0.1;
 
     return proba;
 }
