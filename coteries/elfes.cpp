@@ -95,8 +95,8 @@ double Elfes::GetPoidsDemo()
 
 void Elfes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
 {
-    if ( ageAnnees > 15 ) {
-        if ( ageAnnees < 40 ) {
+    if ( ageAnnees >= 15 ) {
+        if ( ageAnnees <= 40 ) {
             images.push_back(":/images/elfes/portrait_15-40_b.jpg");
             images.push_back(":/images/elfes/portrait_15-40_c.jpg");
             images.push_back(":/images/elfes/portrait_15-40_d.jpg");
@@ -104,9 +104,9 @@ void Elfes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/,
                 images.push_back(":/images/elfes/portrait_15-30.jpg");
             }
         }
-        if ( ageAnnees > 30 ) {
+        if ( ageAnnees >= 30 ) {
             images.push_back(":/images/elfes/portrait_30+.jpg");
-            if ( ageAnnees > 50 ) {
+            if ( ageAnnees >= 50 ) {
                 images.push_back(":/images/elfes/portrait_50+.jpg");
             }
         }

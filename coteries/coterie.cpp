@@ -4,6 +4,7 @@
 #include "../destinLib/abs/condition.h"
 #include "humain.h"
 #include "geographie/quartier.h"
+#include "socio_eco/economieevt.h"
 
 using std::shared_ptr;
 using std::make_shared;
@@ -64,10 +65,21 @@ void Coterie::RejoindreCoterie(Humain* hum, shared_ptr<Effet> eff)
     hum->SetValeurACaracId(Coterie::C_COTERIE, GetId());
     QString nom = this->CreerPatronyme();
     hum->MajNom(nom);
-    eff->m_Texte += "\nVous rejoignez la coterie : " + GetNom() + " et vous êtes nommé " + nom + ".";
+    eff->m_Texte += "\nVous rejoignez la coterie : " + GetNom() + ". Vous vous appelez maintenant " + nom + ".";
     QString musique = GetMusique();
     if ( musique != "") {
         eff->m_Son = musique;
+    }
+    // déménagement dans le quartier de la coterie ?
+    double proba = Aleatoire::GetAl()->Entre0Et1();
+    if ( proba >= 0.3) {
+        eff->m_Texte += "\nVous décidez de déménager dans " + m_Quartier->m_Nom + ", le quartier de votre nouvelle coterie.";
+        hum->SetValeurACaracId(QuartierEffets::C_QUARTIER_HABITE,
+                                                   m_Quartier->m_Nom);
+        hum->SetValeurACaracId(QuartierEffets::C_QUARTIER_ACTUEL,
+                                                   m_Quartier->m_Nom);
+        hum->SetValeurACaracId(EconomieEvt::C_NIVEAU_ECONOMIQUE,
+             hum->GetValeurCaracAsInt(EconomieEvt::C_NIVEAU_ECONOMIQUE) - 1);
     }
 }
 

@@ -28,17 +28,17 @@ void Humain::ActualisationPortrait()
     }
 
     if ( images.size() == 0 ) {
-        if ( age > 15 ) {
-            if ( age < 40 ) {
+        if ( age >= 15 ) {
+            if ( age <= 40 ) {
                 images.push_back(":/images/portraits/portrait_15-40.jpg");
                 images.push_back(":/images/portraits/portrait_15-40_b.jpg");
             }
         }
 
-        if ( age > 20 ) {
-            if ( age < 60 ) {
+        if ( age >= 20 ) {
+            if ( age <= 60 ) {
                 images.push_back(":/images/portraits/portrait_bucheron_20-60.jpg");
-                if ( age < 50 ) {
+                if ( age <= 50 ) {
                     images.push_back(":/images/portraits/portrait_20-50.jpg");
                 }
             }

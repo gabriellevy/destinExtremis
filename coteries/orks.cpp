@@ -39,11 +39,11 @@ void Orks::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<
 {
     if (hum->ACeTrait(chetif) && hum->ACeTrait(petit)) {
         // gobelins
-        if ( ageAnnees > 15 ) {
+        if ( ageAnnees >= 15 ) {
             if ( metier == Metier::MUSICIEN ) {
                 images.push_back(":/images/orks/portrait_gobelin_musicien_15+.jpg");
             }
-            if ( ageAnnees > 25 ) {
+            if ( ageAnnees >= 25 ) {
                 images.push_back(":/images/orks/portrait_gobelin_25+.jpg");
             }
         }
@@ -51,11 +51,11 @@ void Orks::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<
     else
     {
         // orks
-        if ( ageAnnees > 15 ) {
+        if ( ageAnnees >= 15 ) {
             images.push_back(":/images/orks/portrait_15+.jpg");
-            if ( ageAnnees > 30 ) {
+            if ( ageAnnees >= 30 ) {
                 images.push_back(":/images/orks/portrait_30+.jpg");
-                if ( ageAnnees > 40 ) {
+                if ( ageAnnees >= 40 ) {
                     images.push_back(":/images/orks/portrait_40+.jpg");
                 }
             }

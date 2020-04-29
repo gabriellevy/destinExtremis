@@ -351,13 +351,13 @@ QVector<QString> CroisadeFranque::PRENOMS_F = {
 
 void CroisadeFranque::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
 {
-    if ( ageAnnees > 20 ) {
-        if ( ageAnnees < 40 ) {
+    if ( ageAnnees >= 20 ) {
+        if ( ageAnnees <= 40 ) {
             images.push_back(":/images/croisade_franque/portrait_20-40.jpg");
         }
-        if ( ageAnnees > 30 ) {
+        if ( ageAnnees >= 30 ) {
             images.push_back(":/images/croisade_franque/portrait_30+.jpg");
-            if ( ageAnnees > 50 ) {
+            if ( ageAnnees >= 50 ) {
                 images.push_back(":/images/croisade_franque/portrait_50+.jpg");
                 images.push_back(":/images/croisade_franque/portrait_50+_b.jpg");
             }

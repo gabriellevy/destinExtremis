@@ -172,8 +172,8 @@ QString Cathares::CreerPatronyme(bool masculin)
 
 void Cathares::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
 {
-    if ( ageAnnees > 20 ) {
-        if ( ageAnnees < 50 ) {
+    if ( ageAnnees >= 20 ) {
+        if ( ageAnnees <= 50 ) {
             images.push_back(":/images/cathares/portrait_20-50.jpg");
             images.push_back(":/images/cathares/portrait_20-50_b.jpg");
         } else {
