@@ -40,6 +40,51 @@ QString Transhumanistes::GetGentile(bool /*masculin*/)
 
 void Transhumanistes::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
 {
+    if ( ageAnnees >= 10 ) {
+        if ( ageAnnees <= 20 ) {
+            images.push_back(":/images/transhumanistes/portrait10-20.jpg");
+        }
+    }
+    if ( ageAnnees >= 35 ) {
+        images.push_back(":/images/transhumanistes/portrait35+.jpg");
+        images.push_back(":/images/transhumanistes/portrait35+_2.jpg");
+        images.push_back(":/images/transhumanistes/portrait35+_3.jpg");
+    }
+    if ( ageAnnees >= 40 ) {
+        images.push_back(":/images/transhumanistes/portrait40+.jpg");
+    }
+    if ( ageAnnees >= 50 ) {
+        images.push_back(":/images/transhumanistes/portrait50+.jpg");
+    }
+    if ( ageAnnees >= 60 ) {
+        images.push_back(":/images/transhumanistes/portrait60+.jpg");
+        images.push_back(":/images/transhumanistes/portrait60+_2.jpg");
+    }
+    if ( ageAnnees >= 70 ) {
+        images.push_back(":/images/transhumanistes/portrait70+.jpg");
+    }
+    if ( ageAnnees >= 30 ) {
+        if ( ageAnnees <= 50 ) {
+            images.push_back(":/images/transhumanistes/portrait30-50.jpg");
+            images.push_back(":/images/transhumanistes/portrait30-50_2.jpg");
+            images.push_back(":/images/transhumanistes/portrait30-50_3.jpg");
+        }
+    }
+    if ( ageAnnees >= 20 ) {
+        if ( ageAnnees <= 50 ) {
+            images.push_back(":/images/transhumanistes/portrait20-40.jpg");
+            images.push_back(":/images/transhumanistes/portrait20-50.jpg");
+            images.push_back(":/images/transhumanistes/portrait20-50_2.jpg");
+            images.push_back(":/images/transhumanistes/portrait20-50_3.jpg");
+        }
+    }
+    if ( ageAnnees >= 15 ) {
+        if ( ageAnnees <= 30 ) {
+            images.push_back(":/images/transhumanistes/portrait15-30.jpg");
+            images.push_back(":/images/transhumanistes/portrait15-30_2.jpg");
+            images.push_back(":/images/transhumanistes/portrait15-30_3.jpg");
+        }
+    }
 
 }
 

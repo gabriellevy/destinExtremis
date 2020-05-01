@@ -72,5 +72,24 @@
         <file>images/orks/portrait_gobelin_25+.jpg</file>
         <file>images/orks/portrait_gobelin_musicien_15+.jpg</file>
         <file>images/transhumanistes/quartier.jpg</file>
+        <file>images/transhumanistes/portrait10-20.jpg</file>
+        <file>images/transhumanistes/portrait15-30.jpg</file>
+        <file>images/transhumanistes/portrait15-30_2.jpg</file>
+        <file>images/transhumanistes/portrait15-30_3.jpg</file>
+        <file>images/transhumanistes/portrait20-40.jpg</file>
+        <file>images/transhumanistes/portrait20-50.jpg</file>
+        <file>images/transhumanistes/portrait20-50_2.jpg</file>
+        <file>images/transhumanistes/portrait20-50_3.jpg</file>
+        <file>images/transhumanistes/portrait30-50.jpg</file>
+        <file>images/transhumanistes/portrait30-50_2.jpg</file>
+        <file>images/transhumanistes/portrait30-50_3.jpg</file>
+        <file>images/transhumanistes/portrait35+.jpg</file>
+        <file>images/transhumanistes/portrait35+_2.jpg</file>
+        <file>images/transhumanistes/portrait35+_3.jpg</file>
+        <file>images/transhumanistes/portrait40+.jpg</file>
+        <file>images/transhumanistes/portrait50+.jpg</file>
+        <file>images/transhumanistes/portrait60+.jpg</file>
+        <file>images/transhumanistes/portrait60+_2.jpg</file>
+        <file>images/transhumanistes/portrait70+.jpg</file>
     </qresource>
 </RCC>
