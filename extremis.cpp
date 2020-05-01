@@ -5,6 +5,7 @@
 #include "coteries/croisadefranque.h"
 #include "coteries/celte.h"
 #include "coteries/orks.h"
+#include "coteries/transhumanistes.h"
 #include "coteries/elfes.h"
 #include "coteries/conquistadors.h"
 #include "coteries/cathares.h"
@@ -38,7 +39,8 @@ void Extremis::GenererCoteries()
         make_shared<Orks>(),
         //make_shared<Cathares>(),
         make_shared<Conquistadors>(),
-        make_shared<CroisadeFranque>()
+        make_shared<CroisadeFranque>(),
+        make_shared<Transhumanistes>()
     };
 }
 

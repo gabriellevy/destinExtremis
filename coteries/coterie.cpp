@@ -19,6 +19,7 @@ QString Coterie::CROISADE = "Croisade franque";
 QString Coterie::ELFES = "Elfes";
 QString Coterie::ORKS = "Orks";
 QString Coterie::TYRANIDES = "Tyranides";
+QString Coterie::TRANSHUMANISTES = "Transhumanistes";
 
 double Coterie::SEUIL_CONVERSION = 0.7;
 

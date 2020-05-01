@@ -1,5 +1,5 @@
-#ifndef ORKS_H
-#define ORKS_H
+#ifndef TRANSHUMANISTES_H
+#define TRANSHUMANISTES_H
 
 #include "coterie.h"
 #include "generateurnoeudsprobables.h"
@@ -10,10 +10,11 @@ class Condition;
 class Humain;
 class Evt;
 
-class Orks : public Coterie
+
+class Transhumanistes : public Coterie
 {
 public:
-    Orks();
+    Transhumanistes();
 
     void GenererTraitCompatibles();
     QString GetNom();
@@ -26,22 +27,17 @@ public:
     virtual QString GetGentile(bool masculin = true);
     QString CreerPatronyme(bool masculin = true);
     virtual void GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images);
-    QString GetMusique();
     virtual std::shared_ptr<Quartier> GenererQuartier();
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant);
-    virtual void RejoindreCoterie(Humain* hum, std::shared_ptr<Effet> eff);
-
-    static QVector<QString> NOMS_M;
-    static QVector<QString> NOMS_F;
 };
 
-class EvtOrks : public GenerateurNoeudsProbables
+class EvtTranshumanistes : public GenerateurNoeudsProbables
 {
 private:
 
 public:
-    EvtOrks(int indexEvt);
+    EvtTranshumanistes(int indexEvt);
 };
 
-#endif // ORKS_H
+#endif // TRANSHUMANISTES_H

@@ -43,6 +43,10 @@ public:
     static QString PILOTE; // pilote d'aéronef
     static QString TUEUR_DE_MONSTRE; //  au sens large adapté selon la coterie et sa définition de monstre
     static QString ARCHITECTE;
+    static QString INFORMATICIEN;
+    static QString CYBERNETICIEN;
+    static QString GENETICIEN;
+    static QString COMMERCIAL;
     static QString PARASITE; // type qui ne bosse jaamis mais est très doué pour vivre aux dépens des autres
 
     // correspond au niveau de la carac du métier du personnage

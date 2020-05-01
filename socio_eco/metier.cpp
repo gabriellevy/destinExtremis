@@ -30,6 +30,10 @@ QString Metier::PARASITE = "Parasite";
 QString Metier::GUERRIER = "Guerrier";
 QString Metier::CONDUCTEUR = "Conducteur";
 QString Metier::PILOTE = "Pilote";
+QString Metier::INFORMATICIEN = "Informaticien";
+QString Metier::CYBERNETICIEN = "Cybernéticien";
+QString Metier::GENETICIEN = "Généticien";
+QString Metier::COMMERCIAL = "Commercial";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -44,26 +48,26 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 1 : {
         m_Nom = Metier::MUSICIEN;
-        m_ConditionSelecteurProba = make_shared<Condition>(0.00005 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0005 - tmpFavoriseur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.3, artiste);
         Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.05, Coterie::CONQUISTADORS);
         Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.03, Coterie::ELFES);
     }break;
     case 2 : {
         m_Nom = Metier::POETE;
-        m_ConditionSelecteurProba = make_shared<Condition>(0.00005 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0005 - tmpFavoriseur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.3, artiste);
         Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.03, Coterie::ELFES);
     }break;
     case 3 : {
         m_Nom = Metier::ALCHIMISTE;
-        m_ConditionSelecteurProba = make_shared<Condition>(0.00001 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0001 - tmpFavoriseur, p_Relative);
         Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.03, Coterie::ELFES);
         Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.03, Coterie::CELTES);
     }break;
     case 4 : {
         m_Nom = Metier::MEDECIN;
-        m_ConditionSelecteurProba = make_shared<Condition>(0.001 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0001 - tmpFavoriseur, p_Relative);
     }break;
     case 5 : {
         m_Nom = Metier::CARTOGRAPHE;
@@ -75,7 +79,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 7 : {
         m_Nom = Metier::ARCHITECTE;
-        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.001 - tmpFavoriseur, p_Relative);
     }break;
     case 8 : {
         m_Nom = Metier::TUEUR_DE_MONSTRE;
@@ -121,6 +125,22 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 17 : {
         m_Nom = Metier::PILOTE;
         m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
+    }break;
+    case 18 : {
+        m_Nom = Metier::INFORMATICIEN;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
+    }break;
+    case 19 : {
+        m_Nom = Metier::CYBERNETICIEN;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
+    }break;
+    case 20 : {
+        m_Nom = Metier::GENETICIEN;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
+    }break;
+    case 21 : {
+        m_Nom = Metier::COMMERCIAL;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.005 - tmpFavoriseur, p_Relative);
     }break;
     }
 

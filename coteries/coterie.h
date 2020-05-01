@@ -72,6 +72,7 @@ public:
     static QString ELFES;
     static QString ORKS;
     static QString TYRANIDES;
+    static QString TRANSHUMANISTES;
 
 
     static double SEUIL_CONVERSION; // à partir de quelle valeur retournée par la fonction "compatibilité" le eprsonnage rejoint-il al coterie ?

@@ -5,7 +5,8 @@ HEADERS += $$PWD/tyranides.h \
     $$PWD/coterie.h \
     $$PWD/croisadefranque.h \
     $$PWD/elfes.h \
-    $$PWD/orks.h
+    $$PWD/orks.h \
+    $$PWD/transhumanistes.h
 SOURCES += $$PWD/tyranides.cpp \
     $$PWD/cathares.cpp \
     $$PWD/celte.cpp \
@@ -13,4 +14,5 @@ SOURCES += $$PWD/tyranides.cpp \
     $$PWD/coterie.cpp \
     $$PWD/croisadefranque.cpp \
     $$PWD/elfes.cpp \
-    $$PWD/orks.cpp
+    $$PWD/orks.cpp \
+    $$PWD/transhumanistes.cpp
