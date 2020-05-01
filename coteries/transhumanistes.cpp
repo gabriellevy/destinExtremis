@@ -15,6 +15,7 @@
 #include "extremis.h"
 #include "geographie/quartier.h"
 #include "humanite/identite.h"
+#include "socio_eco/economieevt.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -159,24 +160,64 @@ std::shared_ptr<Effet> Transhumanistes::AjouterEffetUniversite(GenHistoire* genH
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
 
-    // blessure dans la fosse
+    // cours scientifique
     {
-       /* QString blessure = PbSante::GetBlessureLegereAleatoire();
         shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
-                    "Au cours d'un entrainement au combat dans les fosses vous recevez une blessure : " + blessure +
-                    "\nLes orks en rigolent un bon coup et vous tappent dans le dos joyeusement. \"Tu verras quand tu s'ras un vrai ork ça r'poussera\"",
-                    ":/images/orks/Combat_fosse.jpg",
+                    "La génétique et la cybernétique sont les base du transhumanisme. Une initiation à ces sciences est indispensable dans cette université. ",
+                    ":/images/transhumanistes/labo.jpg",
                     "", evt);
-        effet1->AjouterChangeurDeCarac(blessure, "1");
-        effet1->AjouterChangeurDeCarac(PbSante::DEFIGURE, "1");
-        effet1->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
-        effet1->AjouterChangeurDeCarac((make_shared<Trait>(eTrait::beau))->GetNom(), ""); // le joueur perd son éventuelle beauté...
+        effet1->AjouterAjouteurACarac(Metier::GENETICIEN, "1");
+        effet1->AjouterAjouteurACarac(Metier::CYBERNETICIEN, "1");
+        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
+        effet1->m_GoToEffetId = go_to_effet_suivant;
+        shared_ptr<Condition> cond1 = make_shared<Condition>(0.7, TypeProba::p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(cond1.get(), 0.5, intelligent);
+        Trait::AjouterModifProbaSiACeTrait(cond1.get(), -0.5, bete);
+        shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                    effet1,
+                    cond1);
+        noeudsProbaEducation.push_back(noeud1);
+    }
+    // cours informatique
+    {
+        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                    "L'informatique est indispensable pour garder en fonctionnement les nombreuses organisations techniquement avancées des transhumanistes. "
+                    "L'université comprend bien sûr des cours variés dans cette discipline.",
+                    ":/images/transhumanistes/poste de controle.jpg",
+                    "", evt);
+        effet1->AjouterAjouteurACarac(Metier::INFORMATICIEN, "1");
+        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
         effet1->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
                     effet1,
                     cond1);
-        noeudsProbaEducation.push_back(noeud1);*/
+        noeudsProbaEducation.push_back(noeud1);
+    }
+    // cours de commerce
+    {
+        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                    "La base de la philosophie libérale transhumaniste est que tout se vend. Les produits et les améliorations cybernétique bien sûr. Mais un politique se vend aussi à son électorat comme un gendre à sa belle famille."
+                    "Que vous fassiez carrière dans le commerce ou pas ces cours de commerce et de manipulation seront utiles.",
+                    ":/images/transhumanistes/commercial.jpg",
+                    "", evt);
+        effet1->AjouterAjouteurACarac(Metier::COMMERCIAL, "1");
+        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
+        double proba = Aleatoire::GetAl()->Entre0Et1();
+        if ( proba <= 0.5) {
+            effet1->m_Texte += "\nVous devenez 'cupide'.";
+            effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(cupide), "1");
+        }
+        if ( proba <= 0.5) {
+            effet1->m_Texte += "\nVous devenez 'charmeur'.";
+            effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(charmeur), "1");
+        }
+        effet1->m_GoToEffetId = go_to_effet_suivant;
+        shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                    effet1,
+                    cond1);
+        noeudsProbaEducation.push_back(noeud1);
     }
 
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
