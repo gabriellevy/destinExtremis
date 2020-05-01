@@ -130,7 +130,8 @@ QString Transhumanistes::GetNom()
 
 QString Transhumanistes::GetDescription()
 {
-    return "Description des Orks";
+    return "Les transhumanistes sont la coterie qui embrasse le plus la technologie moderne surtout dans tout ce qui s'applique à la transformation de l'humain. "
+            "Ils s'obsèdent en particulier pour la cybernétique et les modifications génétiques et ils sont très loin en avance sur toutes les autres coteries à ce sujet.";
 }
 
 QString Transhumanistes::GetDescriptionUniversite()
