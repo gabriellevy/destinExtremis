@@ -39,6 +39,8 @@ enum eTrait : int {
     cruel,
     rancunier,
     angoisse, // angoissé, stressé, pas bien dans sa peau
+    egoiste,
+    empathique,
 
     // psychologique acquis plus idéologique => PeutEtrePrisALaNaissance renvoie false
     pervers_sexuel,
@@ -92,6 +94,8 @@ public:
     static void AjouterModifProbaSiACeTrait(Condition* CondProba, double proba, eTrait trait);
     static void AjouterConditionSiACeTrait(std::shared_ptr<Effet> effet, eTrait trait);
     static void AjouterConditionSiAPasCeTrait(std::shared_ptr<Effet> effet, eTrait trait);
+    static void AjouterGagneTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
+    static void AjouterPerdTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
 
     bool PeutEtrePrisALaNaissance(); // renvoit faux si ce trait peut seulement être acquis plutôt tard dans la vie
 };

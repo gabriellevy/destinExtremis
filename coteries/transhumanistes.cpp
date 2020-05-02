@@ -16,6 +16,7 @@
 #include "geographie/quartier.h"
 #include "humanite/identite.h"
 #include "socio_eco/economieevt.h"
+#include "religion/religion.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -212,6 +213,32 @@ std::shared_ptr<Effet> Transhumanistes::AjouterEffetUniversite(GenHistoire* genH
             effet1->m_Texte += "\nVous devenez 'charmeur'.";
             effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(charmeur), "1");
         }
+        effet1->m_GoToEffetId = go_to_effet_suivant;
+        shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                    effet1,
+                    cond1);
+        noeudsProbaEducation.push_back(noeud1);
+    }
+
+    // cours de philosophie libérale transhumaniste
+    {
+        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                    "Toute coterie a une forme de philosophie et celle des transhumanistes est une des plus développée. Tout vous est expliqué sur plusieurs mois. Du matérialisme au libéralisme. "
+                    "Le progrès est central et l'amélioration de l'humain en tant qu'individu complet est le but final de toute la coterie. Vous en ressortez transformé.",
+                    ":/images/transhumanistes/ingenieur.jpg",
+                    "", evt);
+        Trait::AjouterGagneTraitSelonProba(effet1, egoiste, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet1, ambitieux, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet1, cupide, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet1, opportuniste, 0.5);
+        Trait::AjouterPerdTraitSelonProba(effet1, sens_du_groupe, 0.5);
+        Trait::AjouterPerdTraitSelonProba(effet1, sens_du_sacrifice, 0.5);
+        double proba = Aleatoire::GetAl()->Entre0Et1();
+        if ( proba <= 0.5) {
+            Religion::ModifierEffetEnEffetConversion(effet1, Religion::ATHEE);
+        }
+
         effet1->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(

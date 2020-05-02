@@ -53,6 +53,8 @@ QString Trait::GetNom()
     case cruel: return "Cruel";
     case pacifiste: return "Pacifiste";
     case angoisse: return "Angoissé";
+    case empathique: return "Empathique";
+    case egoiste: return "Égoïste";
     case paresseux: return "Paresseux";
     case travailleur: return "Travailleur";
     case charmeur: return "Charmeur";
@@ -60,6 +62,26 @@ QString Trait::GetNom()
     }
 
      return "Trait au nom non ajouté";
+}
+
+
+void Trait::AjouterGagneTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba)
+{
+    double res = Aleatoire::GetAl()->Entre0Et1();
+    if ( res <= proba) {
+        effet->m_Texte += "\nVous devenez " + Trait::GetNomTrait(trait) + ".";
+        effet->AjouterChangeurDeCarac(Trait::GetNomTrait(trait), "1");
+        effet->AjouterChangeurDeCarac(Trait::GetNomTrait(Trait::GetTraitOppose(trait)), "");
+    }
+}
+
+void Trait::AjouterPerdTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba)
+{
+    double res = Aleatoire::GetAl()->Entre0Et1();
+    if ( res <= proba) {
+        effet->m_Texte += "\nVous perdez " + Trait::GetNomTrait(trait) + ".";
+        effet->AjouterChangeurDeCarac(Trait::GetNomTrait(trait), "");
+    }
 }
 
 QString Trait::GetNomTrait(eTrait etrait)
@@ -122,8 +144,10 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case jouisseur: break;
     case ambitieux: break;
     case aventureux: break;
-    case altruiste: return cruel;
-    case cruel: return altruiste;
+    case altruiste: return egoiste;
+    case cruel: return empathique;
+    case egoiste: return altruiste;
+    case empathique: return cruel;
     case angoisse: break;
     case charmeur: break;
     case observateur: break;
