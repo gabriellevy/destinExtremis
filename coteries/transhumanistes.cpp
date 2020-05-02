@@ -234,10 +234,47 @@ std::shared_ptr<Effet> Transhumanistes::AjouterEffetUniversite(GenHistoire* genH
         Trait::AjouterGagneTraitSelonProba(effet1, opportuniste, 0.5);
         Trait::AjouterPerdTraitSelonProba(effet1, sens_du_groupe, 0.5);
         Trait::AjouterPerdTraitSelonProba(effet1, sens_du_sacrifice, 0.5);
+        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
         double proba = Aleatoire::GetAl()->Entre0Et1();
         if ( proba <= 0.5) {
             Religion::ModifierEffetEnEffetConversion(effet1, Religion::ATHEE);
         }
+
+        effet1->m_GoToEffetId = go_to_effet_suivant;
+        shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                    effet1,
+                    cond1);
+        noeudsProbaEducation.push_back(noeud1);
+    }
+
+    // petits boulots
+    {
+        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                    "L'université transhumaniste est hors de prix. Vous êtes obligé de prendre des petits boulots à côté pour vous en sortir. L'université voit cela d'un bon oeil car ça donne de la main d'oeuvre pas cher à son conglomérat et forme les étudiants au monde du travail.",
+                    "",
+                    "", evt);
+        Trait::AjouterGagneTraitSelonProba(effet1, travailleur, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet1, angoisse, 0.5);
+        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "2");
+
+        effet1->m_GoToEffetId = go_to_effet_suivant;
+        shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
+                    effet1,
+                    cond1);
+        noeudsProbaEducation.push_back(noeud1);
+    }
+
+    // faire la fête
+    {
+        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+                    "L'université transhumaniste n'est aps juste un lieu d'apprentissage univeraitaire, c'est aussi un lieu de vie et de consommation unique dans tout Extremis. "
+                    "Impossible de passer à côté des fêtes innombrables, toutes plus surprenantes et chères les unes que les autres.",
+                    ":/images/transhumanistes/boite_de_nuit.jpg",
+                    "", evt);
+        Trait::AjouterGagneTraitSelonProba(effet1, jouisseur, 0.5);
+        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-2");
 
         effet1->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
