@@ -6,6 +6,7 @@
 
 class Condition;
 class Effet;
+class Humain;
 
 /**
  * @brief ce qui a rapport aux traits descriptif d'un personnage
@@ -94,8 +95,12 @@ public:
     static void AjouterModifProbaSiACeTrait(Condition* CondProba, double proba, eTrait trait);
     static void AjouterConditionSiACeTrait(std::shared_ptr<Effet> effet, eTrait trait);
     static void AjouterConditionSiAPasCeTrait(std::shared_ptr<Effet> effet, eTrait trait);
+
     static void AjouterGagneTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
     static void AjouterPerdTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
+    //versiosn runtime :
+    static void AjouterGagneTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet, eTrait trait, double proba);
+    static void AjouterPerdTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet, eTrait trait, double proba);
 
     bool PeutEtrePrisALaNaissance(); // renvoit faux si ce trait peut seulement être acquis plutôt tard dans la vie
 };

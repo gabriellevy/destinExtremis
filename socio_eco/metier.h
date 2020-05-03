@@ -47,7 +47,10 @@ public:
     static QString CYBERNETICIEN;
     static QString GENETICIEN;
     static QString COMMERCIAL;
-    static QString PARASITE; // type qui ne bosse jaamis mais est très doué pour vivre aux dépens des autres
+    static QString POLICIER;
+    static QString VIGILE;
+    static QString GARDE_DU_CORPS;
+    static QString PARASITE; // type qui ne bosse jamais mais est très doué pour vivre aux dépens des autres
 
     // correspond au niveau de la carac du métier du personnage
     // un personnage qui a PAYSAN en C_METIER et 4 en carac PAYSAN doit avoir 4 en carac C_COMPETENCE_METIER

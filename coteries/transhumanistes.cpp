@@ -40,7 +40,7 @@ QString Transhumanistes::GetGentile(bool /*masculin*/)
     return "transhumaniste";
 }
 
-void Transhumanistes::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+void Transhumanistes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
 {
     if ( ageAnnees >= 10 ) {
         if ( ageAnnees <= 20 ) {
@@ -298,29 +298,35 @@ EvtTranshumanistes::EvtTranshumanistes(int indexEvt):GenerateurNoeudsProbables (
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
-        /*m_Nom = "Conversion à l'hôpital";
+        m_Nom = "hôpital transhumaniste";
         m_Description = "???";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.9 + tmp_Modificateur, p_Relative);
+        this->m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] =-2;
         m_Conditions.push_back(
              make_shared<Condition>(PbSante::C_MOIS_HOPITAL, "0", Comparateur::c_Superieur));
         m_Conditions.push_back(
-             make_shared<Condition>(Coterie::C_COTERIE, Coterie::ORKS, Comparateur::c_Different));
+             make_shared<Condition>(QuartierEffets::C_QUARTIER_ACTUEL, cot->m_Quartier->m_Nom, Comparateur::c_Egal));
         m_CallbackDisplay = [] {
-            Humain* humain = Humain::GetHumainJoue();
-            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
-            effet->m_Texte = "Un médiko ork vient rendre des visites à l'hopital et s'attarde dans votre chambre."
-                             "\nD'ordinaire les médikos sont plutôt des être terrifiants vu leurs habitudes de faire des expériences sur leurs patients mais cette fois et vu votre état ses arguments attirent votre attention. En particulier quand il parle du miracle du sérum orkoïde qui quand on le boît guérit presque toutes les blessures."
-                             "\nCa a l'air fou mais vous avez entendu beaucoup de témoignages sur la résistance surnaturelle des orks.";
+            Humain* hum = Humain::GetHumainJoue();
+            shared_ptr<Effet> eff = ExecHistoire::GetEffetActuel();
+            eff->m_Texte = "L'hopital transhumaniste où vous vous trouvez est hors de prix mais d'une qualité exceptionnelle.";
 
-            // devient ork ??
-            shared_ptr<Coterie> orks = Extremis::GetCoterie(Coterie::ORKS);
-            double proba = orks->Compatibilite(humain);
-            if ( proba >= Coterie::SEUIL_CONVERSION) {
-                orks->RejoindreCoterie(humain, effet);
-            } else {
-                effet->m_Texte += "Ca ne suffit néanmoins pas à vous convaincre de devenir un ork.";
+            // guérison d'une blessure
+            for ( QString blessure: PbSante::BLESSURES_LEGERES) {
+                if ( hum->GetValeurCarac(blessure) == "1") {
+                    eff->m_Texte +="\nVous n'êtes plus " + blessure + ".";
+                    hum->SetValeurACaracId(blessure, "");
+                    return;
+                }
             }
-        };*/
+            for ( QString blessure: PbSante::BLESSURES_GRAVES) {
+                if ( hum->GetValeurCarac(blessure) == "1") {
+                    eff->m_Texte +="\nVous n'êtes plus " + blessure + ".";
+                    hum->SetValeurACaracId(blessure, "");
+                    return;
+                }
+            }
+        };
     }break;
     }
 }

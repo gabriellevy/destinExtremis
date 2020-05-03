@@ -34,6 +34,9 @@ QString Metier::INFORMATICIEN = "Informaticien";
 QString Metier::CYBERNETICIEN = "Cybernéticien";
 QString Metier::GENETICIEN = "Généticien";
 QString Metier::COMMERCIAL = "Commercial";
+QString Metier::POLICIER = "Policier";
+QString Metier::VIGILE = "Vigile";
+QString Metier::GARDE_DU_CORPS = "Garde du corps";
 
 QMap<QString, Metier*> Metier::METIERS;
 
@@ -108,7 +111,6 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 13 : {
         m_Nom = Metier::FORGERON;
         m_ConditionSelecteurProba = make_shared<Condition>(0.0005 - tmpFavoriseur, p_Relative);
-        Coterie::AjouterModifProbaSiDeCetteCoterie(m_ConditionSelecteurProba.get(), 0.05, Coterie::CONQUISTADORS);
     }break;
     case 14 : {
         m_Nom = Metier::GUERRIER;
@@ -141,6 +143,22 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 21 : {
         m_Nom = Metier::COMMERCIAL;
         m_ConditionSelecteurProba = make_shared<Condition>(0.005 - tmpFavoriseur, p_Relative);
+    }break;
+    case 22 : {
+        m_Nom = Metier::POLICIER;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
+    }break;
+    case 23 : {
+        m_Nom = Metier::GARDE_DU_CORPS;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.0 - tmpFavoriseur, p_Relative);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.005, observateur);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.005, resistant);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.005, fort);
+        Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.005, grand);
+    }break;
+    case 24 : {
+        m_Nom = Metier::VIGILE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
     }break;
     }
 

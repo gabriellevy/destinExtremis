@@ -28,6 +28,12 @@ shared_ptr<Quartier> CroisadeFranque::GenererQuartier()
     return m_Quartier;
 }
 
+QString CroisadeFranque::GetMusique()
+{
+    return "qrc:/sons/croisade/rejoindre.mp3";
+}
+
+
 QString CroisadeFranque::GetGentile(bool masculin)
 {
     return masculin?"croisé":"croisée";
@@ -52,13 +58,11 @@ void CroisadeFranque::GenererTraitCompatibles()
     m_MetiersAssocies = {
         Metier::ARCHITECTE,
         Metier::PAYSAN,
+        Metier::POLICIER,
+        Metier::VIGILE,
+        Metier::GARDE_DU_CORPS,
         Metier::FORGERON
     };
-}
-
-QString CroisadeFranque::GetMusique()
-{
-    return "qrc:/sons/cathares/01-21-Symphony_No_9_In_D_Minor_Adagio_Langsam_-LLS.mp3";
 }
 
 QString CroisadeFranque::GetNom()
@@ -409,5 +413,25 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
             }
         };
     }break;
+    case 1 : {
+        m_Nom = "Grande cérémonie";
+        m_Description = "Vous assistez aux offices de pâques. La cérémonie est si parfaite que vous en êtes très affecté, comme si vous étiez purifié de vos péchés.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(Religion::AjouterCondACetteReligion(Religion::CHRETIEN));
+        m_CallbackDisplay = [] {
+            Humain* hum = Humain::GetHumainJoue();
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+
+            effet->m_Son = "qrc:/sons/croisade/hornsofhattinandaftermath.mp3";
+            Trait::AjouterGagneTraitSelonProba(hum, effet, altruiste, 0.2);
+            Trait::AjouterPerdTraitSelonProba(hum, effet, sournois, 0.2);
+            Trait::AjouterPerdTraitSelonProba(hum, effet, jouisseur, 0.2);
+            Trait::AjouterPerdTraitSelonProba(hum, effet, cupide, 0.2);
+            Trait::AjouterPerdTraitSelonProba(hum, effet, menteur, 0.2);
+            Trait::AjouterPerdTraitSelonProba(hum, effet, pervers_sexuel, 0.2);
+
+        };
+    }break;
+
     }
 }

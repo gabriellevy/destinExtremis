@@ -2,6 +2,7 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
 #include "../destinLib/abs/effet.h"
+#include "humain.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -65,6 +66,16 @@ QString Trait::GetNom()
 }
 
 
+void Trait::AjouterGagneTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet, eTrait trait, double proba)
+{
+    double res = Aleatoire::GetAl()->Entre0Et1();
+    if ( res <= proba) {
+        effet->m_Texte += "\nVous devenez " + Trait::GetNomTrait(trait) + ".";
+        hum->SetValeurACaracId(Trait::GetNomTrait(trait), "1");
+        hum->SetValeurACaracId(Trait::GetNomTrait(Trait::GetTraitOppose(trait)), "");
+    }
+}
+
 void Trait::AjouterGagneTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba)
 {
     double res = Aleatoire::GetAl()->Entre0Et1();
@@ -81,6 +92,15 @@ void Trait::AjouterPerdTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trai
     if ( res <= proba) {
         effet->m_Texte += "\nVous perdez " + Trait::GetNomTrait(trait) + ".";
         effet->AjouterChangeurDeCarac(Trait::GetNomTrait(trait), "");
+    }
+}
+
+void Trait::AjouterPerdTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet, eTrait trait, double proba)
+{
+    double res = Aleatoire::GetAl()->Entre0Et1();
+    if ( res <= proba) {
+        effet->m_Texte += "\nVous perdez " + Trait::GetNomTrait(trait) + ".";
+        hum->SetValeurACaracId(Trait::GetNomTrait(trait), "");
     }
 }
 
