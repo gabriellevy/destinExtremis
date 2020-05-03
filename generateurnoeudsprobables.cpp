@@ -37,6 +37,9 @@ shared_ptr<Effet> GenerateurNoeudsProbables::GenererEffet(shared_ptr<GenEvt> gen
         effet->AjouterAjouteurACarac(itInc.key(), itInc.value());
     }
 
+    if ( m_Son != "" )
+        effet->m_Son = m_Son;
+
     return effet;
 }
 

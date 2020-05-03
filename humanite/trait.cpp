@@ -109,6 +109,11 @@ QString Trait::GetNomTrait(eTrait etrait)
     return (make_shared<Trait>(etrait))->GetNom();
 }
 
+shared_ptr<Condition> Trait::GenConditionSiACeTrait(eTrait trait)
+{
+    return make_shared<Condition>(Trait::GetNomTrait(trait), "1", Comparateur::c_Egal );
+}
+
 void Trait::AjouterConditionSiACeTrait(shared_ptr<Effet> effet, eTrait trait)
 {
     effet->AjouterCondition(Trait::GetNomTrait(trait), Comparateur::c_Egal, "1");

@@ -12,6 +12,7 @@
 #include "genviehumain.h"
 #include "socio_eco/crime.h"
 #include "extremis.h"
+#include "socio_eco/economieevt.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -245,6 +246,24 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
         noeudsProbaEducation.push_back(noeud);
     }
 
+    // techniques policiers/vigiles/garde du corps
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Les croisés combinent deux ensembles de qualités précieuses : des capacités martiales redoutables avec armes et à main nues. Et surtout une éthique sans faille."
+                    " Ces qualités en font les meilleurs policiers du monde mais aussi de remarquables vigiles et garde du corps. Vous êtes formé aux bases de tous ces métiers.",
+                    ":/images/croisade_franque/priant_guerre.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::POLICIER, 1);
+        effet->AjouterAjouteurACarac(Metier::VIGILE, 1);
+        effet->AjouterAjouteurACarac(Metier::GARDE_DU_CORPS, 1);
+        shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeud = make_shared<NoeudProbable>(
+                    effet,
+                    cond);
+        noeudsProbaEducation.push_back(noeud);
+    }
+
     shared_ptr<Effet> effetSelecteur = genHist->m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 noeudsProbaEducation);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
@@ -431,6 +450,15 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
             Trait::AjouterPerdTraitSelonProba(hum, effet, pervers_sexuel, 0.2);
 
         };
+    }break;
+    case 2 : {
+        m_Nom = "Don aux pauvres";
+        m_Description = "Vous donnez une grande partie de votre argent pour soutenir les pauvres.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(Religion::AjouterCondACetteReligion(Religion::CHRETIEN));
+        m_Conditions.push_back(Trait::GenConditionSiACeTrait(altruiste));
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -2;
+        m_Son = "qrc:/sons/croisade/turexgloriae.mp3";
     }break;
 
     }

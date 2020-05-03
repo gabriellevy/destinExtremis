@@ -95,6 +95,7 @@ public:
     static void AjouterModifProbaSiACeTrait(Condition* CondProba, double proba, eTrait trait);
     static void AjouterConditionSiACeTrait(std::shared_ptr<Effet> effet, eTrait trait);
     static void AjouterConditionSiAPasCeTrait(std::shared_ptr<Effet> effet, eTrait trait);
+    static std::shared_ptr<Condition> GenConditionSiACeTrait(eTrait trait);
 
     static void AjouterGagneTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
     static void AjouterPerdTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
