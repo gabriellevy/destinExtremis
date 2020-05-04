@@ -27,7 +27,7 @@ QString Crime::PRISON = "En prison";
 
 Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : { // misérable qui devient voleur/délinquant
         m_Nom = "devient_voleur_" + ClasseSociale::PAUVRES;
@@ -185,6 +185,17 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
+
+    }break;
+    case 10 : {
+        m_Nom = "Libéré de prison";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.5, p_Pure);
+        m_Description = "Vous êtes enfin libéré de prison.";
+        m_Conditions.push_back(
+                    make_shared<Condition>(Crime::C_MOIS_PRISON, "0", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(
+                    make_shared<Condition>(GenVieHumain::C_LIBERTE, Crime::PRISON, Comparateur::c_Egal));
+        m_ModificateursCaracs[GenVieHumain::C_LIBERTE] = "";
 
     }break;
 
