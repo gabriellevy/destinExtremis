@@ -11,66 +11,88 @@
 
 ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
+    double modificateur = 0.0;
     switch (indexEvt) {
     case 0 : {
-        m_Nom = "promotion classe sociale des pauvres vers moyenne";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
-        m_Description = "Vous avez amassé une telle fortune que vous parvenez à vous hisser dans la classe moyenne.";
+        m_Nom = "promotion classe sociale des misérables vers pauvres";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
+        m_Description = "Vous n'êtes pas riche mais vous êtes moins misérables, vous vivez moins au jour le jour..";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
-        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
-        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
-        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
 
     }break;
     case 1 : {
+        m_Nom = "promotion classe sociale des pauvres vers moyenne";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
+        m_Description = "Vous avez amassé une telle fortune que vous parvenez à vous hisser dans la classe moyenne.";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
+        m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
+
+    }break;
+    case 2 : {
         m_Nom = "promotion classe sociale des moyens vers influents";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
         m_Description = "Vous avez amassé une telle fortune et noué tellement de contacts avec les classes dirigeants "
-                "que vous parvenez à vous hisser parmi les maisons nobles de la ruche.";
-        m_Image = ":/images/socio_eco/FemmeNobleApparat.jpg";
+                "que vous parvenez à vous hisser parmi les dominants de la société.";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::INFLUENTS;
-        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::CLASSE_MOYENNE));
 
     }break;
-    case 2 : {
-        m_Nom = "descente classe sociale des pauvres vers misérables";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
-        m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez dans la misèr la plus totale.";
+    case 3 : {
+        m_Nom = "promotion classe sociale des influents vers dominants";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
+        m_Description = "Vous avez amassé une telle fortune que vous atteignez le petit nombre des ultra riches. ";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
-        m_ModificateursCaracs[Metier::C_METIER] = "";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MAITRES;
+        m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::INFLUENTS));
+
+    }break;
+    case 4 : {
+        m_Nom = "descente classe sociale des pauvres vers misérables";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
+        m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez dans la misère la plus totale.";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::MISERABLES;
-        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
 
     }break;
-    case 3 : {
+    case 5 : {
         m_Nom = "descente classe sociale des moyens vers pauvres";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
-        m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez licencié et projeté parmi les classes pauvres.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
+        m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez dans la pauvreté.";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
-        m_ModificateursCaracs[Metier::C_METIER] = "";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
-        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::CLASSE_MOYENNE));
 
     }break;
-    case 4 : {
+    case 6 : {
         m_Nom = "descente classe sociale des influents vers moyens";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.02, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
         m_Description = "Vous avez accumulé tant d'échecs que vous vous retrouvez expulsé de votre maison noble et déshonoré. "
                 "Vous allez devoir maintenant survivre parmi les classes inférieures.";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
-        m_ModificateursCaracs[Metier::C_METIER] = "";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
-        m_Conditions.push_back(Metier::AjouterConditionSiAMetier());
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::INFLUENTS));
+
+    }break;
+    case 7 : {
+        m_Nom = "descente classe sociale des maîtres vers influents";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
+        m_Description = "Jadis parmi les êtres les plus puissants du monde vous êtes rejeté du cercle des 1% par vos échecs et redevenez un homme encore riche mais secondaire.";
+        m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
+        m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::INFLUENTS;
+        m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MAITRES));
 
     }break;
     }

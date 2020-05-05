@@ -27,7 +27,7 @@ QString Crime::PRISON = "En prison";
 
 Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
-    double tmp_Modificateur = 1.0; //pour les tests (doit être à 0 en prod)
+    double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : { // misérable qui devient voleur/délinquant
         m_Nom = "devient_voleur_" + ClasseSociale::PAUVRES;

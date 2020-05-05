@@ -20,7 +20,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     switch (indexEvt) {
     case 0 : {
         m_Nom = "bon travail";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.03, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.03 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, ambitieux);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, travailleur);
         // plus la compétence est haute plus il  a de chances de réussir
@@ -50,7 +50,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 1 : {
         m_Nom = "mauvais travail";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.02 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba = make_shared<Condition>(0.02 - tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.005, maladroit);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.005, paresseux);
         // plus la compétence est basse plus il  a de chances de se planter

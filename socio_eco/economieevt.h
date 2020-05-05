@@ -19,6 +19,7 @@ public:
     // une très forte valeur pourrait lui voir arriver des promotions voire changer de classe sociale
     // marche aussi en sens négatif
     // valable en tant que réputation dans les métiers où l'argent est secondaire
+    // -10 : très pauvre, +10 très riche
     static QString C_NIVEAU_ECONOMIQUE;
 
     static std::shared_ptr<Condition> AjouterConditionSiNiveauEconomiqueSuperieurA(int niv);
