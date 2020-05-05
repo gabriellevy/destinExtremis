@@ -8,6 +8,7 @@
 #include "metier.h"
 #include "../destinLib/aleatoire.h"
 #include "economieevt.h"
+#include "humanite/pbsante.h"
 
 ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
@@ -16,7 +17,7 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     case 0 : {
         m_Nom = "promotion classe sociale des misérables vers pauvres";
         m_ConditionSelecteurProba = make_shared<Condition>(0.02 + modificateur, p_Relative);
-        m_Description = "Vous n'êtes pas riche mais vous êtes moins misérables, vous vivez moins au jour le jour..";
+        m_Description = "Vous n'êtes pas riche mais vous êtes moins misérables, vous vivez moins au jour le jour.";
         m_ModificateursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = "0";
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "10", Comparateur::c_SuperieurEgal));
@@ -94,6 +95,14 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MAITRES));
 
+    }break;
+    case 8 : {
+        m_Nom = "mort de pauvre misérable";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + modificateur, p_Relative);
+        m_Description = "Plus possible de supporter l'horrible vie que vous menez. La volonté vous quitte, vous mourrez de froid et de faim.";
+        m_ModificateursCaracs[PbSante::C_SANTE] = PbSante::MORT;
+        m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
     }break;
     }
 }
