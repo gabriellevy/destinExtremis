@@ -211,7 +211,7 @@ std::shared_ptr<Effet> Orks::AjouterEffetUniversite(GenHistoire* genHist, shared
         effet1->AjouterChangeurDeCarac(blessure, "1");
         effet1->AjouterChangeurDeCarac(PbSante::DEFIGURE, "1");
         effet1->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
-        effet1->AjouterChangeurDeCarac((make_shared<Trait>(eTrait::beau))->GetNom(), ""); // le joueur perd son éventuelle beauté...
+        effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(eTrait::beau), ""); // le joueur perd son éventuelle beauté...
         effet1->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(

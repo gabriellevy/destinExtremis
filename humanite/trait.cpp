@@ -106,9 +106,20 @@ void Trait::AjouterPerdTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet
     }
 }
 
+
+QMap<eTrait, shared_ptr<Trait>> Trait::TOUS_LES_TRAITS;
+
+
+shared_ptr<Trait> Trait::GetTrait(eTrait etrait)
+{
+    if ( !Trait::TOUS_LES_TRAITS.contains(etrait))
+        Trait::TOUS_LES_TRAITS.insert(etrait, make_shared<Trait>(etrait));
+    return Trait::TOUS_LES_TRAITS[etrait];
+}
+
 QString Trait::GetNomTrait(eTrait etrait)
 {
-    return (make_shared<Trait>(etrait))->GetNom();
+    return Trait::GetTrait(etrait)->GetNom();
 }
 
 shared_ptr<Condition> Trait::GenConditionSiACeTrait(eTrait trait)
@@ -216,7 +227,7 @@ std::shared_ptr<Trait> Trait::GetTrait(QVector<eTrait> &m_TraitsDejaPossedes, bo
         {
             trouve = ( m_TraitsDejaPossedes.indexOf(GetTraitOppose(enumTrait)) == -1);// pas un trait opposé à un déjà tiré
         }
-        trait = make_shared<Trait>(enumTrait);
+        trait = Trait::GetTrait(enumTrait);
         if ( traitDeNaissance && !trait->PeutEtrePrisALaNaissance()) {
             trouve = false;
         }

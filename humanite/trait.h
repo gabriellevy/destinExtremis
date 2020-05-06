@@ -75,6 +75,9 @@ enum eTrait : int {
 
 class Trait
 {
+private:
+    static QMap<eTrait, std::shared_ptr<Trait>> TOUS_LES_TRAITS;
+
 public:
     Trait(eTrait trait);
 
@@ -90,6 +93,8 @@ public:
     static std::shared_ptr<Trait> GetTrait(QVector<eTrait>& m_TraitsDejaPossedes, bool traitDeNaissance);
 
     static eTrait GetTraitOppose(eTrait etrait);
+
+    static std::shared_ptr<Trait> GetTrait(eTrait Trait);
 
     static QString GetNomTrait(eTrait etrait); // est aussi l'identifiant de la carac associée
     static void AjouterModifProbaSiACeTrait(Condition* CondProba, double proba, eTrait trait);

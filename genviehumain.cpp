@@ -98,7 +98,7 @@ void GenVieHumain::GenererCaracs()
     GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
     // afficher tous les traits et blessures du personnage
     for (int i = 0; i < eTrait::nb_Traits; i++) {
-        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire((make_shared<Trait>(static_cast<eTrait>(i)))->GetNom());
+        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(Trait::GetNomTrait(static_cast<eTrait>(i)));
     }
     for ( QString bless: PbSante::BLESSURES_LEGERES) {
         GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
