@@ -35,6 +35,7 @@
 #include "coteries/conquistadors.h"
 #include "coteries/elfes.h"
 #include "coteries/transhumanistes.h"
+#include "richesse.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -81,6 +82,7 @@ void GenVieHumain::GenererPersos()
 void GenVieHumain::GenererCaracs()
 {
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new Age(180)); // début à 15 ans (180)
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new Richesse());
     Carac* cCot = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
     cCot->m_EmplacementAffichage = ea_Primaire;
     Carac* cMet = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
@@ -116,7 +118,6 @@ void GenVieHumain::GenererCaracs()
     // temp test :
     GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
     GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
-    GestCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
 

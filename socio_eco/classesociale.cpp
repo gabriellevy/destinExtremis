@@ -10,6 +10,21 @@
 #include "economieevt.h"
 #include "humanite/pbsante.h"
 
+
+QString ClasseSociale::MISERABLES = "0";//"Misérable";
+QString ClasseSociale::PAUVRES = "1";//"Pauvre";
+QString ClasseSociale::CLASSE_MOYENNE = "2";//"Classe moyenne";
+QString ClasseSociale::INFLUENTS = "3";//"Classe dominante";
+QString ClasseSociale::MAITRES = "4";//"Classe dirigeante";
+
+QVector<QString> ClasseSociale::CLASSES_SOCIALES = {
+    MISERABLES,
+    PAUVRES,
+    CLASSE_MOYENNE,
+    INFLUENTS,
+    MAITRES
+};
+
 ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     double modificateur = 0.0;
@@ -132,7 +147,7 @@ QString ClasseSociale::GetClasseSocialeAleatoire()
     double proba = Aleatoire::GetAl()->Entre0Et1();
     if ( proba < 0.01)
         return ClasseSociale::MISERABLES;
-    else if (proba < 0.7)
+    else if (proba < 0.6)
         return ClasseSociale::PAUVRES;
     else if ( proba < 0.98)
         return ClasseSociale::CLASSE_MOYENNE;
@@ -143,9 +158,3 @@ QString ClasseSociale::GetClasseSocialeAleatoire()
     }
 }
 
-
-QString ClasseSociale::MISERABLES = "0";//"Misérable";
-QString ClasseSociale::PAUVRES = "1";//"Pauvre";
-QString ClasseSociale::CLASSE_MOYENNE = "2";//"Classe moyenne";
-QString ClasseSociale::INFLUENTS = "3";//"Classe dominante";
-QString ClasseSociale::MAITRES = "4";//"Classe dirigeante";

@@ -1,7 +1,6 @@
 #include "age.h"
 #include "ui_carac.h"
 #include "../destinLib/abs/univers.h"
-#include <QDebug>
 #include "../destinLib/gestcarac.h"
 #include "genviehumain.h"
 

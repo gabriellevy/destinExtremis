@@ -53,7 +53,8 @@ SOURCES += \
     humain.cpp \
         extremis.cpp \
     caracpnj.cpp \
-    ../destinLib/gestcarac.cpp
+    ../destinLib/gestcarac.cpp \
+    richesse.cpp
 
 HEADERS += \
     ../destinLib/aspectratiolabel.h \
@@ -67,7 +68,8 @@ HEADERS += \
     humain.h \
         extremis.h \
     caracpnj.h \
-    ../destinLib/gestcarac.h
+    ../destinLib/gestcarac.h \
+    richesse.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

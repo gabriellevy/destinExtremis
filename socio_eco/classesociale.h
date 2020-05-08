@@ -31,6 +31,7 @@ public:
     static QString CLASSE_MOYENNE;// travailleurs qualifiés
     static QString INFLUENTS; // commerçants, financiers, trafiqueurs d'inflence
     static QString MAITRES; // gouverneurs impériaux, maîtres de la ruche, planète etc..
+    static QVector<QString> CLASSES_SOCIALES;
 
 };
 

@@ -33,5 +33,10 @@ std::shared_ptr<Effet> Naissance::GenererEffetNaissance(std::shared_ptr<Effet> e
 
     }
 
+    // génération classe sociale :
+    QString clas = ClasseSociale::GetClasseSocialeAleatoire();
+    effetNarrationVide->AjouterChangeurDeCarac(ClasseSociale::C_CLASSE_SOCIALE, clas);
+    effetNarrationVide->m_Texte += "\nVous êtes de la classe sociale des " + clas + ".";
+
     return effetNarrationVide;
 }
