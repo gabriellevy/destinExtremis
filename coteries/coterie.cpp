@@ -76,15 +76,17 @@ void Coterie::RejoindreCoterie(Humain* hum, shared_ptr<Effet> eff)
         eff->m_Son = musique;
     }
     // déménagement dans le quartier de la coterie ?
-    double proba = Aleatoire::GetAl()->Entre0Et1();
-    if ( proba >= 0.3) {
-        eff->m_Texte += "\nVous décidez de déménager dans " + m_Quartier->m_Nom + ", le quartier de votre nouvelle coterie.";
-        hum->SetValeurACaracId(QuartierEffets::C_QUARTIER_HABITE,
-                                                   m_Quartier->m_Nom);
-        hum->SetValeurACaracId(QuartierEffets::C_QUARTIER_ACTUEL,
-                                                   m_Quartier->m_Nom);
-        hum->SetValeurACaracId(EconomieEvt::C_NIVEAU_ECONOMIQUE,
-             hum->GetValeurCaracAsInt(EconomieEvt::C_NIVEAU_ECONOMIQUE) - 1);
+    if ( hum->EstLibre()) {
+        double proba = Aleatoire::GetAl()->Entre0Et1();
+        if ( proba >= 0.3) {
+            eff->m_Texte += "\nVous décidez de déménager dans " + m_Quartier->m_Nom + ", le quartier de votre nouvelle coterie.";
+            hum->SetValeurACaracId(QuartierEffets::C_QUARTIER_HABITE,
+                                                       m_Quartier->m_Nom);
+            hum->SetValeurACaracId(QuartierEffets::C_QUARTIER_ACTUEL,
+                                                       m_Quartier->m_Nom);
+            hum->SetValeurACaracId(EconomieEvt::C_NIVEAU_ECONOMIQUE,
+                 hum->GetValeurCaracAsInt(EconomieEvt::C_NIVEAU_ECONOMIQUE) - 1);
+        }
     }
 }
 

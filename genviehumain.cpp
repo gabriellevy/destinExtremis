@@ -1,7 +1,7 @@
 #include "genviehumain.h"
 #include "generateurnoeudsprobables.h"
 #include "extremis.h"
-#include "../destinLib/gestionnairecarac.h"
+#include "../destinLib/gestcarac.h"
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/perso.h"
 #include "../destinLib/exec/execeffet.h"
@@ -80,46 +80,50 @@ void GenVieHumain::GenererPersos()
 
 void GenVieHumain::GenererCaracs()
 {
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new Age(180)); // début à 15 ans (180)
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(PbSante::C_MOIS_HOPITAL);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_COUPLE, "Couple"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_MAITRESSE, "Maitresse"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_ELLE_AMOUREUSE, "Amoureuse"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_LUI_AMOUREUX, "Convoitée"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracImage(Religion::C_RELIGION);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracStringIntitule(QuartierEffets::C_QUARTIER_HABITE);
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new Age(180)); // début à 15 ans (180)
+    Carac* cCot = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
+    cCot->m_EmplacementAffichage = ea_Primaire;
+    Carac* cMet = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
+    cMet->m_EmplacementAffichage = ea_Primaire;
+    GestCarac::GetGestionnaireCarac()->AjouterCaracImagePrimaire(Religion::C_RELIGION);
 
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(PbSante::C_MOIS_HOPITAL);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_CRIMINEL);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_GANG);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracStringIntitule(QuartierEffets::C_QUARTIER_ACTUEL);
+
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_COUPLE, "Couple"));
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_MAITRESSE, "Maitresse"));
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_ELLE_AMOUREUSE, "Amoureuse"));
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_LUI_AMOUREUX, "Convoitée"));
+
     // afficher tous les traits et blessures du personnage
     for (int i = 0; i < eTrait::nb_Traits; i++) {
-        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(Trait::GetNomTrait(static_cast<eTrait>(i)));
+        GestCarac::GetGestionnaireCarac()->AjouterCaracBinaire(Trait::GetNomTrait(static_cast<eTrait>(i)));
     }
     for ( QString bless: PbSante::BLESSURES_LEGERES) {
-        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
+        GestCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
     }
     for ( QString bless: PbSante::BLESSURES_GRAVES) {
-        GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
+        GestCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
     }
+    GestCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
+
+    GestCarac::GetGestionnaireCarac()->AjouterCaracStringIntitule(QuartierEffets::C_QUARTIER_HABITE);
 
     // temp test :
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_CRIMINEL);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_GANG);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
-    GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_CONSTITUTION);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracString(ClasseSociale::C_CLASSE_SOCIALE);
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
 
-
-    Carac* carac = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
+    /*Carac* carac = GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
     carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
-    Carac* caracBionique = GestionnaireCarac::GetGestionnaireCarac()->AjouterCaracNombre(Bionique::C_BIONIQUE_LONGEVITE);
-    caracBionique->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
+    Carac* caracBionique = GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Bionique::C_BIONIQUE_LONGEVITE);
+    caracBionique->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;*/
 }
 
 void GenVieHumain::GenererEvtsAccueil()

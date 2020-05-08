@@ -56,6 +56,11 @@ void Humain::ActualisationPortrait()
     MajCheminImage(images[m_SeedPortrait]);
 }
 
+bool Humain::EstLibre()
+{
+    return this->GetValeurCarac(GenVieHumain::C_LIBERTE) == "";
+}
+
 void Humain::InitialiserPerso()
 {
 }

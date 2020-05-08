@@ -90,7 +90,7 @@ void Trait::AjouterPerdTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trai
 {
     double res = Aleatoire::GetAl()->Entre0Et1();
     if ( res <= proba) {
-        effet->m_Texte += "\nVous perdez " + Trait::GetNomTrait(trait) + ".";
+        effet->m_Texte += "\nVous perdez '" + Trait::GetNomTrait(trait) + "'.";
         effet->AjouterChangeurDeCarac(Trait::GetNomTrait(trait), "");
     }
 }
@@ -100,7 +100,7 @@ void Trait::AjouterPerdTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet
     if ( hum->ACeTrait(trait)) {
         double res = Aleatoire::GetAl()->Entre0Et1();
         if ( res <= proba) {
-            effet->m_Texte += "\nVous perdez " + Trait::GetNomTrait(trait) + ".";
+            effet->m_Texte += "\nVous perdez '" + Trait::GetNomTrait(trait) + "'.";
             hum->SetValeurACaracId(Trait::GetNomTrait(trait), "");
         }
     }

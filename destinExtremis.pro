@@ -41,7 +41,6 @@ include(../destinLib/gen/gen.pri)
 include(../destinLib/exec/exec.pri)
 
 SOURCES += \
-    ../destinLib/gestionnairecarac.cpp \
     ../destinLib/aspectratiolabel.cpp \
     ../destinLib/dbmanager.cpp \
     ../destinLib/glisseur.cpp \
@@ -53,10 +52,10 @@ SOURCES += \
     genviehumain.cpp \
     humain.cpp \
         extremis.cpp \
-    caracpnj.cpp
+    caracpnj.cpp \
+    ../destinLib/gestcarac.cpp
 
 HEADERS += \
-    ../destinLib/gestionnairecarac.h \
     ../destinLib/aspectratiolabel.h \
     ../destinLib/dbmanager.h \
     ../destinLib/glisseur.h \
@@ -67,7 +66,8 @@ HEADERS += \
     genviehumain.h \
     humain.h \
         extremis.h \
-    caracpnj.h
+    caracpnj.h \
+    ../destinLib/gestcarac.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

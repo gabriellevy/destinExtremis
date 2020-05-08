@@ -2,7 +2,7 @@
 #include "ui_carac.h"
 #include "../destinLib/abs/univers.h"
 #include <QDebug>
-#include "../destinLib/gestionnairecarac.h"
+#include "../destinLib/gestcarac.h"
 #include "genviehumain.h"
 #include "humain.h"
 #include "coteries/coterie.h"
@@ -50,8 +50,8 @@ bool CaracPNJ::AfficherValeur()
 
     if ( m_Pnj!= nullptr && m_Pnj->m_Nom != "")
     {
-        ui->labelValeur->show();
-        ui->labelValeur->setFont( *Univers::BASE_FONT);
+        ui->labelValeurDansBox->show();
+        ui->labelValeurDansBox->setFont( *Univers::BASE_FONT);
 
         QString txt = m_Pnj->m_Nom +
                 "\n" + m_Pnj->m_Coterie->GetGentile();
@@ -72,7 +72,7 @@ bool CaracPNJ::AfficherValeur()
 
         ui->labelValeurDansBox->setText(txt);
         QString desc = this->GetCaracDescription();
-        ui->labelValeur->setToolTip(desc);
+        ui->labelValeurDansBox->setToolTip(desc);
         return true;
     }
     return false;

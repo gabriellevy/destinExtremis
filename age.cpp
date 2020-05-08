@@ -2,7 +2,7 @@
 #include "ui_carac.h"
 #include "../destinLib/abs/univers.h"
 #include <QDebug>
-#include "../destinLib/gestionnairecarac.h"
+#include "../destinLib/gestcarac.h"
 #include "genviehumain.h"
 
 Age::Age(int ageMois)
@@ -10,7 +10,7 @@ Age::Age(int ageMois)
            "", "", MODE_AFFICHAGE::ma_Texte,
            nullptr, "", "")
 {
-
+    m_EmplacementAffichage = ea_Primaire;
 }
 
 bool Age::AfficherValeur()
