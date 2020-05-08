@@ -9,6 +9,7 @@
 #include "geographie/quartier.h"
 #include <QDebug>
 #include "extremis.h"
+#include "socio_eco/classesociale.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -39,7 +40,9 @@ void Cathares::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::pacifiste), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::faible), "1", Comparateur::c_Egal ),
-        make_shared<Condition>(Religion::C_FOI, Religion::CHRETIEN, Comparateur::c_Egal )
+        make_shared<Condition>(Religion::C_FOI, Religion::CHRETIEN, Comparateur::c_Egal ),
+        make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::PAUVRES, Comparateur::c_Egal ),
+        make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
         make_shared<Condition>(Trait::GetNomTrait(eTrait::cupide), "1", Comparateur::c_Egal ),

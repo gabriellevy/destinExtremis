@@ -17,6 +17,7 @@
 #include "humanite/identite.h"
 #include "socio_eco/economieevt.h"
 #include "religion/religion.h"
+#include "socio_eco/classesociale.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -100,7 +101,9 @@ void Transhumanistes::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::jouisseur), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::ambitieux), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::angoisse), "1", Comparateur::c_Egal ),
-        make_shared<Condition>(Trait::GetNomTrait(eTrait::travailleur), "1", Comparateur::c_Egal )
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::travailleur), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::INFLUENTS, Comparateur::c_Egal ), // la richesse est déjà un signe d'ascension et d'homme supérieur chez les transhumanistes
+        make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MAITRES, Comparateur::c_Egal )
     };
     m_TraitsIncompatible = {
         make_shared<Condition>(Trait::GetNomTrait(eTrait::franc), "1", Comparateur::c_Egal ),
@@ -110,7 +113,9 @@ void Transhumanistes::GenererTraitCompatibles()
         make_shared<Condition>(Trait::GetNomTrait(eTrait::patriote), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::spirituel), "1", Comparateur::c_Egal ),
         make_shared<Condition>(Trait::GetNomTrait(eTrait::nature), "1", Comparateur::c_Egal ),
-        make_shared<Condition>(Trait::GetNomTrait(eTrait::artiste), "1", Comparateur::c_Egal )
+        make_shared<Condition>(Trait::GetNomTrait(eTrait::artiste), "1", Comparateur::c_Egal ),
+        make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::PAUVRES, Comparateur::c_Egal ), // les pauvres sont plutôt mal vus par les transhumanistes
+        make_shared<Condition>(ClasseSociale::C_CLASSE_SOCIALE, ClasseSociale::MISERABLES, Comparateur::c_Egal )
     };
     m_MetiersAssocies = {
         Metier::INFORMATICIEN,

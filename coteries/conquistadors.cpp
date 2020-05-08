@@ -722,7 +722,7 @@ EvtConquistadors::EvtConquistadors(int indexEvt):GenerateurNoeudsProbables (inde
         m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
-            effet->m_Texte = "Alors que vous êtes au plus bas à déprimer dans un bar vous êtes abordé par un conquistador en armure jovial."
+            effet->m_Texte = "Alors que vous êtes au plus bas à déprimer dans un bar vous êtes abordé par un jovial conquistador en armure resplendissante. "
                             "Il vous vante la vie aventureuse aux confins du monde où vous pourrez avoir une vie aventureuse pleine de combats et de pillages. "
                             "Là où la fortune se fait au mérite loin des magouilles politiciennes.";
 

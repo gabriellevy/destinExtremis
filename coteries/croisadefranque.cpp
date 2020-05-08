@@ -434,12 +434,13 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
     }break;
     case 1 : {
         m_Nom = "Grande cérémonie";
-        m_Description = "Vous assistez aux offices de pâques. La cérémonie est si parfaite que vous en êtes très affecté, comme si vous étiez purifié de vos péchés.";
+        m_Description = "???";
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
         m_Conditions.push_back(Religion::AjouterCondACetteReligion(Religion::CHRETIEN));
         m_CallbackDisplay = [] {
             Humain* hum = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+            effet->m_Texte = "Vous assistez aux offices de pâques. La cérémonie est si parfaite que vous en êtes très affecté, comme si vous étiez purifié de vos péchés.";
 
             effet->m_Son = "qrc:/sons/croisade/hornsofhattinandaftermath.mp3";
             Trait::AjouterGagneTraitSelonProba(hum, effet, altruiste, 0.2);

@@ -165,7 +165,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = "Séduction par la femme";
         m_ConditionSelecteurProba = make_shared<Condition>(0.5 + tmpModificateur, p_Relative);
         m_Description = "Folle de vous,  %%%" + ( PRE_ELLE_AMOUREUSE + PNJ::C_NOM) +
-                " fait tout ce qu'elle peut pour vous séduire.";
+                "%%% fait tout ce qu'elle peut pour vous séduire.";
         m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + C_FAIT_LA_COUR] = "1";
         // elle est amoureuse et pas déjà en séduction
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
@@ -175,7 +175,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Nom = "Séduction par la femme réussie";
         m_ConditionSelecteurProba = make_shared<Condition>(0.2 + tmpModificateur, p_Relative);
         m_Description = "La belle %%%" + ( PRE_ELLE_AMOUREUSE + PNJ::C_NOM) +
-                "a finalement touché votre coeur. Vous êtes sous son charme. Elle devient votre maîtresse.";
+                "%%% a finalement touché votre coeur. Vous êtes sous son charme. Elle devient votre maîtresse.";
         m_ModificateursCaracs[PRE_ELLE_AMOUREUSE + C_FAIT_LA_COUR] = "";
         m_CallbackDisplay = [] {
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();

@@ -116,7 +116,6 @@ void GenVieHumain::GenererCaracs()
     GestCarac::GetGestionnaireCarac()->AjouterCaracStringIntitule(QuartierEffets::C_QUARTIER_HABITE);
 
     // temp test :
-    GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(EconomieEvt::C_NIVEAU_ECONOMIQUE);
     GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
