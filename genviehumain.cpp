@@ -55,12 +55,11 @@ shared_ptr<Hist> GenVieHumain::GenererHistoire()
     GenHistoire::GenererHistoire();
     GenererDataUnivers();
     GenererPersos();
-    GenererEvtsAccueil(false, false);
+    GenererEvtsAccueil(true, false);
     GenererCaracs();
     GenererPrincipalSelectionneurDEffet();
 
-    m_HistoireGeneree->m_ModeDeroulement = ModeDeroulement::Automatique;
-    m_HistoireGeneree->m_MsDureeDefilement = GenVieHumain::CHRONO;
+    //m_HistoireGeneree->SetModeDeroulement( ModeDeroulement::Automatique, GenVieHumain::CHRONO);
 
     return m_HistoireGeneree;
 }
@@ -142,6 +141,7 @@ void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
         effet1->AjouterChangeurDeCarac(nomTrait, "1");
 
         effet1->AjouterChangeurDeCarac(GenVieHumain::C_AGE, "240"); // 20 ans
+        effet1->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::CHRETIEN);
 
         // génération classe sociale :
         QString clas = ClasseSociale::GetClasseSocialeAleatoire();
@@ -166,9 +166,11 @@ void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
 
 void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
 {
-    shared_ptr<Evt> evtRien = AjouterEvt("evtRien");
-    shared_ptr<Effet> effetRien = AjouterEffetNarration("Il ne se passe rien. => à régénérer");
+    shared_ptr<Effet> effetRien = AjouterEffetNarration(
+                "Il ne se passe rien. => à régénérer",
+                "", "phrase Aleatoire", GenVieHumain::EVT_SELECTEUR);
     effetRien = TransformerEffetEnEffetMoisDeVie(effetRien);
+    effetRien->m_GoToEffetId = GenVieHumain::EFFET_TEST_MORT_ID;
     effetRien->m_CallbackDisplay = [] {
         Phrase phrase = JourApresJour::ExtrairePhrase();
         ExecHistoire::GetEffetActuel()->m_Texte = phrase.m_Texte;
@@ -176,7 +178,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
         ExecHistoire::GetExecEffetActuel()->ChargerImage(phrase.m_CheminImg);
     };
     shared_ptr<NoeudProbable> noeudEvtRien = make_shared<NoeudProbable>(
-                evtRien,
+                effetRien,
                 make_shared<Condition>(1, p_Relative));
     noeuds.push_back(noeudEvtRien);
 
@@ -224,7 +226,7 @@ shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effe
 {
     // ne se déclenche que si le personnage est encore en vie :
     effet->AjouterCondition(PbSante::C_SANTE, Comparateur::c_Different, PbSante::MORT);
-    effet->m_MsChrono = GenVieHumain::CHRONO;
+    //effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";
     effet->AjouterAjouteurACarac(GenVieHumain::C_AGE, 1);
     effet->AjouterAjouteurACarac(Amour::PRE_COUPLE + GenVieHumain::C_AGE, 1);
@@ -237,6 +239,7 @@ shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effe
 }
 
 QString GenVieHumain::EFFET_SELECTEUR_ID = "effetSelecteur";
+QString GenVieHumain::EFFET_TEST_MORT_ID = "effetTestMort";
 QString GenVieHumain::EVT_SELECTEUR_ID = "PrincipalSelecteur";
 shared_ptr<Evt> GenVieHumain::EVT_SELECTEUR = nullptr;
 
@@ -250,12 +253,12 @@ void GenVieHumain::GenererPrincipalSelectionneurDEffet()
     QVector<shared_ptr<NoeudProbable>> tousLesNoeudsDeBase;
     GenererEvtsDeBase(tousLesNoeudsDeBase);
 
-    shared_ptr<Effet> effetTestMort = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_SELECTEUR_ID);
+    shared_ptr<Effet> effetTestMort = m_GenerateurEvt->AjouterEffetVide(GenVieHumain::EVT_SELECTEUR, GenVieHumain::EFFET_TEST_MORT_ID);
     effetTestMort->m_GoToEffetId = "effetFinVie";
     effetTestMort->AjouterCondition(PbSante::C_SANTE, Comparateur::c_Egal, PbSante::MORT);
 
     shared_ptr<Effet> effetSelecteur = m_GenerateurEvt->AjouterEffetSelecteurDEvt(
-                tousLesNoeudsDeBase, GenVieHumain::EFFET_SELECTEUR_ID + "_selecteur", "", GenVieHumain::EVT_SELECTEUR);
+                tousLesNoeudsDeBase, GenVieHumain::EFFET_SELECTEUR_ID, "", GenVieHumain::EVT_SELECTEUR);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
 
     shared_ptr<Effet> effetFinVie = AjouterEffetNarration("Cette vie est terminée...", "", "effetFinVie", GenVieHumain::EVT_SELECTEUR);

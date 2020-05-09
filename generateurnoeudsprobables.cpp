@@ -19,8 +19,9 @@ shared_ptr<Effet> GenerateurNoeudsProbables::GenererEffet(shared_ptr<GenEvt> gen
     effet = genEvt->AjouterEffetNarration(
         m_Description,
         m_Image,
-        "evt_" + m_Nom, GenVieHumain::EVT_SELECTEUR);
-    effet->m_GoToEffetId = GenVieHumain::EFFET_SELECTEUR_ID;
+        "evt_" + m_Nom,
+        GenVieHumain::EVT_SELECTEUR);
+    effet->m_GoToEffetId = GenVieHumain::EFFET_TEST_MORT_ID;
     effet = GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet);
     effet->m_Conditions = m_Conditions;
     effet->m_CallbackDisplay = m_CallbackDisplay;
