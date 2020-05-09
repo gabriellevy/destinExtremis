@@ -64,19 +64,19 @@ PbSante::PbSante(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Description = "Vous êtes mort de vieillesse.";
         // déclenchable quand on vieillit (et de plus en plus probable au fur et à mesure)
         m_ConditionSelecteurProba->AjouterModifProba(0.0001,
-            {make_shared<Condition>(GenVieHumain::AGE, "480", Comparateur::c_Superieur)}); // 40 ans
+            {make_shared<Condition>(GenVieHumain::C_AGE, "480", Comparateur::c_Superieur)}); // 40 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.0005,
-            {make_shared<Condition>(GenVieHumain::AGE, "600", Comparateur::c_Superieur)}); // 50 ans
+            {make_shared<Condition>(GenVieHumain::C_AGE, "600", Comparateur::c_Superieur)}); // 50 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.001,
-            {make_shared<Condition>(GenVieHumain::AGE, "720", Comparateur::c_Superieur)}); // 60 ans
+            {make_shared<Condition>(GenVieHumain::C_AGE, "720", Comparateur::c_Superieur)}); // 60 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.005,
-            {make_shared<Condition>(GenVieHumain::AGE, "840", Comparateur::c_Superieur)}); // 70 ans
+            {make_shared<Condition>(GenVieHumain::C_AGE, "840", Comparateur::c_Superieur)}); // 70 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.01,
-            {make_shared<Condition>(GenVieHumain::AGE, "1020", Comparateur::c_Superieur)}); // 85 ans
+            {make_shared<Condition>(GenVieHumain::C_AGE, "1020", Comparateur::c_Superieur)}); // 85 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.05,
-            {make_shared<Condition>(GenVieHumain::AGE, "1200", Comparateur::c_Superieur)}); // 100 ans
+            {make_shared<Condition>(GenVieHumain::C_AGE, "1200", Comparateur::c_Superieur)}); // 100 ans
         m_ConditionSelecteurProba->AjouterModifProba(0.1,
-            {make_shared<Condition>(GenVieHumain::AGE, "2400", Comparateur::c_Superieur)}); // 200 ans
+            {make_shared<Condition>(GenVieHumain::C_AGE, "2400", Comparateur::c_Superieur)}); // 200 ans
 
         // espérance de vie différente selon la classe sociale... :
         m_ConditionSelecteurProba->AjouterModifProba(-0.001,
@@ -164,7 +164,7 @@ void PbSante::BlessureGrave(Humain* hum, shared_ptr<Effet> effet, int& nbMoisHop
 
 std::shared_ptr<Condition> PbSante::AjouterConditionSiAgeSuperieurA(int ageAnnees)
 {
-    std::shared_ptr<Condition> cond = make_shared<Condition>(GenVieHumain::AGE, QString::number(ageAnnees*12), Comparateur::c_Superieur);
+    std::shared_ptr<Condition> cond = make_shared<Condition>(GenVieHumain::C_AGE, QString::number(ageAnnees*12), Comparateur::c_Superieur);
     return cond;
 }
 

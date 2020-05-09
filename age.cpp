@@ -5,7 +5,7 @@
 #include "genviehumain.h"
 
 Age::Age(int ageMois)
-    :Carac(GenVieHumain::AGE, GenVieHumain::AGE, QString::number(ageMois),
+    :Carac(GenVieHumain::C_AGE, GenVieHumain::C_AGE, QString::number(ageMois),
            "", "", MODE_AFFICHAGE::ma_Texte,
            nullptr, "", "")
 {

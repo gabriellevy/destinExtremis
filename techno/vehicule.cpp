@@ -30,16 +30,14 @@ Vehicule::Vehicule(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             double proba = Aleatoire::GetAl()->Entre0Et1();
             if ( proba > 0.99) {
                 effet->m_Texte += "\nVous êtes tué dans l'accident.";
-                PbSante::BlessureLegere(hum, effet, nbMoisHopital);
                 hum->SetValeurACaracId(PbSante::C_SANTE, PbSante::MORT);
                 return;
             }
             else
             {
-
                 // blessure légère ?
                 proba = Aleatoire::GetAl()->Entre0Et1();
-                if ( proba > 0.6) {
+                if ( proba > 0.5) {
                     PbSante::BlessureLegere(hum, effet, nbMoisHopital);
                 }
                 // blessure grave ?

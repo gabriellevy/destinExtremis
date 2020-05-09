@@ -19,7 +19,7 @@ public:
     const static int CHRONO = 5000; // nombre de ms entre chaque effet
 
     // caracs :
-    static QString AGE;
+    static QString C_AGE;
     static QString C_LIBERTE; // par défaut le perso est libre. Si il est enfermé ou très restraint, le préciser dasn cette carac
 
     // evts important :
@@ -39,7 +39,7 @@ protected:
 
 private:
     // génération des événement et effets de base
-    void GenererEvtsAccueil();
+    void GenererEvtsAccueil(bool naissanceAuto = true, bool univ = true);
     void GenererEvtsDeBase(QVector<std::shared_ptr<NoeudProbable>> &noeuds);
     void GenererPrincipalSelectionneurDEffet();
  //  cet effet représente à lui seul un mois complet de vie, il veiilit de le personnage

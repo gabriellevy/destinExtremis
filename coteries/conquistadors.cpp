@@ -203,7 +203,7 @@ QString Conquistadors::GetId()
     return Coterie::CONQUISTADORS;
 }
 
-void Conquistadors::GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images)
+void Conquistadors::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString metier, QVector<QString>&images)
 {
     if ( ageAnnees >= 15 ) {
         if ( ageAnnees <= 40 ) {

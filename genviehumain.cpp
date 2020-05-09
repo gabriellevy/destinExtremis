@@ -40,7 +40,7 @@
 using std::make_shared;
 using std::shared_ptr;
 
-QString GenVieHumain::AGE = "Age";
+QString GenVieHumain::C_AGE = "Age";
 QString GenVieHumain::C_LIBERTE = "Liberté";
 
 GenVieHumain::GenVieHumain():GenHistoire ("La vie sur Extremis") {}
@@ -55,7 +55,7 @@ shared_ptr<Hist> GenVieHumain::GenererHistoire()
     GenHistoire::GenererHistoire();
     GenererDataUnivers();
     GenererPersos();
-    GenererEvtsAccueil();
+    GenererEvtsAccueil(false, false);
     GenererCaracs();
     GenererPrincipalSelectionneurDEffet();
 
@@ -126,13 +126,39 @@ void GenVieHumain::GenererCaracs()
     caracBionique->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;*/
 }
 
-void GenVieHumain::GenererEvtsAccueil()
+void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
 {
     this->AjouterEvt("Debut", "Génération du perso par les choix");
     shared_ptr<Effet> effet1 = AjouterEffetNarration("", "");
-    Naissance::GenererEffetNaissance(effet1);
+    if (naissanceAuto)
+        Naissance::GenererEffetNaissance(effet1);
+    else {
+        // paramétrage perso de test :
+        effet1->m_Texte = "";
+        Famille::GenererParents(effet1);
 
-    std::shared_ptr<Evt> evtEducationPol = Education::GenererEvtEducationPolitique(this);
+        // génération des traits :
+        QString nomTrait = Trait::GetNomTrait(grand);
+        effet1->AjouterChangeurDeCarac(nomTrait, "1");
+
+        effet1->AjouterChangeurDeCarac(GenVieHumain::C_AGE, "240"); // 20 ans
+
+        // génération classe sociale :
+        QString clas = ClasseSociale::GetClasseSocialeAleatoire();
+        effet1->AjouterChangeurDeCarac(ClasseSociale::C_CLASSE_SOCIALE, clas);
+        effet1->m_Texte += "\nVous êtes de la classe sociale des " + clas + ".";
+    }
+
+    if ( univ )
+        std::shared_ptr<Evt> evtEducationPol = Education::GenererEvtEducationPolitique(this);
+    else {
+        effet1->m_CallbackDisplay = [] {
+            Humain* hum = Humain::GetHumainJoue();
+            shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
+
+            Extremis::COTERIES[3]->RejoindreCoterie(hum, effet);
+        };
+    }
 
     AjouterEffetGoToEvt(GenVieHumain::EVT_SELECTEUR_ID, "finNaissance");
 }
@@ -200,11 +226,11 @@ shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effe
     effet->AjouterCondition(PbSante::C_SANTE, Comparateur::c_Different, PbSante::MORT);
     effet->m_MsChrono = GenVieHumain::CHRONO;
     effet->m_GoToEvtId = "PrincipalSelecteur";
-    effet->AjouterAjouteurACarac(GenVieHumain::AGE, 1);
-    effet->AjouterAjouteurACarac(Amour::PRE_COUPLE + GenVieHumain::AGE, 1);
-    effet->AjouterAjouteurACarac(Amour::PRE_MAITRESSE + GenVieHumain::AGE, 1);
-    effet->AjouterAjouteurACarac(Amour::PRE_ELLE_AMOUREUSE + GenVieHumain::AGE, 1);
-    effet->AjouterAjouteurACarac(Amour::PRE_LUI_AMOUREUX + GenVieHumain::AGE, 1);
+    effet->AjouterAjouteurACarac(GenVieHumain::C_AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_COUPLE + GenVieHumain::C_AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_MAITRESSE + GenVieHumain::C_AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_ELLE_AMOUREUSE + GenVieHumain::C_AGE, 1);
+    effet->AjouterAjouteurACarac(Amour::PRE_LUI_AMOUREUX + GenVieHumain::C_AGE, 1);
     effet->AjouterAjouteurACarac(Crime::C_MOIS_PRISON, -1);
     effet->AjouterAjouteurACarac(PbSante::C_MOIS_HOPITAL, -1);
     return effet;

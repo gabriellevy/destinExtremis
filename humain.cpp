@@ -18,7 +18,7 @@ void Humain::ActualisationPortrait()
 {
     QVector<QString> images = {};
 
-    int age = this->GetValeurCaracAsInt(GenVieHumain::AGE)/12;
+    int age = this->GetValeurCaracAsInt(GenVieHumain::C_AGE)/12;
     QString metier = this->GetValeurCarac(Metier::C_METIER);
     QString strCoterie = this->GetValeurCarac(Coterie::C_COTERIE);
     if ( strCoterie != "" ) {
@@ -107,7 +107,7 @@ Humain* Humain::GetHumainJoue()
 
 int Humain::GetAge()
 {
-    return DPerso::GetValeurCaracAsInt(GenVieHumain::AGE);
+    return DPerso::GetValeurCaracAsInt(GenVieHumain::C_AGE);
 }
 
 QString Humain::GetValeurCarac(QString id)

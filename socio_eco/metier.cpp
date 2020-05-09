@@ -183,7 +183,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     if ( m_ConditionSelecteurProba!= nullptr) {
         // si on a moins de 15 ans la proba de s'en voir affecter un est très faible :
         // mais affectation de métier plus rapide sur monde féodal :
-        m_ConditionSelecteurProba->AjouterModifProba(-2.3, {make_shared<Condition>(GenVieHumain::AGE, "120", Comparateur::c_Inferieur)});
+        m_ConditionSelecteurProba->AjouterModifProba(-2.3, {make_shared<Condition>(GenVieHumain::C_AGE, "120", Comparateur::c_Inferieur)});
 
         // plus de chances de choisir un métier si on a des compétences de ce métier :
         m_ConditionSelecteurProba->AjouterModifProba(0.2, {make_shared<Condition>(m_Nom, "1", Comparateur::c_SuperieurEgal)});

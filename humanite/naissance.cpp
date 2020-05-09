@@ -17,7 +17,7 @@ std::shared_ptr<Effet> Naissance::GenererEffetNaissance(std::shared_ptr<Effet> e
     Famille::GenererParents(effetNarrationVide);
 
     // génération des traits :
-    int nb = 4 + Aleatoire::GetAl()->EntierInferieurA(10);
+    int nb = 3 + Aleatoire::GetAl()->EntierInferieurA(6);
     effetNarrationVide->m_Texte += "\n\nVos traits principaux : ";
     QVector<eTrait> m_Traits = {};
     while(nb-->0) {

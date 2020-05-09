@@ -57,7 +57,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba->AjouterModifProba(0.005,
             { make_shared<Condition>(Trait::GetNomTrait(jouisseur), "1", Comparateur::c_Egal) } );
         m_ConditionSelecteurProba->AjouterModifProba(-0.005,
-            { make_shared<Condition>(GenVieHumain::AGE, "40", Comparateur::c_Superieur) } );
+            { make_shared<Condition>(GenVieHumain::C_AGE, "40", Comparateur::c_Superieur) } );
 
         m_Description = "hop";
         m_CallbackDisplay = [] {
@@ -130,7 +130,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             hum->SetValeurACaracId(prefixe + PNJ::C_NOM, hum->GetValeurCarac(PRE_LUI_AMOUREUX + PNJ::C_NOM));
             hum->SetValeurACaracId(prefixe + PNJ::C_COTERIE, hum->GetValeurCarac(PRE_LUI_AMOUREUX + PNJ::C_COTERIE));
             hum->SetValeurACaracId(prefixe + PNJ::C_SEXE, hum->GetValeurCarac(PRE_LUI_AMOUREUX + PNJ::C_SEXE));
-            hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, hum->GetValeurCarac(PRE_LUI_AMOUREUX + GenVieHumain::AGE));
+            hum->SetValeurACaracId(prefixe + GenVieHumain::C_AGE, hum->GetValeurCarac(PRE_LUI_AMOUREUX + GenVieHumain::C_AGE));
             hum->SetValeurACaracId(prefixe + Amour::C_ETAT_MARITAL, hum->GetValeurCarac(PRE_LUI_AMOUREUX + Amour::C_ETAT_MARITAL));
             hum->SetValeurACaracId(PRE_LUI_AMOUREUX + PNJ::C_NOM, "");
 
@@ -184,7 +184,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_NOM, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_NOM));
             hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_COTERIE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_COTERIE));
             hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_SEXE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + PNJ::C_SEXE));
-            hum->SetValeurACaracId(PRE_MAITRESSE + GenVieHumain::AGE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + GenVieHumain::AGE));
+            hum->SetValeurACaracId(PRE_MAITRESSE + GenVieHumain::C_AGE, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + GenVieHumain::C_AGE));
             hum->SetValeurACaracId(PRE_MAITRESSE + Amour::C_ETAT_MARITAL, hum->GetValeurCarac(PRE_ELLE_AMOUREUSE + Amour::C_ETAT_MARITAL));
             hum->SetValeurACaracId(PRE_ELLE_AMOUREUSE + PNJ::C_NOM, "");
         };
@@ -249,7 +249,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
             hum->SetValeurACaracId(PRE_COUPLE + PNJ::C_NOM, hum->GetValeurCarac(PRE_MAITRESSE + PNJ::C_NOM));
             hum->SetValeurACaracId(PRE_COUPLE + PNJ::C_COTERIE, hum->GetValeurCarac(PRE_MAITRESSE + PNJ::C_COTERIE));
             hum->SetValeurACaracId(PRE_COUPLE + PNJ::C_SEXE, hum->GetValeurCarac(PRE_MAITRESSE + PNJ::C_SEXE));
-            hum->SetValeurACaracId(PRE_COUPLE + GenVieHumain::AGE, hum->GetValeurCarac(PRE_MAITRESSE + GenVieHumain::AGE));
+            hum->SetValeurACaracId(PRE_COUPLE + GenVieHumain::C_AGE, hum->GetValeurCarac(PRE_MAITRESSE + GenVieHumain::C_AGE));
             hum->SetValeurACaracId(PRE_MAITRESSE + PNJ::C_NOM, "");
         };
         m_ModificateursCaracs[PRE_COUPLE + Amour::C_ETAT_MARITAL] = Amour::REGULIERE;
@@ -302,7 +302,7 @@ void Amour::AjouterModifProbaSeduisant()
     m_ConditionSelecteurProba->AjouterModifProba(0.005,
         { make_shared<Condition>(Trait::GetNomTrait(charmeur), "1", Comparateur::c_Egal) } );
     m_ConditionSelecteurProba->AjouterModifProba(-0.005,
-        { make_shared<Condition>(GenVieHumain::AGE, "40", Comparateur::c_Superieur) } );
+        { make_shared<Condition>(GenVieHumain::C_AGE, "40", Comparateur::c_Superieur) } );
 }
 
 void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::shared_ptr<Effet> effetNarration)
@@ -326,10 +326,10 @@ void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::share
     hum->SetValeurACaracId(prefixe + PNJ::C_COTERIE, saCoterie->GetId());
 
     // son age :
-    int ageP = hum->GetValeurCaracAsInt(GenVieHumain::AGE);
+    int ageP = hum->GetValeurCaracAsInt(GenVieHumain::C_AGE);
     int decal = (ageP-14)/2 - Aleatoire::GetAl()->EntierInferieurA(ageP - 14);
     int age = ageP + decal;
-    hum->SetValeurACaracId(prefixe + GenVieHumain::AGE, age);
+    hum->SetValeurACaracId(prefixe + GenVieHumain::C_AGE, age);
 
     // son statut marital
     double proba = Aleatoire::GetAl()->Entre0Et1();

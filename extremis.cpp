@@ -33,14 +33,14 @@ Extremis::Extremis(ModeAffichage modeAffichage,
 void Extremis::GenererCoteries()
 {
     Extremis::COTERIES = {
-        //make_shared<Tyranides>(),
-        //make_shared<Celte>(),
         make_shared<Elfes>(),
         make_shared<Orks>(),
-        //make_shared<Cathares>(),
         make_shared<Conquistadors>(),
         make_shared<CroisadeFranque>(),
         make_shared<Transhumanistes>()
+        //make_shared<Tyranides>(),
+        //make_shared<Celte>(),
+        //make_shared<Cathares>(),
     };
 }
 
