@@ -15,7 +15,7 @@ std::shared_ptr<PNJ> PNJ::GenererPersoAleatoire( QString prefixe, Sexe sexe, std
     shared_ptr<PNJ> pnj = make_shared<PNJ>(prefixe);
 
     if ( coterie == nullptr ) {
-        pnj->m_Coterie  = Coterie::GetCoterieAleatoire(true);
+        pnj->m_Coterie  = Coterie::GetCoterieAleatoire(cc_Demographie);
     } else {
         pnj->m_Coterie = coterie;
     }

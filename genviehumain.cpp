@@ -59,7 +59,7 @@ shared_ptr<Hist> GenVieHumain::GenererHistoire()
     GenererCaracs();
     GenererPrincipalSelectionneurDEffet();
 
-    //m_HistoireGeneree->SetModeDeroulement( ModeDeroulement::Automatique, GenVieHumain::CHRONO);
+    m_HistoireGeneree->SetModeDeroulement( ModeDeroulement::Automatique, GenVieHumain::CHRONO);
 
     return m_HistoireGeneree;
 }
@@ -156,7 +156,7 @@ void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
             Humain* hum = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
 
-            Extremis::COTERIES[3]->RejoindreCoterie(hum, effet);
+            Extremis::COTERIES[0]->RejoindreCoterie(hum, effet);
         };
     }
 

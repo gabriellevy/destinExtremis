@@ -31,7 +31,7 @@ void Famille::GenererParents(std::shared_ptr<Effet> effetNarrationVide)
 {
     // coterie des parents :
     shared_ptr<PNJ> pere = PNJ::GenererPersoAleatoire(Famille::PRE_PERE, es_Masculin);
-    shared_ptr<Coterie> cotMere  = Coterie::GetCoterieAleatoire(true);
+    shared_ptr<Coterie> cotMere  = Coterie::GetCoterieAleatoire(cc_Demographie);
     double proba = Aleatoire::GetAl()->Entre0Et1();
     if ( proba <= 0.6) {// bonnes chances que père et mère aient la même coterie
         cotMere = pere->m_Coterie;

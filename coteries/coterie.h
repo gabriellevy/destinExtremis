@@ -12,6 +12,13 @@ class Condition;
 class Humain;
 class Quartier;
 
+// critère de sélection de coterie semi aléatoire
+enum CritereCoterie {
+    cc_Aleatoire,
+    cc_Demographie,
+    cc_Seduction
+};
+
 class Coterie
 {
 protected:
@@ -34,6 +41,7 @@ public:
     virtual QString GetDescription() = 0;
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
+    virtual double GetCoeffSeduction() {return 1.0;} // à quel point les membres de cette coterie snot séduisants (0.1 = horribles, 3.0 = irrésistibles
     virtual void GenererPortraits(Humain* /*hum*/, int /*ageAnnees*/, QString /*metier*/, QVector<QString>& /*images*/) {}
     virtual std::shared_ptr<Quartier> GenererQuartier();
     /**
@@ -56,8 +64,8 @@ public:
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant) = 0;
 
-    static QVector<std::shared_ptr<Coterie>> GetNRandomCoteries(int nombre, bool selonPoidsDemographique = false);
-    static std::shared_ptr<Coterie> GetCoterieAleatoire(bool selonPoidsDemographique = false);
+    static QVector<std::shared_ptr<Coterie>> GetNRandomCoteries(int nombre, CritereCoterie critereCoterie = cc_Aleatoire);
+    static std::shared_ptr<Coterie> GetCoterieAleatoire(CritereCoterie critereCoterie = cc_Aleatoire);
 
     static void AjouterModifProbaSiDeCetteCoterie(Condition* CondProba, double proba, QString nomCoterie);
 

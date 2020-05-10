@@ -97,9 +97,10 @@ void Coterie::Initialisation()
 }
 
 
-std::shared_ptr<Coterie>Coterie:: GetCoterieAleatoire(bool selonPoidsDemographique )
+std::shared_ptr<Coterie>Coterie:: GetCoterieAleatoire(CritereCoterie critereCoterie )
 {
-    if ( selonPoidsDemographique ) {
+    switch (critereCoterie) {
+    case cc_Demographie : {
         double poidsDemoTotal = 0;
         for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
             poidsDemoTotal += cot->GetPoidsDemo();
@@ -112,17 +113,33 @@ std::shared_ptr<Coterie>Coterie:: GetCoterieAleatoire(bool selonPoidsDemographiq
             if ( alPoidsDemo <= 0)
                 return cot;
         }
+    }break;
+    case cc_Aleatoire :
+        return Extremis::COTERIES[Aleatoire::GetAl()->EntierInferieurA(Extremis::COTERIES.size())];
+        break;
+    case cc_Seduction : {
+        double poidsTotal = 0;
+        for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
+            poidsTotal += cot->GetCoeffSeduction();
+        }
 
+        double alPoidsDemo = Aleatoire::GetAl()->Entre0Et1() * poidsTotal;
+
+        for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
+            alPoidsDemo -= cot->GetPoidsDemo();
+            if ( alPoidsDemo <= 0)
+                return cot;
+        }
+    }break;
     }
-    return Extremis::COTERIES[Aleatoire::GetAl()->EntierInferieurA(Extremis::COTERIES.size())];
 }
 
-QVector<shared_ptr<Coterie>> Coterie::GetNRandomCoteries(int n, bool selonPoidsDemographique)
+QVector<shared_ptr<Coterie>> Coterie::GetNRandomCoteries(int n, CritereCoterie critereCoterie)
 {
     QVector<shared_ptr<Coterie>> m_Coteries = {};
 
     while (n > 0) {
-        shared_ptr<Coterie> coterie = GetCoterieAleatoire(selonPoidsDemographique);
+        shared_ptr<Coterie> coterie = GetCoterieAleatoire(critereCoterie);
 
         if ( m_Coteries.indexOf(coterie) == -1) {
             m_Coteries.push_back(coterie);

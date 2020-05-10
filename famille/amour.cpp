@@ -303,6 +303,11 @@ void Amour::AjouterModifProbaSeduisant()
         { make_shared<Condition>(Trait::GetNomTrait(charmeur), "1", Comparateur::c_Egal) } );
     m_ConditionSelecteurProba->AjouterModifProba(-0.005,
         { make_shared<Condition>(GenVieHumain::C_AGE, "40", Comparateur::c_Superieur) } );
+
+    for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
+        m_ConditionSelecteurProba->AjouterModifProba(cot->GetCoeffSeduction(),
+            { make_shared<Condition>(Coterie::C_COTERIE, cot->GetNom(), Comparateur::c_Egal) } );
+    }
 }
 
 void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::shared_ptr<Effet> effetNarration)
@@ -314,7 +319,8 @@ void Amour::GenererAmoureusePotentielle(QString prefixe, Humain* hum, std::share
         shared_ptr<Trait> trait = Trait::GetTrait(traits, false);
         traits.push_back(trait->m_eTrait);
     }
-    shared_ptr<Coterie> saCoterie = Coterie::GetCoterieAleatoire(true);
+
+    shared_ptr<Coterie> saCoterie = Coterie::GetCoterieAleatoire(cc_Seduction);
 
     for (eTrait trait: traits) {
         hum->SetValeurACaracId(prefixe + Trait::GetNomTrait(trait), "1");

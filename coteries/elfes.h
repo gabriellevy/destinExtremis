@@ -23,6 +23,7 @@ public:
     virtual std::shared_ptr<Quartier> GenererQuartier();
     virtual void GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images);
     QString CreerPatronyme(bool masculin = true);
+    virtual double GetCoeffSeduction() {return 2.5;}
 
     virtual std::shared_ptr<Effet> AjouterEffetUniversite(
             GenHistoire* genHist, std::shared_ptr<Evt> evt, QString go_to_effet_suivant );
