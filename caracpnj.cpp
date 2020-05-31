@@ -7,6 +7,8 @@
 #include "humain.h"
 #include "coteries/coterie.h"
 #include "humanite/pnj.h"
+#include "socio_eco/metier.h"
+#include "humanite/identite.h"
 
 CaracPNJ::CaracPNJ(QString prefixe, QString intitule)
     :Carac(prefixe, intitule, "",
@@ -45,6 +47,8 @@ bool CaracPNJ::AfficherIntitule()
 
 bool CaracPNJ::AfficherValeur()
 {
+    ui->imageDansBox->hide();
+    ui->imageCarac->hide();
     //if ( m_Pnj == nullptr) // lourd de charger à chaque fois... comment détecter quand il change de valeur ?
         m_Pnj = PNJ::ChargerPNJ(GetPrefixe(), Humain::GetHumainJoue());
 
@@ -73,6 +77,16 @@ bool CaracPNJ::AfficherValeur()
         ui->labelValeurDansBox->setText(txt);
         QString desc = this->GetCaracDescription();
         ui->labelValeurDansBox->setToolTip(desc);
+
+        QMap<QString, QString> caracs;
+        caracs[PNJ::C_SEXE] = m_Pnj->m_SexeMasculin?PNJ::HOMME:PNJ::FEMME;
+        caracs[Coterie::C_COTERIE] = m_Pnj->m_Coterie->GetId();
+
+        QString CheminImg = Identite::GenererPortraits(caracs, m_Pnj->m_Age/12);
+        if ( CheminImg != "" ) {
+            m_Img.load(CheminImg);
+            AfficherImage(true);
+        }
         return true;
     }
     return false;

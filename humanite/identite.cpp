@@ -1,5 +1,13 @@
 #include "identite.h"
 #include "../destinLib/aleatoire.h"
+#include "coteries/coterie.h"
+#include "extremis.h"
+#include <memory>
+#include "humanite/pnj.h"
+#include "socio_eco/classesociale.h"
+#include "../destinLib/aleatoire.h"
+
+using std::shared_ptr;
 
 QVector<QString> Identite::PRENOMS = {
     "Abel", "Abraham", "Aaron", "Abecassis", "Abitbol", "Abitboul", "Avraham", "Ibrahim", "Ari", "Ariel",
@@ -739,4 +747,76 @@ QString Identite::CreerPatronyme(bool male)
         : Identite::PRENOMS_FEMININS[Aleatoire::GetAl()->EntierInferieurA(Identite::PRENOMS_FEMININS.length())]);
     QString nom = Identite::NOMS[Aleatoire::GetAl()->EntierInferieurA(Identite::NOMS.length())];
     return (prenom + " " + nom);
+}
+
+QString Identite::GenererPortraits(QMap<QString, QString> caracs, int age)
+{
+    QVector<QString> images = {};
+
+    QString strCoterie = caracs[Coterie::C_COTERIE];
+    if ( strCoterie != "" ) {
+        shared_ptr<Coterie> coterie = Extremis::GetCoterie(strCoterie);
+
+        coterie->GenererPortraits(caracs, age, images);
+    }
+
+    // portraits génériques hors des coteries (si elles n'en ont pas assez)
+    if ( images.size() == 0 )
+    {
+        bool femme = caracs[PNJ::C_SEXE] == PNJ::FEMME;
+        if ( femme )
+        {
+            if ( age >= 14 ) {
+                if ( age <= 40 ) {
+                    images.push_back(":/images/portraits/Fportrait14-40.png");
+                }
+            }
+        }
+        else
+        {
+            if ( age >= 15 ) {
+                if ( age <= 35 ) {
+                    images.push_back(":/images/portraits/portrait15-35.png");
+                }
+                if ( age <= 40 ) {
+                    images.push_back(":/images/portraits/portrait_15-40.jpg");
+                    images.push_back(":/images/portraits/portrait_15-40_b.jpg");
+                }
+            }
+
+            if ( age >= 20 ) {
+                if ( age <= 60 ) {
+                    images.push_back(":/images/portraits/portrait_bucheron_20-60.jpg");
+                    if ( age <= 50 ) {
+                        images.push_back(":/images/portraits/portrait_20-50.jpg");
+                        images.push_back(":/images/portraits/portrait20-50_2.png");
+                        images.push_back(":/images/portraits/portrait20-50_3.png");
+                        images.push_back(":/images/portraits/portrait20-50_4.png");
+                    }
+                }
+                if ( age <= 40 ) {
+                    images.push_back(":/images/portraits/portrait20-40.png");
+                    images.push_back(":/images/portraits/portrait20-40_2.png");
+                }
+            }
+
+            if ( age >= 40 ) {
+                images.push_back(":/images/portraits/portrait40+.png");
+            }
+            if ( age >= 60 && caracs[ClasseSociale::C_CLASSE_SOCIALE] == ClasseSociale::MISERABLES) {
+                images.push_back(":/images/portraits/portrait60+_miserable.png");
+            }
+
+            if ( age >= 40 ) {
+                if ( age <= 60 ) {
+                    images.push_back(":/images/portraits/portrait40-60.png");
+                }
+            }
+        }
+    }
+
+    if ( images.size() == 0 )
+        return "";
+
+    return images[Aleatoire::GetAl()->EntierInferieurA(images.size())];
 }

@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QVector>
+#include <QMap>
 
 /**
  * @brief ce qui concerne les bases de l'identité du personnage à la naissance
@@ -15,6 +16,7 @@ public:
     static QVector<QString> NOMS;
 
     static QString CreerPatronyme(bool male = true);
+    static QString GenererPortraits(QMap<QString, QString> /*caracs*/, int /*ageAnnees*/);
 };
 
 #endif // IDENTITE_H
