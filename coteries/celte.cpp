@@ -135,7 +135,7 @@ QString Celte::CreerPatronyme(bool masculin)
             );
 }
 
-void Celte::GenererPortraits(Humain* /*hum*/, int /*ageAnnees*/, QString /*metier*/, QVector<QString>& /*images*/)
+void Celte::GenererPortraits(QMap<QString, QString> , int , QVector<QString>&)
 {}
 
 QVector<QString> Celte::PRENOMS_F = {

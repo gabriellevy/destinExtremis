@@ -93,21 +93,37 @@ double Elfes::GetPoidsDemo()
     return 0.4;
 }
 
-void Elfes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
+void Elfes::GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images)
 {
-    if ( ageAnnees >= 15 ) {
-        if ( ageAnnees <= 40 ) {
-            images.push_back(":/images/elfes/portrait_15-40_b.jpg");
-            images.push_back(":/images/elfes/portrait_15-40_c.jpg");
-            images.push_back(":/images/elfes/portrait_15-40_d.jpg");
-            if ( ageAnnees < 30 ) {
-                images.push_back(":/images/elfes/portrait_15-30.jpg");
+    bool femme = caracs[PNJ::C_SEXE] == PNJ::FEMME;
+    if ( femme ) {
+        if ( ageAnnees >= 20 ) {
+            if ( ageAnnees <= 40 ) {
+                images.push_back(":/images/elfes/Fportrait20-40.png");
+                images.push_back(":/images/elfes/Fportrait20-40_2.png");
             }
         }
-        if ( ageAnnees >= 30 ) {
-            images.push_back(":/images/elfes/portrait_30+.jpg");
-            if ( ageAnnees >= 50 ) {
-                images.push_back(":/images/elfes/portrait_50+.jpg");
+    } else {
+        if ( ageAnnees >= 15 ) {
+            if ( ageAnnees <= 40 ) {
+                images.push_back(":/images/elfes/portrait_15-40_b.jpg");
+                images.push_back(":/images/elfes/portrait_15-40_c.jpg");
+                images.push_back(":/images/elfes/portrait_15-40_d.jpg");
+                if ( ageAnnees < 30 ) {
+                    images.push_back(":/images/elfes/portrait_15-30.jpg");
+                }
+            }
+            if ( ageAnnees >= 20 ) {
+                if ( ageAnnees <= 40 ) {
+                    images.push_back(":/images/elfes/portrait20-40.png");
+                }
+                if ( ageAnnees >= 30 ) {
+                    images.push_back(":/images/elfes/portrait_30+.jpg");
+                    if ( ageAnnees >= 50 ) {
+                        images.push_back(":/images/elfes/portrait_50+.jpg");
+                        images.push_back(":/images/elfes/portrait50+.png");
+                    }
+                }
             }
         }
     }

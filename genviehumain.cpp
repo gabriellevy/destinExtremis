@@ -55,7 +55,7 @@ shared_ptr<Hist> GenVieHumain::GenererHistoire()
     GenHistoire::GenererHistoire();
     GenererDataUnivers();
     GenererPersos();
-    GenererEvtsAccueil(true, false);
+    GenererEvtsAccueil(true, true);
     GenererCaracs();
     GenererPrincipalSelectionneurDEffet();
 

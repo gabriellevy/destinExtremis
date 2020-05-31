@@ -16,6 +16,7 @@ using std::make_shared;
 
 void Quartier::GenererQuartiersAdministratifs()
 {
+    /** TODO MATHIEU : à décommenter quand les quartiers administratifs seront assignés à des coteries
     shared_ptr<Quartier> tour = make_shared<Quartier>("Tour de la convention", "Centre du gouvernement mondial", "");
     Extremis::QUARTIERS[tour->m_Nom] = tour;
 
@@ -36,6 +37,7 @@ void Quartier::GenererQuartiersAdministratifs()
 
     shared_ptr<Quartier> quartierAdmin1 = make_shared<Quartier>("1er Quartier administratif", "1er Quartier administratif", "");
     Extremis::QUARTIERS[quartierAdmin1->m_Nom] = quartierAdmin1;
+    */
 }
 
 double Quartier::GetPoidsDemo()

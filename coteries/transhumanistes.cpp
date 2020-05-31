@@ -41,7 +41,7 @@ QString Transhumanistes::GetGentile(bool /*masculin*/)
     return "transhumaniste";
 }
 
-void Transhumanistes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
+void Transhumanistes::GenererPortraits(QMap<QString, QString> /*caracs*/, int ageAnnees, QVector<QString>&images)
 {
     if ( ageAnnees >= 10 ) {
         if ( ageAnnees <= 20 ) {
@@ -71,6 +71,7 @@ void Transhumanistes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /
             images.push_back(":/images/transhumanistes/portrait30-50.jpg");
             images.push_back(":/images/transhumanistes/portrait30-50_2.jpg");
             images.push_back(":/images/transhumanistes/portrait30-50_3.jpg");
+            images.push_back(":/images/transhumanistes/portrait30-50_2.png");
         }
     }
     if ( ageAnnees >= 20 ) {
@@ -79,6 +80,7 @@ void Transhumanistes::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /
             images.push_back(":/images/transhumanistes/portrait20-50.jpg");
             images.push_back(":/images/transhumanistes/portrait20-50_2.jpg");
             images.push_back(":/images/transhumanistes/portrait20-50_3.jpg");
+            images.push_back(":/images/transhumanistes/portrait20-50.png");
         }
     }
     if ( ageAnnees >= 15 ) {

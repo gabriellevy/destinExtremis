@@ -96,5 +96,26 @@
         <file>images/transhumanistes/commercial.jpg</file>
         <file>images/transhumanistes/ingenieur.jpg</file>
         <file>images/transhumanistes/boite_de_nuit.jpg</file>
+        <file>images/elfes/Fportrait20-40.png</file>
+        <file>images/elfes/Fportrait20-40_2.png</file>
+        <file>images/elfes/portrait20-40.png</file>
+        <file>images/elfes/portrait50+.png</file>
+        <file>images/portraits/portrait40+.png</file>
+        <file>images/portraits/portrait15-35.png</file>
+        <file>images/portraits/portrait40-60.png</file>
+        <file>images/portraits/portrait20-50_4.png</file>
+        <file>images/portraits/Fportrait14-40.png</file>
+        <file>images/portraits/portrait20-40_2.png</file>
+        <file>images/portraits/portrait20-50_3.png</file>
+        <file>images/portraits/portrait60+_miserable.png</file>
+        <file>images/portraits/portrait20-50_2.png</file>
+        <file>images/portraits/portrait20-40.png</file>
+        <file>images/orks/portrait15-40.png</file>
+        <file>images/orks/portrait20-50.png</file>
+        <file>images/orks/portrait20-50_2.png</file>
+        <file>images/orks/portrait20-50_3.png</file>
+        <file>images/orks/portrait30-50.png</file>
+        <file>images/transhumanistes/portrait30-50_2.png</file>
+        <file>images/transhumanistes/portrait20-50.png</file>
     </qresource>
 </RCC>

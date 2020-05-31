@@ -21,7 +21,7 @@ public:
     virtual QString GetGentile(bool masculin = true);
     QString GetMusique();
     virtual std::shared_ptr<Quartier> GenererQuartier();
-    virtual void GenererPortraits(Humain* hum, int ageAnnees, QString metier, QVector<QString>&images);
+    virtual void GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images);
     QString CreerPatronyme(bool masculin = true);
     virtual double GetCoeffSeduction() {return 2.5;}
 

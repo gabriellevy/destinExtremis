@@ -4,6 +4,7 @@
 #include <QVector>
 #include "humanite/trait.h"
 #include <memory>
+#include <QMap>
 
 class Effet;
 class Evt;
@@ -42,7 +43,13 @@ public:
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
     virtual double GetCoeffSeduction() {return 1.0;} // à quel point les membres de cette coterie snot séduisants (0.1 = horribles, 3.0 = irrésistibles
-    virtual void GenererPortraits(Humain* /*hum*/, int /*ageAnnees*/, QString /*metier*/, QVector<QString>& /*images*/) {}
+    /**
+     * @brief sélectionne les images de portrait applicables à un perso décritq apr un ensemble de caracs
+     * @param caractéristiques décrivant le perso
+     * @param age du perso en année (aurait pu être parmi les caracs mais mis en obligatoire à cause de son importance)
+     * @param les images considérées comme applicable au perso sont ajoutées à ce tableau
+     */
+    virtual void GenererPortraits(QMap<QString, QString> /*caracs*/, int /*ageAnnees*/, QVector<QString>&/*images*/){}
     virtual std::shared_ptr<Quartier> GenererQuartier();
     /**
      * @return id de la musique de cette faction. Aucune par défaut. Peut tout à fait contenir une liste de musique dont une aléatoire (ou déterminée par calcul) est renvoyée

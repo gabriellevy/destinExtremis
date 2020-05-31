@@ -372,7 +372,7 @@ QVector<QString> CroisadeFranque::PRENOMS_F = {
     "Iseult", "Léonor", "Letgarde", "Mahaut", "Mélissande", "Mélusine", "Milesende", "Morgane", "Ursule", "Viviane"
 };
 
-void CroisadeFranque::GenererPortraits(Humain* /*hum*/, int ageAnnees, QString /*metier*/, QVector<QString>&images)
+void CroisadeFranque::GenererPortraits(QMap<QString, QString> /*caracs*/, int ageAnnees, QVector<QString>&images)
 {
     if ( ageAnnees >= 20 ) {
         if ( ageAnnees <= 40 ) {

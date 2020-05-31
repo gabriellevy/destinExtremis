@@ -116,7 +116,6 @@ std::shared_ptr<Coterie>Coterie:: GetCoterieAleatoire(CritereCoterie critereCote
     }break;
     case cc_Aleatoire :
         return Extremis::COTERIES[Aleatoire::GetAl()->EntierInferieurA(Extremis::COTERIES.size())];
-        break;
     case cc_Seduction : {
         double poidsTotal = 0;
         for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
@@ -126,12 +125,13 @@ std::shared_ptr<Coterie>Coterie:: GetCoterieAleatoire(CritereCoterie critereCote
         double alPoidsDemo = Aleatoire::GetAl()->Entre0Et1() * poidsTotal;
 
         for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
-            alPoidsDemo -= cot->GetPoidsDemo();
+            alPoidsDemo -= cot->GetCoeffSeduction();
             if ( alPoidsDemo <= 0)
                 return cot;
         }
     }break;
     }
+    return nullptr;
 }
 
 QVector<shared_ptr<Coterie>> Coterie::GetNRandomCoteries(int n, CritereCoterie critereCoterie)
