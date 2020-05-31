@@ -818,5 +818,5 @@ QString Identite::GenererPortraits(QMap<QString, QString> caracs, int age)
     if ( images.size() == 0 )
         return "";
 
-    return images[Aleatoire::GetAl()->EntierInferieurA(images.size())];
+    return images[Aleatoire::GetAl()->EntierInferieurA(images.size(), true)];
 }

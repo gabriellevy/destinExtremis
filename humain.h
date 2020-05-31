@@ -15,8 +15,6 @@ class Humain : public DPerso
 {
     static Humain* ME;
     JourApresJour* m_JourApresJour;
-    int m_SeedPortrait = -1;
-    int m_NombreImagesPrecedent = -1;
 
 public:
     Humain(QString nom);
