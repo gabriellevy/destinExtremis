@@ -13,6 +13,7 @@
 #include "socio_eco/crime.h"
 #include "extremis.h"
 #include "socio_eco/economieevt.h"
+#include "humanite/pnj.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -372,17 +373,23 @@ QVector<QString> CroisadeFranque::PRENOMS_F = {
     "Iseult", "Léonor", "Letgarde", "Mahaut", "Mélissande", "Mélusine", "Milesende", "Morgane", "Ursule", "Viviane"
 };
 
-void CroisadeFranque::GenererPortraits(QMap<QString, QString> /*caracs*/, int ageAnnees, QVector<QString>&images)
+void CroisadeFranque::GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images)
 {
-    if ( ageAnnees >= 20 ) {
-        if ( ageAnnees <= 40 ) {
-            images.push_back(":/images/croisade_franque/portrait_20-40.jpg");
-        }
-        if ( ageAnnees >= 30 ) {
-            images.push_back(":/images/croisade_franque/portrait_30+.jpg");
-            if ( ageAnnees >= 50 ) {
-                images.push_back(":/images/croisade_franque/portrait_50+.jpg");
-                images.push_back(":/images/croisade_franque/portrait_50+_b.jpg");
+    bool femme = caracs[PNJ::C_SEXE] == PNJ::FEMME;
+    if ( femme ) {
+
+    }
+    else {
+        if ( ageAnnees >= 20 ) {
+            if ( ageAnnees <= 40 ) {
+                images.push_back(":/images/croisade_franque/portrait_20-40.jpg");
+            }
+            if ( ageAnnees >= 30 ) {
+                images.push_back(":/images/croisade_franque/portrait_30+.jpg");
+                if ( ageAnnees >= 50 ) {
+                    images.push_back(":/images/croisade_franque/portrait_50+.jpg");
+                    images.push_back(":/images/croisade_franque/portrait_50+_b.jpg");
+                }
             }
         }
     }

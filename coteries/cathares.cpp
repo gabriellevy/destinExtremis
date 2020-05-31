@@ -10,6 +10,7 @@
 #include <QDebug>
 #include "extremis.h"
 #include "socio_eco/classesociale.h"
+#include "humanite/pnj.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -173,14 +174,20 @@ QString Cathares::CreerPatronyme(bool masculin)
             );
 }
 
-void Cathares::GenererPortraits(QMap<QString, QString> /*caracs*/, int ageAnnees, QVector<QString>&images)
+void Cathares::GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images)
 {
-    if ( ageAnnees >= 20 ) {
-        if ( ageAnnees <= 50 ) {
-            images.push_back(":/images/cathares/portrait_20-50.jpg");
-            images.push_back(":/images/cathares/portrait_20-50_b.jpg");
-        } else {
-            images.push_back(":/images/cathares/portrait_50+_b.jpg");
+    bool femme = caracs[PNJ::C_SEXE] == PNJ::FEMME;
+    if ( femme ) {
+
+    }
+    else {
+        if ( ageAnnees >= 20 ) {
+            if ( ageAnnees <= 50 ) {
+                images.push_back(":/images/cathares/portrait_20-50.jpg");
+                images.push_back(":/images/cathares/portrait_20-50_b.jpg");
+            } else {
+                images.push_back(":/images/cathares/portrait_50+_b.jpg");
+            }
         }
     }
 }

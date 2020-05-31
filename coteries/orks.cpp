@@ -14,6 +14,7 @@
 #include <QDebug>
 #include "extremis.h"
 #include "geographie/quartier.h"
+#include "humanite/pnj.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -38,43 +39,50 @@ QString Orks::GetGentile(bool /*masculin*/)
 void Orks::GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images)
 {
     QString metier = caracs[Metier::C_METIER];
-    if (caracs[Trait::GetNomTrait(chetif)] == "1" && caracs[Trait::GetNomTrait(petit)] == "1") {
-        // gobelins
-        if ( ageAnnees >= 15 ) {
-            if ( metier == Metier::MUSICIEN ) {
-                images.push_back(":/images/orks/portrait_gobelin_musicien_15+.jpg");
-            }
-            if ( ageAnnees >= 25 ) {
-                images.push_back(":/images/orks/portrait_gobelin_25+.jpg");
+
+    bool femme = caracs[PNJ::C_SEXE] == PNJ::FEMME;
+    if ( femme ) {
+
+    }
+    else {
+        if (caracs[Trait::GetNomTrait(chetif)] == "1" && caracs[Trait::GetNomTrait(petit)] == "1") {
+            // gobelins
+            if ( ageAnnees >= 15 ) {
+                if ( metier == Metier::MUSICIEN ) {
+                    images.push_back(":/images/orks/portrait_gobelin_musicien_15+.jpg");
+                }
+                if ( ageAnnees >= 25 ) {
+                    images.push_back(":/images/orks/portrait_gobelin_25+.jpg");
+                }
             }
         }
-    }
-    else
-    {
-        // orks
-        if ( ageAnnees >= 15 ) {
-            images.push_back(":/images/orks/portrait_15+.jpg");
-            if ( ageAnnees >= 20 ) {
-                if ( ageAnnees >= 30 ) {
-                    images.push_back(":/images/orks/portrait_30+.jpg");
-                    if ( ageAnnees >= 40 ) {
-                        images.push_back(":/images/orks/portrait_40+.jpg");
+        else
+        {
+            // orks
+            if ( ageAnnees >= 15 ) {
+                images.push_back(":/images/orks/portrait_15+.jpg");
+                if ( ageAnnees >= 20 ) {
+                    if ( ageAnnees >= 30 ) {
+                        images.push_back(":/images/orks/portrait_30+.jpg");
+                        if ( ageAnnees >= 40 ) {
+                            images.push_back(":/images/orks/portrait_40+.jpg");
+                        }
+
+                        if ( ageAnnees <= 60 ) {
+                            images.push_back(":/images/orks/portrait30-50.png");
+                        }
                     }
 
-                    if ( ageAnnees <= 60 ) {
-                        images.push_back(":/images/orks/portrait30-50.png");
+                    if ( ageAnnees <= 50 ) {
+                        images.push_back(":/images/orks/portrait20-50.png");
+                        images.push_back(":/images/orks/portrait20-50_2.png");
+                        images.push_back(":/images/orks/portrait20-50_3.png");
                     }
                 }
 
-                if ( ageAnnees <= 50 ) {
-                    images.push_back(":/images/orks/portrait20-50.png");
-                    images.push_back(":/images/orks/portrait20-50_2.png");
-                    images.push_back(":/images/orks/portrait20-50_3.png");
+                if ( ageAnnees <= 40 ) {
+                    images.push_back(":/images/orks/portrait15-40.png");
                 }
-            }
-
-            if ( ageAnnees <= 40 ) {
-                images.push_back(":/images/orks/portrait15-40.png");
             }
         }
     }

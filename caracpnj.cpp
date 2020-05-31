@@ -45,10 +45,22 @@ bool CaracPNJ::AfficherIntitule()
     return false;
 }
 
-bool CaracPNJ::AfficherValeur()
+void CaracPNJ::Afficher()
 {
+    AfficherIntitule();
+
+    this->setStyleSheet("QWidget#Fond { background-color: rgba(" +
+                             QString::number(Univers::COULEUR_FOND.red()) +
+                             "," + QString::number(Univers::COULEUR_FOND.green()) +
+                             "," + QString::number(Univers::COULEUR_FOND.blue()) +
+                             "," + QString::number(Univers::COULEUR_FOND.alpha()) +
+                             ") }");
+
+    ui->labelValeur->hide();
     ui->imageDansBox->hide();
     ui->imageCarac->hide();
+    ui->jaugeCarac->hide();
+
     //if ( m_Pnj == nullptr) // lourd de charger à chaque fois... comment détecter quand il change de valeur ?
         m_Pnj = PNJ::ChargerPNJ(GetPrefixe(), Humain::GetHumainJoue());
 
@@ -88,7 +100,5 @@ bool CaracPNJ::AfficherValeur()
             m_Img.load(CheminImg);
             AfficherImage(true);
         }
-        return true;
     }
-    return false;
 }

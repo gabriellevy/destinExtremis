@@ -15,7 +15,7 @@ public:
 
     virtual bool bAffichable();
     QString GetPrefixe();
-    virtual bool AfficherValeur();
+    virtual void Afficher();
     virtual bool AfficherIntitule();
 };
 
