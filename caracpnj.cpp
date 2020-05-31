@@ -60,7 +60,8 @@ bool CaracPNJ::AfficherValeur()
         QString txt = m_Pnj->m_Nom +
                 "\n" + m_Pnj->m_Coterie->GetGentile();
 
-        if ( m_Pnj->m_Age != -1) {
+        /* afficher age ?
+         * if ( m_Pnj->m_Age != -1) {
             int ageMois = m_Pnj->m_Age;
             int ageAnnee = ageMois/12;
             ageMois = (ageMois % 12);
@@ -68,7 +69,7 @@ bool CaracPNJ::AfficherValeur()
                     (ageMois> 0 ? (QString::number(ageMois) + " mois"):"");
 
             txt += "\n" + ageStr;
-        }
+        }*/
 
         if ( m_Pnj->m_EtatMarital != "") {
             txt += "\n" + m_Pnj->m_EtatMarital;

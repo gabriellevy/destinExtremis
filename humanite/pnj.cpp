@@ -5,6 +5,7 @@
 #include "extremis.h"
 #include "genviehumain.h"
 #include "famille/amour.h"
+#include "famille/famille.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -27,7 +28,11 @@ std::shared_ptr<PNJ> PNJ::GenererPersoAleatoire( QString prefixe, Sexe sexe, std
     }
 
     pnj->m_Nom = pnj->m_Coterie->CreerPatronyme(sexe);
-    //pnj->m_Age = Aleatoire::GetAl()->EntierEntreAEtB(16*12,70*12);
+    pnj->m_Age = Aleatoire::GetAl()->EntierEntreAEtB(16*12,70*12);
+    if ( prefixe == Famille::PRE_PERE ||
+         prefixe == Famille::PRE_PERE) {
+        pnj->m_Age = Aleatoire::GetAl()->EntierEntreAEtB(32*12,65*12);
+    }
 
     return pnj;
 }
