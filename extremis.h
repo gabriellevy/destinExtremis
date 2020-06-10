@@ -6,7 +6,7 @@
 #include "coteries/coterie.h"
 #include <memory>
 
-class Quartier;
+struct Quartier;
 class Condition;
 
 class Extremis : public Univers

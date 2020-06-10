@@ -9,7 +9,7 @@
 
 class Effet;
 class JourApresJour;
-class Quartier;
+struct Quartier;
 
 class Humain : public DPerso
 {

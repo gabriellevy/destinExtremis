@@ -11,7 +11,7 @@ class Evt;
 class GenHistoire;
 class Condition;
 class Humain;
-class Quartier;
+struct Quartier;
 
 // critère de sélection de coterie semi aléatoire
 enum CritereCoterie {
