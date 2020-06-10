@@ -119,6 +119,22 @@ ClasseSociale::ClasseSociale(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back(make_shared<Condition>(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-10", Comparateur::c_InferieurEgal));
         m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
     }break;
+    case 9 : {
+        m_Nom = "misérable perd gros";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + modificateur, p_Relative);
+        m_Description = "Les privations que vous subissez vous font maigrir.";
+        m_ModificateursCaracs[Trait::GetNomTrait(gros)] = "";
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
+        m_Conditions.push_back(Trait::GenConditionSiACeTrait(gros));
+    }break;
+    case 10 : {
+        m_Nom = "misérable gagne maigre";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.1 + modificateur, p_Relative);
+        m_Description = "Les privations que vous subissez vous font maigrir.";
+        m_ModificateursCaracs[Trait::GetNomTrait(maigre)] = "1";
+        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
+        m_Conditions.push_back(Trait::GenConditionSiAPasCeTrait(maigre));
+    }break;
     }
 }
 

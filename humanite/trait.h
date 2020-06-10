@@ -3,7 +3,10 @@
 
 #include <QString>
 #include <memory>
+#include <QMap>
+#include "generateurnoeudsprobables.h"
 
+class GenEvt;
 class Condition;
 class Effet;
 class Humain;
@@ -55,6 +58,8 @@ enum eTrait : int {
     fort,
     faible,
     resistant,
+    maigre,
+    gros,
     chetif,
     grand,
     beau,
@@ -101,6 +106,7 @@ public:
     static void AjouterConditionSiACeTrait(std::shared_ptr<Effet> effet, eTrait trait);
     static void AjouterConditionSiAPasCeTrait(std::shared_ptr<Effet> effet, eTrait trait);
     static std::shared_ptr<Condition> GenConditionSiACeTrait(eTrait trait);
+    static std::shared_ptr<Condition> GenConditionSiAPasCeTrait(eTrait trait);
 
     static void AjouterGagneTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
     static void AjouterPerdTraitSelonProba(std::shared_ptr<Effet> effet, eTrait trait, double proba);
@@ -108,7 +114,17 @@ public:
     static void AjouterGagneTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet, eTrait trait, double proba);
     static void AjouterPerdTraitSelonProba(Humain* hum, std::shared_ptr<Effet> effet, eTrait trait, double proba);
 
-    bool PeutEtrePrisALaNaissance(); // renvoit faux si ce trait peut seulement être acquis plutôt tard dans la vie
+    bool PeutEtrePrisALaNaissance(); // renvoie faux si ce trait peut seulement être acquis plutôt tard dans la vie
+};
+
+/**
+ * @brief événements liés aux traits essentiellement
+ */
+class TraitEffets : public GenerateurNoeudsProbables
+{
+public:
+    TraitEffets(int indexEvt);
+
 };
 
 #endif // TRAIT_H

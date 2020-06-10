@@ -2,6 +2,11 @@
 #include "../destinLib/aleatoire.h"
 #include "../destinLib/abs/condition.h"
 #include "../destinLib/abs/effet.h"
+#include "../destinLib/abs/evt.h"
+#include "../destinLib/gen/genevt.h"
+#include "../destinLib/abs/selectionneurdenoeud.h"
+#include "extremis.h"
+#include "genviehumain.h"
 #include "humain.h"
 
 using std::make_shared;
@@ -32,6 +37,8 @@ QString Trait::GetNom()
     case bete:              return "Bête";
     case violent:           return "Violent";
     case resistant:         return "Résistant";
+    case maigre:         return "Maigre";
+    case gros:         return "Gros";
     case rancunier:        return "Rancunier";
     case observateur:        return "Observateur";
     case pragmatique:       return "Pragmatique";
@@ -127,6 +134,11 @@ shared_ptr<Condition> Trait::GenConditionSiACeTrait(eTrait trait)
     return make_shared<Condition>(Trait::GetNomTrait(trait), "1", Comparateur::c_Egal );
 }
 
+shared_ptr<Condition> Trait::GenConditionSiAPasCeTrait(eTrait trait)
+{
+    return make_shared<Condition>(Trait::GetNomTrait(trait), "1", Comparateur::c_Different );
+}
+
 void Trait::AjouterConditionSiACeTrait(shared_ptr<Effet> effet, eTrait trait)
 {
     effet->AjouterCondition(Trait::GetNomTrait(trait), Comparateur::c_Egal, "1");
@@ -161,6 +173,8 @@ eTrait Trait::GetTraitOppose(eTrait etrait)
     case nature: break;
     case franc: return sournois;
     case industrieux: break;
+    case maigre:       return gros;
+    case gros:       return maigre;
     case violent:       return pacifiste;
     case resistant:     return chetif;
     case chetif:        return resistant;
@@ -233,4 +247,19 @@ std::shared_ptr<Trait> Trait::GetTrait(QVector<eTrait> &m_TraitsDejaPossedes, bo
         }
     }
     return trait;
+}
+
+TraitEffets::TraitEffets(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+{
+    double modificateur = 0.0;
+    switch (indexEvt) {
+    case 0 : {
+        m_Nom = "jouisseur grossit";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.03 + modificateur, p_Relative);
+        m_Description = "Vos excès en tout genre vous font grossir.";
+        m_ModificateursCaracs[Trait::GetNomTrait(gros)] = "1";
+        m_ModificateursCaracs[Trait::GetNomTrait(maigre)] = "";
+        m_Conditions.push_back(Trait::GenConditionSiACeTrait(jouisseur));
+    }break;
+    }
 }

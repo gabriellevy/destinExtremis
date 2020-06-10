@@ -199,6 +199,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<EvtConquistadors>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtElfes>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtTranshumanistes>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<TraitEffets>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>
