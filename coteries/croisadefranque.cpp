@@ -98,16 +98,17 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
 
     // formation religieuse
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "Un croisé se doit d'être un fervent chrétien dévoué à la guerre sainte. "
                     "\nVous passez des jours entiers à prier dans la dévotion des images saintes à suivre les cours de catéchisme des franciscains.",
                     ":/images/croisade_franque/priant.jpg",
                     "", evt);
-        Religion::ModifierEffetEnEffetConversion(effet1, Religion::CHRETIEN);
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        Religion::ModifierEffetEnEffetConversion(effet, Religion::CHRETIEN);
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
@@ -121,6 +122,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     ":/images/croisade_franque/duel_chevalier.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
         shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
@@ -137,6 +139,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     ":/images/croisade_franque/cheval.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Combat::C_EQUITATION, "2");
         effet->AjouterAjouteurACarac(Metier::PAYSAN, "1");
         shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
@@ -153,6 +156,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     ":/images/croisade_franque/chateau.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::ARCHITECTE, "2");
         shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
@@ -169,6 +173,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     ":/images/croisade_franque/hospice.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::MEDECIN, "1"); // meilleur médecin
         effet->m_CallbackDisplay = [] {
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
@@ -204,6 +209,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     ":/images/croisade_franque/priant_guerre.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::TUEUR_DE_MONSTRE, "1");
         effet->m_CallbackDisplay = [] {
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
@@ -230,6 +236,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     ":/images/croisade_franque/priant_guerre.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->m_CallbackDisplay = [] {
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
             Humain* humain = Humain::GetHumainJoue();
@@ -255,6 +262,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
                     ":/images/croisade_franque/priant_guerre.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::POLICIER, 1);
         effet->AjouterAjouteurACarac(Metier::VIGILE, 1);
         effet->AjouterAjouteurACarac(Metier::GARDE_DU_CORPS, 1);

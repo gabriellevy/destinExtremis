@@ -93,49 +93,52 @@ std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHis
 
     // formation religieuse
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "Un conquistador se doit d'être un fervent catholique confiant dans le destin que Dieu trace devant lui et qui le mènera à la gloire et la richesse. "
                     "\nVous passez des jours entiers à prier dans la dévotion des images saintes à suivre les cours de catéchisme des prêtres catholiques.",
                     ":/images/conquistadors/priant.jpg",
                     "", evt);
-        Religion::ModifierEffetEnEffetConversion(effet1, Religion::CHRETIEN);
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        Religion::ModifierEffetEnEffetConversion(effet, Religion::CHRETIEN);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         shared_ptr<Condition> cond1 = make_shared<Condition>(0.6, TypeProba::p_Relative);// la religion n'est pas le plus important pour les conquistadors
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
 
     // effetCombat
     {
-        shared_ptr<Effet> effetCombat = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "Seuls les grands guerriers peuvent espérer devenir des conquistadors et affronter les horreurs des terres désolées. "
                     "Votre formation contient bien sûr un entrainement avec de célbres maîtres d'armes.",
                     ":/images/conquistadors/soldat.jpg",
                     "", evt);
-        effetCombat->m_GoToEffetId = go_to_effet_suivant;
-        effetCombat->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->AjouterAjouteurACarac(Combat::C_CAP_COMBAT, "1"); // meilleur combattant
         shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
-                    effetCombat,
+                    effet,
                     condCombat);
         noeudsProbaEducation.push_back(noeudCombat);
     }
 
     // effetForgeron
     {
-        shared_ptr<Effet> effetForgeron = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "Les conquistadors sont des experts de la forge, leurs armures sont les meilleures du monde. "
                     "De plus il est indispensable qu'en expédition ils soient capables de réparer et entretenir leur matériel donc même les aventuriers se doivent d'avoir des rudiments techniques."
                     "\nVous êtes donc formé par un maître forgeron pour connaître les bases du métier.",
                     ":/images/conquistadors/forgeron.jpg",
                     "", evt);
-        effetForgeron->m_GoToEffetId = go_to_effet_suivant;
-        effetForgeron->AjouterAjouteurACarac(Metier::FORGERON, "1"); // meilleur forgeron
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->AjouterAjouteurACarac(Metier::FORGERON, "1"); // meilleur forgeron
         shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
-                    effetForgeron,
+                    effet,
                     condCombat);
         noeudsProbaEducation.push_back(noeudCombat);
     }
@@ -148,6 +151,7 @@ std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHis
                     ":/images/conquistadors/guitariste2.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::MUSICIEN, "1");
         shared_ptr<Condition> cond = make_shared<Condition>(0.3, TypeProba::p_Relative);
 
@@ -166,6 +170,7 @@ std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHis
                     ":/images/conquistadors/carte.png",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::CARTOGRAPHE, "2");
         shared_ptr<Condition> cond = make_shared<Condition>(0.8, TypeProba::p_Relative);
 
@@ -183,6 +188,7 @@ std::shared_ptr<Effet> Conquistadors::AjouterEffetUniversite(GenHistoire* genHis
                     "",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::MARCHAND, "1");
         shared_ptr<Condition> cond = make_shared<Condition>(1.0, TypeProba::p_Relative);
 

@@ -145,6 +145,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/elfe_habille.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterChangeurDeCarac(Trait::GetNomTrait(laid), "");
         Trait::AjouterConditionSiACeTrait(effet, laid);
 
@@ -165,6 +166,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/elfe_royale.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterChangeurDeCarac(Trait::GetNomTrait(beau), "1");
         Trait::AjouterConditionSiAPasCeTrait(effet, beau);
 
@@ -183,6 +185,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/musique_automne.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterChangeurDeCarac(Trait::GetNomTrait(artiste), "1");
         Trait::AjouterConditionSiAPasCeTrait(effet, artiste);
 
@@ -201,6 +204,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/jeune_elfe.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         double proba = Aleatoire::GetAl()->Entre0Et1();
         if ( proba < 0.6) {
             effet->AjouterChangeurDeCarac(Trait::GetNomTrait(angoisse), "1");
@@ -229,6 +233,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/elfe_musicien.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::MUSICIEN, "1");
         Trait::AjouterConditionSiACeTrait(effet, artiste);
 
@@ -246,6 +251,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/poete.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::POETE, "1");
         Trait::AjouterConditionSiACeTrait(effet, artiste);
 
@@ -265,6 +271,7 @@ std::shared_ptr<Effet> Elfes::AjouterEffetUniversite(GenHistoire* genHist, share
                     ":/images/elfes/alchimiste.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::ALCHIMISTE, "1");
 
         shared_ptr<Condition> cond = make_shared<Condition>(0.7, TypeProba::p_Relative);

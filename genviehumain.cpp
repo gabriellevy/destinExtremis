@@ -223,12 +223,13 @@ void GenVieHumain::GenererNoeuds(shared_ptr<GenEvt> genEvt, QVector<shared_ptr<N
     }
 }
 
-shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effet> effet)
+shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effet> effet, bool goToPrincipalSelecteur)
 {
     // ne se déclenche que si le personnage est encore en vie :
     effet->AjouterCondition(PbSante::C_SANTE, Comparateur::c_Different, PbSante::MORT);
     //effet->m_MsChrono = GenVieHumain::CHRONO;
-    effet->m_GoToEvtId = "PrincipalSelecteur";
+    if (goToPrincipalSelecteur)
+        effet->m_GoToEvtId = GenVieHumain::EVT_SELECTEUR_ID;
     effet->AjouterAjouteurACarac(GenVieHumain::C_AGE, 1);
     effet->AjouterAjouteurACarac(Amour::PRE_COUPLE + GenVieHumain::C_AGE, 1);
     effet->AjouterAjouteurACarac(Amour::PRE_MAITRESSE + GenVieHumain::C_AGE, 1);
@@ -241,7 +242,7 @@ shared_ptr<Effet> GenVieHumain::TransformerEffetEnEffetMoisDeVie(shared_ptr<Effe
 
 QString GenVieHumain::EFFET_SELECTEUR_ID = "effetSelecteur";
 QString GenVieHumain::EFFET_TEST_MORT_ID = "effetTestMort";
-QString GenVieHumain::EVT_SELECTEUR_ID = "PrincipalSelecteur";
+QString GenVieHumain::EVT_SELECTEUR_ID = "PrincipalSelecteur"; // principal sélectionneur d'effet là où est déterminé la prochaine action du joueur
 shared_ptr<Evt> GenVieHumain::EVT_SELECTEUR = nullptr;
 
 void GenVieHumain::GenererPrincipalSelectionneurDEffet()

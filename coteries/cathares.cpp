@@ -99,30 +99,32 @@ std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist, sh
 
     // formation religieuse
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "Rien n'est plus important pour un cathare que la formation religieuse. Vous passez des semaines à écouter les leçons et à suivre les exemples des parfaits.",
                     ":/images/cathares/apprend_lit.jpg",
                     "", evt);
-        Religion::ModifierEffetEnEffetConversion(effet1, Religion::CHRETIEN);
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        Religion::ModifierEffetEnEffetConversion(effet, Religion::CHRETIEN);
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
 
     // enfermé en cellule
     {
-        shared_ptr<Effet> effetEnferme = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "Votre maître estime qu'un mois de privations et de pénitence sera excellent pour renforcer et sauver votre âme. "
                     "Vous êtes enfermé dans une celleule sombre au pain et à l'eau. "
                     "Cette dureté vous affecte cruellement.",
                     ":/images/cathares/apprend_lit.jpg",
                     "", evt);
-        Religion::ModifierEffetEnEffetConversion(effetEnferme, Religion::CHRETIEN);
-        effetEnferme->m_GoToEffetId = go_to_effet_suivant;
-        effetEnferme->m_CallbackDisplay = [] {
+        Religion::ModifierEffetEnEffetConversion(effet, Religion::CHRETIEN);
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
             if ( humain->GetValeurCarac(Trait::GetNomTrait(eTrait::rancunier)) != "" ) {
@@ -145,7 +147,7 @@ std::shared_ptr<Effet> Cathares::AjouterEffetUniversite(GenHistoire* genHist, sh
         };
         shared_ptr<Condition> condEnferme = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudEnferme = make_shared<NoeudProbable>(
-                    effetEnferme,
+                    effet,
                     condEnferme);
         noeudsProbaEducation.push_back(noeudEnferme);
     }

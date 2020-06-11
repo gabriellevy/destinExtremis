@@ -27,7 +27,7 @@ public:
     static QString EFFET_SELECTEUR_ID;
     static QString EVT_SELECTEUR_ID;
     static std::shared_ptr<Evt> EVT_SELECTEUR;
-    static std::shared_ptr<Effet> TransformerEffetEnEffetMoisDeVie(std::shared_ptr<Effet> effet);
+    static std::shared_ptr<Effet> TransformerEffetEnEffetMoisDeVie(std::shared_ptr<Effet> effet, bool goToPrincipalSelecteur = true);
 protected:
     // génère toutes les caracs qui peuvent être visualisées par le joueur (d'autres caracs peuvent être générées et invisibles n'importe quand dans l'aventure)
     virtual void GenererCaracs();

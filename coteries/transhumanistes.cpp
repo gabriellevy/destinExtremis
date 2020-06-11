@@ -177,123 +177,129 @@ std::shared_ptr<Effet> Transhumanistes::AjouterEffetUniversite(GenHistoire* genH
 
     // cours scientifique
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "La génétique et la cybernétique sont les base du transhumanisme. Une initiation à ces sciences est indispensable dans cette université. ",
                     ":/images/transhumanistes/labo.jpg",
                     "", evt);
-        effet1->AjouterAjouteurACarac(Metier::GENETICIEN, "1");
-        effet1->AjouterAjouteurACarac(Metier::CYBERNETICIEN, "1");
-        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->AjouterAjouteurACarac(Metier::GENETICIEN, "1");
+        effet->AjouterAjouteurACarac(Metier::CYBERNETICIEN, "1");
+        effet->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(0.7, TypeProba::p_Relative);
         Trait::AjouterModifProbaSiACeTrait(cond1.get(), 0.5, intelligent);
         Trait::AjouterModifProbaSiACeTrait(cond1.get(), -0.5, bete);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
     // cours informatique
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "L'informatique est indispensable pour garder en fonctionnement les nombreuses organisations techniquement avancées des transhumanistes. "
                     "L'université comprend bien sûr des cours variés dans cette discipline.",
                     ":/images/transhumanistes/poste de controle.jpg",
                     "", evt);
-        effet1->AjouterAjouteurACarac(Metier::INFORMATICIEN, "1");
-        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        effet->AjouterAjouteurACarac(Metier::INFORMATICIEN, "1");
+        effet->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
     // cours de commerce
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "La base de la philosophie libérale transhumaniste est que tout se vend. Les produits et les améliorations cybernétique bien sûr. Mais un politique se vend aussi à son électorat comme un gendre à sa belle famille."
                     "Que vous fassiez carrière dans le commerce ou pas ces cours de commerce et de manipulation seront utiles.",
                     ":/images/transhumanistes/commercial.jpg",
                     "", evt);
-        effet1->AjouterAjouteurACarac(Metier::COMMERCIAL, "1");
-        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
+        effet->AjouterAjouteurACarac(Metier::COMMERCIAL, "1");
+        effet->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         double proba = Aleatoire::GetAl()->Entre0Et1();
         if ( proba <= 0.5) {
-            effet1->m_Texte += "\nVous devenez 'cupide'.";
-            effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(cupide), "1");
+            effet->m_Texte += "\nVous devenez 'cupide'.";
+            effet->AjouterChangeurDeCarac(Trait::GetNomTrait(cupide), "1");
         }
         if ( proba <= 0.5) {
-            effet1->m_Texte += "\nVous devenez 'charmeur'.";
-            effet1->AjouterChangeurDeCarac(Trait::GetNomTrait(charmeur), "1");
+            effet->m_Texte += "\nVous devenez 'charmeur'.";
+            effet->AjouterChangeurDeCarac(Trait::GetNomTrait(charmeur), "1");
         }
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
 
     // cours de philosophie libérale transhumaniste
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "Toute coterie a une forme de philosophie et celle des transhumanistes est une des plus développée. Tout vous est expliqué sur plusieurs mois. Du matérialisme au libéralisme. "
                     "Le progrès est central et l'amélioration de l'humain en tant qu'individu complet est le but final de toute la coterie. Vous en ressortez transformé.",
                     ":/images/transhumanistes/ingenieur.jpg",
                     "", evt);
-        Trait::AjouterGagneTraitSelonProba(effet1, egoiste, 0.5);
-        Trait::AjouterGagneTraitSelonProba(effet1, ambitieux, 0.5);
-        Trait::AjouterGagneTraitSelonProba(effet1, cupide, 0.5);
-        Trait::AjouterGagneTraitSelonProba(effet1, opportuniste, 0.5);
-        Trait::AjouterPerdTraitSelonProba(effet1, sens_du_groupe, 0.5);
-        Trait::AjouterPerdTraitSelonProba(effet1, sens_du_sacrifice, 0.5);
-        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
+        Trait::AjouterGagneTraitSelonProba(effet, egoiste, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet, ambitieux, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet, cupide, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet, opportuniste, 0.5);
+        Trait::AjouterPerdTraitSelonProba(effet, sens_du_groupe, 0.5);
+        Trait::AjouterPerdTraitSelonProba(effet, sens_du_sacrifice, 0.5);
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-1");
         double proba = Aleatoire::GetAl()->Entre0Et1();
         if ( proba <= 0.5) {
-            Religion::ModifierEffetEnEffetConversion(effet1, Religion::ATHEE);
+            Religion::ModifierEffetEnEffetConversion(effet, Religion::ATHEE);
         }
 
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
 
     // petits boulots
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "L'université transhumaniste est hors de prix. Vous êtes obligé de prendre des petits boulots à côté pour vous en sortir. L'université voit cela d'un bon oeil car ça donne de la main d'oeuvre pas cher à son conglomérat et forme les étudiants au monde du travail.",
                     "",
                     "", evt);
-        Trait::AjouterGagneTraitSelonProba(effet1, travailleur, 0.5);
-        Trait::AjouterGagneTraitSelonProba(effet1, angoisse, 0.5);
-        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "2");
+        Trait::AjouterGagneTraitSelonProba(effet, travailleur, 0.5);
+        Trait::AjouterGagneTraitSelonProba(effet, angoisse, 0.5);
+        effet->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "2");
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
 
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
 
     // faire la fête
     {
-        shared_ptr<Effet> effet1 = genHist->AjouterEffetNarration(
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
                     "L'université transhumaniste n'est aps juste un lieu d'apprentissage univeraitaire, c'est aussi un lieu de vie et de consommation unique dans tout Extremis. "
                     "Impossible de passer à côté des fêtes innombrables, toutes plus surprenantes et chères les unes que les autres.",
                     ":/images/transhumanistes/boite_de_nuit.jpg",
                     "", evt);
-        Trait::AjouterGagneTraitSelonProba(effet1, jouisseur, 0.5);
-        effet1->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-2");
+        Trait::AjouterGagneTraitSelonProba(effet, jouisseur, 0.5);
+        effet->AjouterAjouteurACarac(EconomieEvt::C_NIVEAU_ECONOMIQUE, "-2");
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
 
-        effet1->m_GoToEffetId = go_to_effet_suivant;
+        effet->m_GoToEffetId = go_to_effet_suivant;
         shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
-                    effet1,
+                    effet,
                     cond1);
         noeudsProbaEducation.push_back(noeud1);
     }
