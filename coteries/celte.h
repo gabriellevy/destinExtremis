@@ -18,6 +18,7 @@ public:
     QString GetDescriptionUniversite();
     QString GetImage();
     QString GetMusique();
+    virtual QString GetIcone(){ return ":/images/celtes/icone.jpg";}
     virtual QString GetGentile(bool masculin = true);
     virtual std::shared_ptr<Quartier> GenererQuartier();
     QString CreerPatronyme(bool masculin = true);

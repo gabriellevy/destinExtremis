@@ -36,6 +36,7 @@
 #include "coteries/elfes.h"
 #include "coteries/transhumanistes.h"
 #include "richesse.h"
+#include "caraccoterie.h"
 
 using std::make_shared;
 using std::shared_ptr;
@@ -82,8 +83,9 @@ void GenVieHumain::GenererCaracs()
 {
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new Age(180)); // début à 15 ans (180)
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new Richesse());
-    Carac* cCot = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
-    cCot->m_EmplacementAffichage = ea_Primaire;
+    GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracCoterie());
+//    Carac* cCot = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Coterie::C_COTERIE);
+//    cCot->m_EmplacementAffichage = ea_Primaire;
     Carac* cMet = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
     cMet->m_EmplacementAffichage = ea_Primaire;
     GestCarac::GetGestionnaireCarac()->AjouterCaracImagePrimaire(Religion::C_RELIGION);
@@ -156,7 +158,7 @@ void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
             Humain* hum = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
 
-            Extremis::COTERIES[0]->RejoindreCoterie(hum, effet);
+            Extremis::COTERIES[2]->RejoindreCoterie(hum, effet);
         };
     }
 

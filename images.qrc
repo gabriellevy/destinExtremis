@@ -117,5 +117,13 @@
         <file>images/orks/portrait30-50.png</file>
         <file>images/transhumanistes/portrait30-50_2.png</file>
         <file>images/transhumanistes/portrait20-50.png</file>
+        <file>images/cathares/icone.jpg</file>
+        <file>images/celtes/icone.jpg</file>
+        <file>images/conquistadors/icone.jpg</file>
+        <file>images/croisade_franque/icone.png</file>
+        <file>images/elfes/icone.png</file>
+        <file>images/orks/icone.jpg</file>
+        <file>images/transhumanistes/icone.jpg</file>
+        <file>images/tyranides/icone.jpg</file>
     </qresource>
 </RCC>

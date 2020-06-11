@@ -23,6 +23,7 @@ public:
 
     QString GetDescription();
     QString GetDescriptionUniversite();
+    virtual QString GetIcone(){ return ":/images/croisade_franque/icone.png";}
     QString GetImage();
     QString GetMusique();
     virtual QString GetGentile(bool masculin = true);

@@ -42,6 +42,7 @@ public:
     virtual QString GetDescription() = 0;
     virtual QString GetDescriptionUniversite() = 0;
     virtual QString GetImage() = 0;
+    virtual QString GetIcone() = 0;
     virtual double GetCoeffSeduction() {return 1.0;} // à quel point les membres de cette coterie snot séduisants (0.1 = horribles, 3.0 = irrésistibles
     /**
      * @brief sélectionne les images de portrait applicables à un perso décritq apr un ensemble de caracs
@@ -90,7 +91,7 @@ public:
     static QString TRANSHUMANISTES;
 
 
-    static double SEUIL_CONVERSION; // à partir de quelle valeur retournée par la fonction "compatibilité" le eprsonnage rejoint-il al coterie ?
+    static double SEUIL_CONVERSION; // à partir de quelle valeur retournée par la fonction "compatibilité" le personnage rejoint-il la coterie ?
 };
 
 /* modèle pour gestion des événements liés à la coterie :

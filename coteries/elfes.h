@@ -20,6 +20,7 @@ public:
     QString GetImage();
     virtual QString GetGentile(bool masculin = true);
     QString GetMusique();
+    virtual QString GetIcone(){ return ":/images/elfes/icone.png";}
     virtual std::shared_ptr<Quartier> GenererQuartier();
     virtual void GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images);
     QString CreerPatronyme(bool masculin = true);

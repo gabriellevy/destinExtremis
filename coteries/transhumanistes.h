@@ -23,6 +23,7 @@ public:
 
     QString GetDescription();
     QString GetDescriptionUniversite();
+    virtual QString GetIcone(){ return ":/images/transhumanistes/icone.jpg";}
     QString GetImage();
     virtual QString GetGentile(bool masculin = true);
     QString CreerPatronyme(bool masculin = true);

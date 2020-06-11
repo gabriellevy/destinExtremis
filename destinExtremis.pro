@@ -46,6 +46,7 @@ SOURCES += \
     ../destinLib/glisseur.cpp \
     ../destinLib/reglages.cpp \
     ../destinLib/aleatoire.cpp \
+    caraccoterie.cpp \
         main.cpp \
     age.cpp \
     generateurnoeudsprobables.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     ../destinLib/reglages.h \
     ../destinLib/aleatoire.h \
     age.h \
+    caraccoterie.h \
     generateurnoeudsprobables.h \
     genviehumain.h \
     humain.h \

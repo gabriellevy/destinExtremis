@@ -23,6 +23,7 @@ public:
     QString GetDescription();
     QString GetDescriptionUniversite();
     QString GetImage();
+    virtual QString GetIcone(){ return ":/images/orks/icone.jpg";}
     virtual QString GetGentile(bool masculin = true);
     QString CreerPatronyme(bool masculin = true);
     void GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images);
