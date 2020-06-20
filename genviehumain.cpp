@@ -56,11 +56,11 @@ shared_ptr<Hist> GenVieHumain::GenererHistoire()
     GenHistoire::GenererHistoire();
     GenererDataUnivers();
     GenererPersos();
-    GenererEvtsAccueil(true, true);
+    GenererEvtsAccueil(true, false);
     GenererCaracs();
     GenererPrincipalSelectionneurDEffet();
 
-    m_HistoireGeneree->SetModeDeroulement( ModeDeroulement::Automatique, GenVieHumain::CHRONO);
+    m_HistoireGeneree->SetModeDeroulement( ModeDeroulement::AutomatiqueSaufChoix, GenVieHumain::CHRONO);
 
     return m_HistoireGeneree;
 }
@@ -250,6 +250,10 @@ shared_ptr<Evt> GenVieHumain::EVT_SELECTEUR = nullptr;
 void GenVieHumain::GenererPrincipalSelectionneurDEffet()
 {
     GenVieHumain::EVT_SELECTEUR = this->AjouterEvt(GenVieHumain::EVT_SELECTEUR_ID, "Principal sélecteur");
+
+    // effet seulement utile si le mode choix est activé plus loin
+    shared_ptr<Effet> effetChoix = m_GenerateurEvt->AjouterEffetNarration("", "", "effetChoix", GenVieHumain::EVT_SELECTEUR);
+
     /*Effet* effetDebut = */AjouterEffetGoToEffet(GenVieHumain::EFFET_SELECTEUR_ID, "effet_go_to_" + GenVieHumain::EFFET_SELECTEUR_ID);
     // ce vector doit contenir tous les noeuds de base déclenchant des effets et événements à partir du cours normal de la vie
     // en dehors de lui les sélections de noeuds ne sont qu'à la création du personnage et quand un événement particulier est en cours d'exécution
@@ -264,6 +268,8 @@ void GenVieHumain::GenererPrincipalSelectionneurDEffet()
     shared_ptr<Effet> effetSelecteur = m_GenerateurEvt->AjouterEffetSelecteurDEvt(
                 tousLesNoeudsDeBase, GenVieHumain::EFFET_SELECTEUR_ID, "", GenVieHumain::EVT_SELECTEUR);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
+    // si ligne suivante active alors tous les x événements aléatoires deviennent un choix
+    effetSelecteur->m_SelectionneurDeNoeud->AppliquerModeCHoix(effetChoix, 10);
 
     shared_ptr<Effet> effetFinVie = AjouterEffetNarration("Cette vie est terminée...", "", "effetFinVie", GenVieHumain::EVT_SELECTEUR);
     effetFinVie->m_ChangeurPhaseDeroulement = PhaseDeroulement::epd_Fini;

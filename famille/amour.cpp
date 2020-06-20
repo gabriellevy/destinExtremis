@@ -305,7 +305,7 @@ void Amour::AjouterModifProbaSeduisant()
         { make_shared<Condition>(GenVieHumain::C_AGE, "40", Comparateur::c_Superieur) } );
 
     for ( shared_ptr<Coterie> cot: Extremis::COTERIES) {
-        m_ConditionSelecteurProba->AjouterModifProba(cot->GetCoeffSeduction(),
+        m_ConditionSelecteurProba->AjouterModifProba( 1 - cot->GetCoeffSeduction(),
             { make_shared<Condition>(Coterie::C_COTERIE, cot->GetNom(), Comparateur::c_Egal) } );
     }
 }

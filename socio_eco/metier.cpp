@@ -161,6 +161,7 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
     }break;
     }
+    m_Id = "" + m_Nom;
 
     if ( m_Description == "" ) {
         m_Description = "Vous êtes maintenant " +
@@ -211,6 +212,9 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }
 
     METIERS[m_Nom] = this;
+
+    // affichage :
+    //m_Nom = ("Devenir " + m_Nom);
 }
 
 

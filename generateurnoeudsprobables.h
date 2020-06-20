@@ -16,6 +16,7 @@ public:
     GenerateurNoeudsProbables(int indexEvt);
     virtual ~GenerateurNoeudsProbables(){}
 
+    QString m_Id = "";
     QString m_Nom = "";
     QString m_Description = "";
     QString m_Son = "";
