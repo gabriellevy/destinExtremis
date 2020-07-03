@@ -84,7 +84,7 @@ public:
     static QString CONQUISTADORS;
     static QString CATHARES;
     static QString CELTES;
-    static QString CROISADE;
+    static QString TEMPLIERS;
     static QString ELFES;
     static QString ORKS;
     static QString TYRANIDES;

@@ -11,10 +11,10 @@ class ExecEffet;
 class Condition;
 class Humain;
 
-class CroisadeFranque : public Coterie
+class Templiers : public Coterie
 {
 public:
-    CroisadeFranque();
+    Templiers();
 
     void GenererTraitCompatibles();
     QString GetNom();
@@ -39,12 +39,12 @@ public:
     static QVector<QString> NOMS;
 };
 
-class EvtCroisadeFranque : public GenerateurNoeudsProbables
+class EvtTempliers : public GenerateurNoeudsProbables
 {
 private:
 
 public:
-    EvtCroisadeFranque(int indexEvt);
+    EvtTempliers(int indexEvt);
 };
 
 #endif // CROISADEFRANQUE_H

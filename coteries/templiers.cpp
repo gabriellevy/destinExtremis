@@ -1,4 +1,4 @@
-#include "croisadefranque.h"
+#include "templiers.h"
 #include "genviehumain.h"
 #include "religion/religion.h"
 #include "violence/combat.h"
@@ -18,30 +18,32 @@
 using std::make_shared;
 using std::shared_ptr;
 
-CroisadeFranque::CroisadeFranque()
+Templiers::Templiers()
 {
     Initialisation();
 }
 
-shared_ptr<Quartier> CroisadeFranque::GenererQuartier()
+shared_ptr<Quartier> Templiers::GenererQuartier()
 {
-    m_Quartier = make_shared<Quartier>("Saint Denis", "Quartier des Croisés", ":/images/croisade_franque/logement.jpg", this);
+    m_Quartier = make_shared<Quartier>("Saint Denis",
+                                       "Quartier des templiers",
+                                       ":/images/croisade_franque/logement.jpg", this);
     Extremis::QUARTIERS[m_Quartier->m_Nom] = m_Quartier;
     return m_Quartier;
 }
 
-QString CroisadeFranque::GetMusique()
+QString Templiers::GetMusique()
 {
     return "qrc:/sons/croisade/rejoindre.mp3";
 }
 
 
-QString CroisadeFranque::GetGentile(bool masculin)
+QString Templiers::GetGentile(bool masculin)
 {
-    return masculin?"croisé":"croisée";
+    return masculin?"templier":"templière";
 }
 
-void CroisadeFranque::GenererTraitCompatibles()
+void Templiers::GenererTraitCompatibles()
 {
     m_TraitsCompatible = {
         make_shared<Condition>(Trait::GetNomTrait(eTrait::honorable), "1", Comparateur::c_Egal ),
@@ -67,39 +69,44 @@ void CroisadeFranque::GenererTraitCompatibles()
     };
 }
 
-QString CroisadeFranque::GetNom()
+QString Templiers::GetNom()
 {
-    return "Croisade franque";
+    return "Temple";
 }
 
-double CroisadeFranque::GetPoidsDemo()
+double Templiers::GetPoidsDemo()
 {
     return 1.0;
 }
 
-QString CroisadeFranque::GetDescription()
+QString Templiers::GetDescription()
 {
-    return "Description des Croisés";
+    return "Basée sur la foi inébranlable en Dieu et sur l'honneur guerrier de l'aristocratie franque."
+            "Les templiers sont avant tout des guerriers saints avec un code de l'honneur très strict. "
+            "Ce code de l'honneur méprise la cupidité et l'ostentation mais l'enrichissement n'est pas interdit, surtout lorsqu'il est utilisé pour financer les nombreux hpoitaux de l'ordre. "
+            "Ainsi les templiers sont aussi mercenaires tant que la cause est jugée honorable par l'ordre. "
+            "Leurs cibles favorites sont les magiciens maléfiques et les hérétiques.";
 }
 
-QString CroisadeFranque::GetDescriptionUniversite()
+QString Templiers::GetDescriptionUniversite()
 {
-    return "Les croisés";
+    return "L'université du temple est une somptueuse abbaye de pierre. "
+            "Le confort y est médiocre comme y pousse la doctrine du temple mais la camaraderie et la foi inébranlable des occupants réchauffent le coeur de tous les apprentis.";
 }
 
-QString CroisadeFranque::GetImage()
+QString Templiers::GetImage()
 {
     return ":/images/croisade_franque/Chevaliers_premières_croisades.jpg";
 }
 
-std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
+std::shared_ptr<Effet> Templiers::AjouterEffetUniversite(GenHistoire* genHist, shared_ptr<Evt> evt, QString go_to_effet_suivant )
 {
     QVector<shared_ptr<NoeudProbable>> noeudsProbaEducation;
 
     // formation religieuse
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "Un croisé se doit d'être un fervent chrétien dévoué à la guerre sainte. "
+                    "Un templier se doit d'être un fervent chrétien dévoué à la guerre sainte. "
                     "\nVous passez des jours entiers à prier dans la dévotion des images saintes à suivre les cours de catéchisme des franciscains.",
                     ":/images/croisade_franque/priant.jpg",
                     "", evt);
@@ -116,8 +123,8 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // effetCombat
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "On ne peut devenir croisé qu'une fois qu'on maîtrise le système de combat ancestral du croisé franc. "
-                    "De plus, comme l'essentiel des querelles sont réglés par un duel sous le jugement de Dieu il est indispensable de savoir se défendre pour se faire respecter dans les quartiers de la croisade."
+                    "On ne peut devenir templier qu'une fois qu'on maîtrise le système de combat ancestral du templier franc. "
+                    "De plus, comme l'essentiel des querelles sont réglés par un duel sous le jugement de Dieu il est indispensable de savoir se défendre pour se faire respecter dans les quartiers du temple."
                     "\nVotre formation contient bien sûr un entrainement avec de célbres maîtres d'armes.",
                     ":/images/croisade_franque/duel_chevalier.jpg",
                     "", evt);
@@ -134,7 +141,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // effet Cavalerie
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "Savoir s'occuper d'un cheval est indispensable chez les croisés. Que ce soit pour être chevalier ou simple paysan."
+                    "Savoir s'occuper d'un cheval est indispensable chez les templiers. Que ce soit pour être chevalier ou simple paysan."
                     "Votre formateur vous apprends les bases de l'équitation et de tout ce qui tourne autour de l'entretien des chevaux.",
                     ":/images/croisade_franque/cheval.jpg",
                     "", evt);
@@ -152,7 +159,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // effet architecte
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "La construction de châteaux imprenables est la spécialité des croisés. Avec l'interdiction des guerres les châteaux sont peu importants. Les compétences en architecture des croisés restent bien utiles et votre tuteur vous en fait profiter",
+                    "La construction de châteaux imprenables est la spécialité des templiers. Avec l'interdiction des guerres les châteaux sont peu importants. Les compétences en architecture des templiers restent bien utiles et votre tuteur vous en fait profiter",
                     ":/images/croisade_franque/chateau.jpg",
                     "", evt);
         effet->m_GoToEffetId = go_to_effet_suivant;
@@ -168,7 +175,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // hospitaliers
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "Les hospitaliers sont des croisés qui ont juré de protéger et soigner les faibles quelle que soit leur race, religion ou coterie et ce gratuitement de manière complètement désintéressée."
+                    "Les hospitaliers sont des templiers qui ont juré de protéger et soigner les faibles quelle que soit leur race, religion ou coterie et ce gratuitement de manière complètement désintéressée."
                     "\nVous êtes amenés à travailler durement dans un de leurs hospices à soigner les vieux, les malades et les femmes enceintes.",
                     ":/images/croisade_franque/hospice.jpg",
                     "", evt);
@@ -204,7 +211,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // chasseur de sorciers
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "Les croisés méprisent la magie égoïste et imprévisible qui vient des hommes car c'est le diable qui la leur inspire. Ils vous forment donc dans la compréhension de ce qu'est la magie maléfique et de la différence avec les miracles divins."
+                    "Les templiers méprisent la magie égoïste et imprévisible qui vient des hommes car c'est le diable qui la leur inspire. Ils vous forment donc dans la compréhension de ce qu'est la magie maléfique et de la différence avec les miracles divins."
                     "\nIls vous montrent aussi comment repérer les monstres et les démons qui complotent toujours dans l'ombre des hommes.",
                     ":/images/croisade_franque/priant_guerre.jpg",
                     "", evt);
@@ -230,7 +237,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // honneur et traditions
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "Un croisé digne de ce nom doit avoir un honneur sans faille ce qui passe avant tout par le respect de la parole donné et la fidélité au seigneur."
+                    "Un templier digne de ce nom doit avoir un honneur sans faille ce qui passe avant tout par le respect de la parole donné et la fidélité au seigneur."
                     "\nEst requis aussi un grand courage dans la guerre comme dans la protection de la veuve et de l'orphelin."
                     "\nVous devenez 'honorable'.",
                     ":/images/croisade_franque/priant_guerre.jpg",
@@ -257,7 +264,7 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     // techniques policiers/vigiles/garde du corps
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
-                    "Les croisés combinent deux ensembles de qualités précieuses : des capacités martiales redoutables avec armes et à main nues. Et surtout une éthique sans faille."
+                    "Les templiers combinent deux ensembles de qualités précieuses : des capacités martiales redoutables avec armes et à main nues. Et surtout une éthique sans faille."
                     " Ces qualités en font les meilleurs policiers du monde mais aussi de remarquables vigiles et garde du corps. Vous êtes formé aux bases de tous ces métiers.",
                     ":/images/croisade_franque/priant_guerre.jpg",
                     "", evt);
@@ -280,12 +287,12 @@ std::shared_ptr<Effet> CroisadeFranque::AjouterEffetUniversite(GenHistoire* genH
     return effetSelecteur;
 }
 
-QString CroisadeFranque::GetId()
+QString Templiers::GetId()
 {
-    return Coterie::CROISADE;
+    return Coterie::TEMPLIERS;
 }
 
-QString CroisadeFranque::CreerPatronyme(bool masculin)
+QString Templiers::CreerPatronyme(bool masculin)
 {
     return (masculin?
                PRENOMS_M[Aleatoire::GetAl()->EntierInferieurA(PRENOMS_M.size())] + " " +
@@ -295,7 +302,7 @@ QString CroisadeFranque::CreerPatronyme(bool masculin)
             );
 }
 
-QVector<QString> CroisadeFranque::NOMS = {
+QVector<QString> Templiers::NOMS = {
     "d'Aiglemont", "d'Aiguemorte", "d'Aiguevive", "d'Aspremont", "de Beaulieu", "de Beaupré", "de Belleforest",
     "de Bellegarde", "de Bénévent", "de Blancmoustier", "de Boisjoli", "de Boutefeu", "de Clairefontaine",
     "de Clairval", "de Clochemerle", "de la Combe-aux-Cerfs", "de la Combe-aux-Loups", "de Courtelande",
@@ -314,7 +321,7 @@ QVector<QString> CroisadeFranque::NOMS = {
     "Achouline", "Adélaïde", "Adelmard"
 };
 
-QVector<QString> CroisadeFranque::PRENOMS_M = {
+QVector<QString> Templiers::PRENOMS_M = {
     "Abbo","Abrahil","Abram","Adalard","Adalbert","Adalbertus","Adaldag","Adalgrimus","Adalhaid","Adalhard","Adalolf","Adelard","Aega","Ageric","Agilbert","Agilfride","Agiulf","Agobard","Aigulf","Alberic","Aldedramnus","Aldgisl","Allowin","Amalricus","Amand","Amator","Andica","Angegisis","Angilbart","Angilbert","Anno","Ansegisel","Anskar","Ansovald","Arbitio","Arbogast","Arbogastes","Arculf","Aregisel","Arnegisel","Arnold","Arnoul","Arnulf","Artaud","Asselin","Atacinus","Audoen","Audomar","Audoneus","Audovald","Audramnus","Austregisel","Avremarus","Badegisel","Balderic","Baldrick","Baudry","Baugulf","Bauto","Bavo","Benild","Berchar","Berengar","Berenger","Bernard","Bernardus","Bernhard","Berno","Bero","Bertelis","Berthaire","Berthefried","Bertin","Bertlinus","Bertram","Bertramnus","Bertulf","Besso","Birinus","Blutmund","Boso","Bovo","Brice","Britius","Brocard","Bruno","Burchard","Butilin","Carloman","Cassyon","Ceslinus","Ceufroy","Chararic","Charibert","Charles","Cheldric","Childebert","Childebrand","Childeric","Chilperic","Chlodion","Chlodmer","Chlodomer","Chlodowig","Chlodwig","Chlotar","Chramnesind","Chrodegang","Clodio","Clodomir","Clotaire","Clothair","Cloud","Clovis","Conrad","Corbinian","Corbus","Creatus","Cyr","Cyricus","Dado","Dagaric","Dagobert","Dalfin","Dietrich","Dodo","Dreux","Drogo","Drogon","Dudon","Durand","Ebbo","Eberhard","Eberulf","Ebregisel","Ebroin","Ebrulf","Egide","Einhard","Electeus","Electus","Emme","Emmeran","Emmon","Engelbert","Engilbert","Enguerrand","Enurchus","Eracle","Erard","Erchinoald","Erenfried","Eudes","Euric","Evrard","Evroul","Evroult","Farabert","Fardulf","Faro","Faroardus","Faroinus","Feremundus","Feroardus","Flodoard","Floribert","Folcard","Folmar","Foroenus","Fredegar","Fridolin","Fridugis","Frobertus","Frothardus","Frotlaicus","Fulbert","Fulcaire","Fulk","Fulrad","Gararic","Garivald","Gaudulfus","Gaujoinus","Gausbertus","Gausboldus","Gautmarus","Gedalbertus","Gedalcaus","Gerbert","Gereon","Gerold","Gifemund","Gilbert","Giselbert","Giseler","Gislevertus","Giso","Godalbertus","Godobald","Godomar","Godun","Goisfrid","Gondulph","Goscelin","Gouzlim","Gozbert","Gozolon","Griffon","Grifo","Grimald","Grimbald","Grimoald","Guadulfus","Guido","Gundobad","Gundovald","Gunthar","Guntram","Guntramn","Hagen","Haldemarus","Halinard","Hartgard","Hartmut","Hartnid","Helinand","Helisachar","Heribert","Hildebald","Hildebold","Hildeboldus","Hildegaudus","Hildeprand","Hildevoldus","Hildoinus","Hilduin","Hincmar","Hlodver","Hrodbert","Hubert","Huebald","Humbert","Hunald","Imbert","Imnachar","Imninon","Ingalbertus","Ingelram","Ingomer","Ingund","Jocelin","Karlmann","Lambert","Lanfranc","Lantbertus","Laudus","Lebuin","Ledger","Leger","Leodegar","Letard","Leudast","Leufred","Leufroy","Leutfrid","Leuthard","Leuthere","Liudger","Liudhard","Liudolf","Lo","Lothar","Ludger","Lul","Lull","Magnachar","Magneric","Maiuel","Maixent","Majorian","Malaric","Mallobaudes","Mansuetus","Marachar","Maraulf","Marcomir","Marcoul","Marellus","Martinus","Matfrid","Mauger","Maurifius","Medard","Meginhard","Merobaudes","Merovech","Monulph","Munderic","Nevelung","Nibelung","Nithard","Norbert","Nordbert","Notger","Notker","Odger","Odilo","Odilon","Odo","Odulf","Omer","Orderic","Otbert","Otker","Otto","Otton","Ouen","Ouus","Pacatian","Pair","Pancras","Panteleon","Paschal","Pepin","Philibert","Piligrim","Pippin","Poppo","Priarios","Puvis","Radbod","Radigis","Ragenard","Ragenardus","Ragenaus","Ragnachar","Ragnfred","Ragno","Ramnulf","Rathar","Rathier","Ratold","Razo","Reginald","Reginar","Reginard","Remacle","Remi","Reolus","Ricbodo","Ricchar","Ricfried","Richer","Richomer","Richomeres","Rigunth","Riquier","Rothad","Samo","Samson","Sergius","Sichar","Sicho","Siclandus","Sicleardus","Siclevoldus","Siegfried","Sigebert","Sigefroy","Sigeric","Sigibert","Sigismund","Sinopus","Suger","Suidbert","Suidger","Sunnegisil","Sunno","Syagrius","Tassilo","Taurin","Tescelin","Thankmar","Thegan","Theodard","Theodebert","Theodemir","Theodon","Theodore","Theodoric","Theodulf","Theodulph","Theodwin","Theoto","Theudebald","Theudebert","Theuderic","Theutgaud","Thierry","Thietmar","Trutgaudus","Turpin","Unroch","Vedast","Vicelin","Vigor","Vulmar","Waiofar","Wala","Walaric","Walcaud","Waldolanus","Waleran","Waltgaud","Wandregisel","Wandregisilus","Wandrille","Warmann","Wazo","Welf","Werinbert","Wibert","Wichmann","Wido","Willehad","Willibald","Willibrord","Willichar","Wolbodo","Wulfhard","Wulfram","Zwentibold",
     "Alphonse", "Amédée", "Arnaud", "Arthur", "udoin", "Baudoin", "Baudouin",
     "Aalongue", "Abbaud", "Abbon", "Abelène", "Abran", "Abzal", "Acelin", "Achaire",
@@ -351,7 +358,7 @@ QVector<QString> CroisadeFranque::PRENOMS_M = {
     "Roland", "Savari", "Sigismond", "Tancrède", "Thibaut", "Tristan", "Urbain", "Ybert", "Yvain", "Abélard", "Mathieu", "Dominique"
 };
 
-QVector<QString> CroisadeFranque::PRENOMS_F = {
+QVector<QString> Templiers::PRENOMS_F = {
     "Ada","Adala","Adalberta","Adalind","Adalindis","Adallind","Adallinda","Adalmut","Adalrada","Adaltrude","Adaltrutis","Adaluuidis","Adalwif","Adda","Addela","Adela","Adelaidis","Adele","Adelhaid","Adelheid","Adeltrudis","Adhela","Adwala","Aebbe","Agatha","Agentrudis","Agglethrudis","Albelenda","Albofleda","Albruga","Alburch","Alburg","Aldguda","Aldgudana","Aldruth","Alfgarda","Alfild","Alflent","Alpaida","Alpaide","Alpais","Amabilia","Amalberga","Amalbirga","Amoltrud","Amulberga","Anselda","Ansgard","Anstruda","Aregund","Athalia","Athela","Atula","Aua","Auacyn","Aubirge","Aude","Audofleda","Audovera","Auekin","Auin","Auina","Auriana","Austrechild","Ava","Avacyn","Avekin","Avin","Baldechildis","Baltelda","Balthechildis","Balthildis","Basina","Bauin","Bava","Bavacin","Bave","Bavin","Begga","Belegardis","Benedicta","Berchildis","Berehta","Berenga","Beretrude","Bergard","Bergundis","Berhta","Beriungis","Berna","Bernewief","Bernewif","Berta","Bertaida","Bertha","Berthe","Berthefled","Berthefried","Berthegund","Berthildis","Berthlenda","Bertildis","Bertliana","Bertoane","Bertrada","Bertruda","Bertswinda","Bettin","Bilichildis","Blesinde","Blitekin","Boltiarda","Bova","Boviardis","Brunhild","Brunhilda","Burgundefara","Childebertana","Chlodeswinthe","Chlodosind","Chlothsinda","Chrodechildis","Chrodtrude","Chunsina","Cilia","Clodauuiua","Clothild","Clotild","Clotilde","Clotrada","Conegont","Conegundis","Conegunt","Crapahildis","Cunegonde","Cunegund ","Cunegundis","Dadin","Dagarada","Danburga","Deuteria","Doda","Dodda","Duda","Eadgithu","Ealswid","Ebertana","Edeberga","Edeborg","Ega","Egecin","Egeluuara","Egesburga","Egesloga","Ehgelhild","Ehgeluuara","Ellinrat","Emecin","Emma","Engelberga","Engelberge","Engelgard","Engelsuit","Engeltrude","Engeluuara","Engelwara","Enna","Erchembrog","Eremburgis","Ereprad","Erkembrog","Erkenbrog","Erkenburoc","Erkenrad","Ermecin","Ermegardis","Ermenberga","Ermengard","Ermengarda","Ermengarde","Ermengardis","Ermentrudis","Ermeswindis","Ermina","Erpsuid","Errictruda","Ethelchif","Ethelgard","Ethelgarda","Euerloga","Everelda","Evereldis","Faileuba","Fara","Fastrada","Flouerana","Folclind","Folclinda","Folcrada","Folcuuara","Folgarda","Folsuindis","Folsuuendis","Fordola","Fortlifh","Foy","Frauuara","Fredeburgis","Fredegunde","Frederada","Fredeuuara","Frethegard","Frethesuinda","Frethesuindis","Fridesuenda","Fridewiga","Frisburgis","Frithelinda","Frouuin","Frouuina","Galswinth","Geila","Gelduuara","Geneva","Genofeva","Gerberga","Geretrudis","Gerlent","Gerlinda","Gersenda","Gersuenda","Gersuinda","Gersvinda","Gertruda","Geruuara","Geua","Geva","Gisela","Gisla","Glismodis","Godalinda","Godeca","Godecin","Godelda","Godelinda","Godildis","Goduuara","Goiswinth","Gomatrudis","Gothuuera","Grimuuara","Gudula","Gudule","Gundrada","Gundrade","Gundradis","Guntheuc","Gunza","Guodhelda","Guodlia","Hadaken","Hamesindis","Harwara","Hatilde","Hazeca","Heilewif","Heilswinda","Heldeburga","Heletradana","Heleuuidis","Helinda","Heltrada","Hengelsenda","Herden","Herdin","Herenborg","Herenfrida","Herleva","Herlinda","Hermengarda","Hildberta","Hildborg","Hildcardis","Hildeberga","Hildeburg","Hildegard","Hildegarde","Hildegardis","Hildegund","Hildelana","Hildemunda","Hildeswindis","Hildeuuara","Hildeuuif","Hildewara","Hildewif","Hildrada","Hildwara","Hiltrude","Himiltrud","Hirmenlind","Hodierna","Hostaruuara","Hruodgarda","Hruotberta","Hruothraud","Ida","Idasgarda","Ideslef","Idesuuif","Ideswif","Idisiardis","Imicina","Imma","Ingela","Ingelburga","Ingelswindis","Ingeltrud","Ingeltrude","Ingeltrudis","Ingeluuara","Ingelwara","Ingitrude","Ingoberg","Ingunde","Iodberta","Iolitha","Irmengard","Irmenhild","Irmenlind","Irmgard","Irmingard","Isa","Isburch","Itta","Joveta","Kunegund","Landburuga","Landgarda","Landrada","Lanthechilde","Lanthildis","Lantuuara","Lebdrudis","Leddinga","Leubast","Leubovera","Leuekin","Leuuich","Liaueld","Lidiardis","Liedrada","Liefhun","Lieftet","Lietgarda","Lietgardis","Lietuuif","Lieuuara","Lifgarda","Liobsynde","Liodburga","Liodgard","Liodrada","Litburh","Litgardis","Litiardis","Liutgarde","Luitgarde","Machtildis","Madelgarda","Madelgarde","Madelrada","Madhalberta","Magnatrude","Magthildis","Magtildis","Marcatrude","Marcovefa","Markuuara","Mathildis","Mauriana","Mechtild","Megenberta","Megendrod","Megenhelda","Megenlind","Megenlioba","Megensind","Megensinda","Megenuuara","Meinburg","Meinnelda","Meinsent","Meinswindis","Menborch","Merofled","Merwig","Methdin","Moschia","Murina","Nantechildis","Nidlebis","Nordrada","Oda","Odburga","Odela","Odgiva","Odguda","Odgudana","Odlenda","Odriana","Ogiva","Olburgis","Olga","Osgarda","Osgiua","Otberta","Otgiua","Otgiva","Oydela","Pharahildis","Plectrudis","Radborg","Radburg","Radburgis","Radegund","Radeken","Radgert","Radlia","Radogund","Radsuinda","Ragnachilde","Rainilda","Rainildis","Ramburga","Regana","Regenburuga","Regenelda","Regenlind","Regenset","Reginsuint","Regintrude","Regnetrudis","Regneuuig","Reinewif","Reingard","Reingardis","Reingart","Reingaud","Reingod","Reinsuent","Renburgis","Rennewief","Riberta","Richelda","Richildis","Riclindis","Ricsuinda","Rigunth","Rikildis","Rinelt","Rinilda","Rodburga","Rodgarda","Rodgardae","Rofsind","Rosamund","Rotburga","Rothaide","Rothin","Rotlenda","Rotrud","Rotrude","Rotrudis","Ruodhaid","Ruothild","Ruothilde","Seburg","Seburga","Siborch","Siburg","Sigarda","Sigberta","Sigeberta","Sigeburgis","Sigethrod","Sigiburgis","Snelburch","Stenburch","Stilleuuara","Strilleburg","Suitburgis","Susanna","Swanahilde","Syardis","Teudsindis","Teutberga","Thancuuara","Theaduuara","Thedela","Theodelinda","Theoderada","Theodrada","Theodrade","Theudechild","Theudelinde","Theutberga","Thidela","Thieda","Thietgarda","Thietuuich","Thietwara","Thiodsind","Thiodsuinda","Thiutuuara","Thrasborg","Thrudberga","Ticekin","Tietlenda","Tietza","Trhutborgana","Trudlinde","Trutilda","UUaldburg","UUaldethruda","UUeremund","UUerenburoc","UUiburgis","UUindborog","UUinebarga","UUireda","UUlgarda","Uda","Ultrogotha","Uoldolberta","Veneranda","Vrowecin","Vualdberta","Vualdedruda","Vualdetruda","Vuifken","Vuinetberta","Vuiuechin","Vuldretrada","Vulfegundis","Waldrada","Wavin","Wiburgis","Wihted","Wilberga","Wilgeva","Willelda","Willesuindis","Wisigard","Wivecin","Wivin","Wlbergis","Wlbgis","Wlfildis","Wlgert",
     "ADELAIDE", "AGNES", "ALIENOR", "ANASTASE", "ANASTASIE", "ASTRID", "AUDE", "AURE",
     "Aalis", "Ada", "Adalarde", "Adalasinde", "Adalburge", "Adalinde", "Adalsende", "Adalsinde", "Ade",
@@ -381,7 +388,7 @@ QVector<QString> CroisadeFranque::PRENOMS_F = {
     "Iseult", "Léonor", "Letgarde", "Mahaut", "Mélissande", "Mélusine", "Milesende", "Morgane", "Ursule", "Viviane"
 };
 
-void CroisadeFranque::GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images)
+void Templiers::GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, QVector<QString>&images)
 {
     bool femme = caracs[PNJ::C_SEXE] == PNJ::FEMME;
     if ( femme ) {
@@ -403,7 +410,7 @@ void CroisadeFranque::GenererPortraits(QMap<QString, QString> caracs, int ageAnn
     }
 }
 
-EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (indexEvt)
+EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
@@ -414,13 +421,13 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
         m_Conditions.push_back(
              make_shared<Condition>(Crime::C_MOIS_PRISON, "0", Comparateur::c_Superieur));
         m_Conditions.push_back(
-             make_shared<Condition>(Coterie::C_COTERIE, Coterie::CROISADE, Comparateur::c_Different));
+             make_shared<Condition>(Coterie::C_COTERIE, Coterie::TEMPLIERS, Comparateur::c_Different));
         m_CallbackDisplay = [] {
             Humain* humain = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
 
             effet->m_Texte = "Un prêcheur de la croisade franque rend une visite dans votre prison."
-                    "\nIl entame de longs discours sur l'honneur, le devoir la force et le sens de la vie et vous appelle à la rédemption en rejoignant les croisés qui s'engagent à vous aider à votre sortie de prison si vous preêtez serment.";
+                    "\nIl entame de longs discours sur l'honneur, le devoir la force et le sens de la vie et vous appelle à la rédemption en rejoignant les templiers qui s'engagent à vous aider à votre sortie de prison si vous preêtez serment.";
 
             double proba = Aleatoire::GetAl()->Entre0Et1();
             if ( proba < 0.3 ) {
@@ -436,8 +443,8 @@ EvtCroisadeFranque::EvtCroisadeFranque(int indexEvt):GenerateurNoeudsProbables (
                           Religion::CHRETIEN);
             }
 
-            // devient croisé ??
-            shared_ptr<Coterie> croisade = Extremis::GetCoterie(Coterie::CROISADE);
+            // devient templier ??
+            shared_ptr<Coterie> croisade = Extremis::GetCoterie(Coterie::TEMPLIERS);
             proba = croisade->Compatibilite(humain);
             if ( proba >= Coterie::SEUIL_CONVERSION) {
                 croisade->RejoindreCoterie(humain, effet);

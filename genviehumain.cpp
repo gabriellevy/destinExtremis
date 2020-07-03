@@ -31,7 +31,7 @@
 #include "caracpnj.h"
 #include "famille/amour.h"
 #include "coteries/orks.h"
-#include "coteries/croisadefranque.h"
+#include "coteries/templiers.h"
 #include "coteries/conquistadors.h"
 #include "coteries/elfes.h"
 #include "coteries/transhumanistes.h"
@@ -158,7 +158,7 @@ void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
             Humain* hum = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
 
-            Extremis::COTERIES[2]->RejoindreCoterie(hum, effet);
+            Extremis::COTERIES[3]->RejoindreCoterie(hum, effet);
         };
     }
 
@@ -197,7 +197,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<Famille>(m_GenerateurEvt, noeuds);
     GenererNoeuds<Amour>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtOrks>(m_GenerateurEvt, noeuds);
-    GenererNoeuds<EvtCroisadeFranque>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<EvtTempliers>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtConquistadors>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtElfes>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtTranshumanistes>(m_GenerateurEvt, noeuds);

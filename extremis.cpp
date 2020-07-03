@@ -2,7 +2,7 @@
 #include "ui_univers.h"
 #include "genviehumain.h"
 #include "coteries/tyranides.h"
-#include "coteries/croisadefranque.h"
+#include "coteries/templiers.h"
 #include "coteries/celte.h"
 #include "coteries/orks.h"
 #include "coteries/transhumanistes.h"
@@ -36,7 +36,7 @@ void Extremis::GenererCoteries()
         make_shared<Elfes>(),
         make_shared<Orks>(),
         make_shared<Conquistadors>(),
-        make_shared<CroisadeFranque>(),
+        make_shared<Templiers>(),
         make_shared<Transhumanistes>()
         //make_shared<Tyranides>(),
         //make_shared<Celte>(),
