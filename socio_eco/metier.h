@@ -49,6 +49,7 @@ public:
     static QString COMMERCIAL;
     static QString POLICIER;
     static QString VIGILE;
+    static QString BANQUIER;
     static QString GARDE_DU_CORPS;
     static QString PARASITE; // type qui ne bosse jamais mais est très doué pour vivre aux dépens des autres
 

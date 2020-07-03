@@ -36,6 +36,7 @@ QString Metier::GENETICIEN = "Généticien";
 QString Metier::COMMERCIAL = "Commercial";
 QString Metier::POLICIER = "Policier";
 QString Metier::VIGILE = "Vigile";
+QString Metier::BANQUIER = "Banquier";
 QString Metier::GARDE_DU_CORPS = "Garde du corps";
 
 QMap<QString, Metier*> Metier::METIERS;
@@ -158,6 +159,10 @@ Metier::Metier(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
     case 24 : {
         m_Nom = Metier::VIGILE;
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
+    }break;
+    case 25 : {
+        m_Nom = Metier::BANQUIER;
         m_ConditionSelecteurProba = make_shared<Condition>(0.01 - tmpFavoriseur, p_Relative);
     }break;
     }

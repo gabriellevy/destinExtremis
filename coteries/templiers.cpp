@@ -64,6 +64,7 @@ void Templiers::GenererTraitCompatibles()
         Metier::PAYSAN,
         Metier::POLICIER,
         Metier::VIGILE,
+        Metier::BANQUIER,
         Metier::GARDE_DU_CORPS,
         Metier::FORGERON
     };

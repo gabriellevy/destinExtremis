@@ -125,5 +125,6 @@
         <file>images/orks/icone.jpg</file>
         <file>images/transhumanistes/icone.jpg</file>
         <file>images/tyranides/icone.jpg</file>
+        <file>images/croisade_franque/croix_rouge.jpg</file>
     </qresource>
 </RCC>
