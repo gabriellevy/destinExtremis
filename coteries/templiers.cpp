@@ -484,6 +484,18 @@ EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -2;
         m_Son = "qrc:/sons/croisade/turexgloriae.mp3";
     }break;
+    case 3 : {
+        m_Nom = "Entrainement au combat";
+        m_Description = "Vous êtes encore loin d'avoir atteint le niveau requis pour être un véritable guerrier templier. "
+                "Une série de séances avec un maître d'armes améliore grandement vos compétences.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.001 + tmp_Modificateur, p_Relative);
+        m_ConditionSelecteurProba->AjouterModifProba(0.01,
+            {make_shared<Condition>(Combat::C_CAP_COMBAT, "4", Comparateur::c_Inferieur)});
+        m_ConditionSelecteurProba->AjouterModifProba(0.005,
+            {make_shared<Condition>(Combat::C_CAP_COMBAT, "8", Comparateur::c_Inferieur)});
+        m_Conditions.push_back(Coterie::GenConditionSiDeCetteCoterie( Coterie::TEMPLIERS));
+        m_IncrementeursCaracs[Combat::C_CAP_COMBAT] = 1;
+    }break;
 
     }
 }

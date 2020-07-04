@@ -76,6 +76,8 @@ public:
     static std::shared_ptr<Coterie> GetCoterieAleatoire(CritereCoterie critereCoterie = cc_Aleatoire);
 
     static void AjouterModifProbaSiDeCetteCoterie(Condition* CondProba, double proba, QString nomCoterie);
+    static std::shared_ptr<Condition> Coterie::GenConditionSiDeCetteCoterie(QString nomCoterie);
+    static std::shared_ptr<Condition> Coterie::GenConditionSiPasDeCetteCoterie(QString nomCoterie);
 
     QVector<QString> m_MetiersAssocies = {}; // métiers particulièrement prisés/contrôlés par la coterie.
 

@@ -155,3 +155,13 @@ void Coterie::AjouterModifProbaSiDeCetteCoterie(Condition* CondProba, double pro
     CondProba->AjouterModifProba(proba,
         {make_shared<Condition>(Coterie::C_COTERIE, nomCoterie, Comparateur::c_Egal)});
 }
+
+shared_ptr<Condition> Coterie::GenConditionSiDeCetteCoterie(QString nomCoterie)
+{
+    return make_shared<Condition>(Coterie::C_COTERIE, nomCoterie, Comparateur::c_Egal);
+}
+
+shared_ptr<Condition> Coterie::GenConditionSiPasDeCetteCoterie(QString nomCoterie)
+{
+    return make_shared<Condition>(Coterie::C_COTERIE, nomCoterie, Comparateur::c_Different);
+}
