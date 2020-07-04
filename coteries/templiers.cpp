@@ -18,6 +18,8 @@
 using std::make_shared;
 using std::shared_ptr;
 
+QString Templiers::C_EPEE_SACREE = "Épée sacrée";
+
 Templiers::Templiers()
 {
     Initialisation();
@@ -494,7 +496,22 @@ EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ConditionSelecteurProba->AjouterModifProba(0.005,
             {make_shared<Condition>(Combat::C_CAP_COMBAT, "8", Comparateur::c_Inferieur)});
         m_Conditions.push_back(Coterie::GenConditionSiDeCetteCoterie( Coterie::TEMPLIERS));
+        m_Conditions.push_back( {make_shared<Condition>(Combat::C_CAP_COMBAT, "10", Comparateur::c_Inferieur)});
         m_IncrementeursCaracs[Combat::C_CAP_COMBAT] = 1;
+    }break;
+    case 4 : {
+        m_Nom = "Don d'une épée sacrée";
+        m_Description = "Pour votre dévotion chrétienne fervente et en signe que vos compétences au combat sont reconnues suffisantes, l'ordre vous affecte une épée sacrée bénie par un évèque ."
+                "Nulle doute qu'elle facilitera grandement vos miracles.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(Coterie::GenConditionSiDeCetteCoterie( Coterie::TEMPLIERS));
+        m_Conditions.push_back({make_shared<Condition>(Templiers::C_EPEE_SACREE, "", Comparateur::c_Egal)});
+        m_Conditions.push_back(Religion::AjouterCondACetteReligion(Religion::CHRETIEN));
+        m_Conditions.push_back( {make_shared<Condition>(Combat::C_CAP_COMBAT, "5", Comparateur::c_SuperieurEgal)});
+
+        m_ModificateursCaracs[Templiers::C_EPEE_SACREE] = "1";
+        m_IncrementeursCaracs[Religion::C_MIRACLE] = 1;
+        m_Son = "qrc:/sons/croisade/saladinbesiegejerusalem.mp3";
     }break;
 
     }

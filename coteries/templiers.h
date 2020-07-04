@@ -37,6 +37,8 @@ public:
     static QVector<QString> PRENOMS_M;
     static QVector<QString> PRENOMS_F;
     static QVector<QString> NOMS;
+
+    static QString C_EPEE_SACREE; // "1" si il en a une
 };
 
 class EvtTempliers : public GenerateurNoeudsProbables

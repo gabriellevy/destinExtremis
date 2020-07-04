@@ -162,7 +162,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     }break;
         // séduction (par la femme)
     case 7 : {
-        m_Nom = "Séduction par la femme";
+        m_Nom = "Tentative de séduction par une femme";
         m_ConditionSelecteurProba = make_shared<Condition>(0.5 + tmpModificateur, p_Relative);
         m_Description = "Folle de vous,  %%%" + ( PRE_ELLE_AMOUREUSE + PNJ::C_NOM) +
                 "%%% fait tout ce qu'elle peut pour vous séduire.";
@@ -170,6 +170,7 @@ Amour::Amour(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         // elle est amoureuse et pas déjà en séduction
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_ETAT_AMOUREUX_F, Amour::AMOUREUX, Comparateur::c_Egal));
         m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + C_FAIT_LA_COUR, "1", Comparateur::c_Different));
+        m_Conditions.push_back( make_shared<Condition>(PRE_ELLE_AMOUREUSE + PNJ::C_NOM, "", Comparateur::c_Different));
     }break;
     case 8 : {
         m_Nom = "Séduction par la femme réussie";

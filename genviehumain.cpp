@@ -90,13 +90,16 @@ void GenVieHumain::GenererCaracs()
     cMet->m_EmplacementAffichage = ea_Primaire;
     GestCarac::GetGestionnaireCarac()->AjouterCaracImagePrimaire(Religion::C_RELIGION);
 
+    GestCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(Religion::C_MIRACLE);
     GestCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(PbSante::C_MOIS_HOPITAL);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(Crime::C_MOIS_PRISON);
     GestCarac::GetGestionnaireCarac()->AjouterCaracString(GenVieHumain::C_LIBERTE);
     GestCarac::GetGestionnaireCarac()->AjouterCaracString(PbSante::C_SANTE);
     GestCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_CRIMINEL);
     GestCarac::GetGestionnaireCarac()->AjouterCaracString(Crime::C_GANG);
     GestCarac::GetGestionnaireCarac()->AjouterCaracStringIntitule(QuartierEffets::C_QUARTIER_ACTUEL);
 
+    // amour
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_COUPLE, "Couple"));
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_MAITRESSE, "Maitresse"));
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Amour::PRE_ELLE_AMOUREUSE, "Amoureuse"));
@@ -113,18 +116,15 @@ void GenVieHumain::GenererCaracs()
         GestCarac::GetGestionnaireCarac()->AjouterCaracBinaire(bless);
     }
     GestCarac::GetGestionnaireCarac()->AjouterCaracBinaire(PbSante::ALCOOLIQUE);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracBinaire(Bionique::C_BIONIQUE_LONGEVITE);
 
     GestCarac::GetGestionnaireCarac()->AjouterCaracStringIntitule(QuartierEffets::C_QUARTIER_HABITE);
 
     // temp test :
-    GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Metier::C_COMPETENCE_METIER);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(Metier::C_COMPETENCE_METIER);
+    GestCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(Combat::C_CAP_COMBAT);
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_PERE, "Père"));
     GestCarac::GetGestionnaireCarac()->AjouterCarac(new CaracPNJ(Famille::PRE_MERE, "Mère"));
-
-    /*Carac* carac = GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Crime::C_MOIS_PRISON);
-    carac->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;
-    Carac* caracBionique = GestCarac::GetGestionnaireCarac()->AjouterCaracNombre(Bionique::C_BIONIQUE_LONGEVITE);
-    caracBionique->m_ModeAffichage = MODE_AFFICHAGE::ma_NombreSupZero;*/
 }
 
 void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
@@ -154,12 +154,14 @@ void GenVieHumain::GenererEvtsAccueil(bool naissanceAuto, bool univ)
     if ( univ )
         std::shared_ptr<Evt> evtEducationPol = Education::GenererEvtEducationPolitique(this);
     else {
+        // devenir templier :
         effet1->m_CallbackDisplay = [] {
             Humain* hum = Humain::GetHumainJoue();
             shared_ptr<Effet> effet = ExecHistoire::GetEffetActuel();
 
             Extremis::COTERIES[3]->RejoindreCoterie(hum, effet);
         };
+        effet1->AjouterChangeurDeCarac(Religion::C_RELIGION, Religion::CHRETIEN);
     }
 
     AjouterEffetGoToEvt(GenVieHumain::EVT_SELECTEUR_ID, "finNaissance");

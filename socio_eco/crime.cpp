@@ -14,6 +14,8 @@
 #include "humain.h"
 #include "extremis.h"
 
+using std::make_shared;
+
 // caracs :
 QString Crime::C_CRIMINEL = "Est criminel";
 QString Crime::C_GANG = "Gang";
@@ -48,7 +50,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     case 1 : {
-        m_Nom = "devient_" + Crime::CRIMINEL + "_violeur";
+        m_Nom = "Devenir un " + Crime::CRIMINEL + " violeur";
         m_ConditionSelecteurProba = make_shared<Condition>(0.0001 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cruel);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, pervers_sexuel);
@@ -56,12 +58,14 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         Extremis::AjouterConditionSiActif(m_Conditions);
+        m_Conditions.push_back(
+                    make_shared<Condition>(Crime::C_CRIMINEL, Crime::CRIMINEL, Comparateur::c_Different));
         m_Description = "Vos perversions vous poussent à devenir un violeur de plus en plus dépravé.";
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
 
     }break;
     case 2 : {
-        m_Nom = "devient_" + Crime::CRIMINEL + "_braqueur";
+        m_Nom = "Devenir un " + Crime::CRIMINEL + " violent";
         m_ConditionSelecteurProba = make_shared<Condition>(0.0001 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, aventureux);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, cupide);
@@ -122,7 +126,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         };
     }break;
     case 6 : { // honnête devient petit délinquant par violence et désoeuvrement
-        m_Nom = "devient_" + Crime::DELINQUANT + "_" + ClasseSociale::PAUVRES;
+        m_Nom = "Devenir " + Crime::DELINQUANT + " médiocre";
         m_ConditionSelecteurProba = make_shared<Condition>(0.002 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, violent);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, rancunier);

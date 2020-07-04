@@ -23,6 +23,7 @@ Religion::Religion(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 // caracs liées :
 QString Religion::C_RELIGION = "Religion";
 QString Religion::C_FOI = "Foi"; // niveau de foi dans sa religion (1 à 10)
+QString Religion::C_MIRACLE = "Miracles"; //capacité à créer des miracles (1 à 10)
 // valeurs de C_RELIGION "" = aucune
 QString Religion::CHRETIEN = ":/images/religion/Chretien.jpg";
 QString Religion::ATHEE = ":/images/religion/athee.jpg"; // différent de "" car l'athée a développé une aversion à la religion, il sera dur à reconvertir
