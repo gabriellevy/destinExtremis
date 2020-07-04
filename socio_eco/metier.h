@@ -22,6 +22,7 @@ public:
     static QList<QString> METIERS_INTEGRES; //  métiers où la criminalité est extrêmement faible
 
     static QString C_METIER;
+    static QString C_TITRE; // titre/grade lié au métier et qui n'a pas forcément d'influence sur lui
     // valeurs de C_METIER :
     // ATTENTION : les noms de métier snt à la fois la valeur de la carac C_METIER pour indiquer le métier du perso
     // PLUS un nom de carac en soi qui indique le niveau (1 à 10) du personnage dans ce métier

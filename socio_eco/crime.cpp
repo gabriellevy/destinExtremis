@@ -150,7 +150,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 
     }break;
     case 7 : {
-        m_Nom = "joint_" + Crime::C_GANG;
+        m_Nom = "Rejoindre un " + Crime::C_GANG;
         m_ConditionSelecteurProba = make_shared<Condition>(0.002 + tmp_Modificateur, p_Relative);
         QString gang = Crime::GenererNomGang();
         m_Description = "Vous rejoignez le gang " + gang + ".";

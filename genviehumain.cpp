@@ -88,6 +88,8 @@ void GenVieHumain::GenererCaracs()
 //    cCot->m_EmplacementAffichage = ea_Primaire;
     Carac* cMet = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_METIER);
     cMet->m_EmplacementAffichage = ea_Primaire;
+    Carac* cTitre = GestCarac::GetGestionnaireCarac()->AjouterCaracString(Metier::C_TITRE);
+    cTitre->m_EmplacementAffichage = ea_Primaire;
     GestCarac::GetGestionnaireCarac()->AjouterCaracImagePrimaire(Religion::C_RELIGION);
 
     GestCarac::GetGestionnaireCarac()->AjouterCaracNombreSupZero(Religion::C_MIRACLE);

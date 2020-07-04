@@ -19,7 +19,7 @@ EconomieEvt::EconomieEvt(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     double tmp_Modificateur = 0.0;
     switch (indexEvt) {
     case 0 : {
-        m_Nom = "bon travail";
+        m_Nom = "Augmentation pour votre bon travail";
         m_ConditionSelecteurProba = make_shared<Condition>(0.03 + tmp_Modificateur, p_Relative);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, ambitieux);
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), 0.01, travailleur);

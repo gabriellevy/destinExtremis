@@ -9,6 +9,7 @@
 #include "humain.h"
 
 QString Metier::C_METIER = "Métier";
+QString Metier::C_TITRE = "Titre";
 QString Metier::C_COMPETENCE_METIER = "Compétence métier";
 
 QString Metier::INEMPLOYABLE = "Inemployable";
