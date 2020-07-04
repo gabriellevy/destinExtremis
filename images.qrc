@@ -126,5 +126,8 @@
         <file>images/transhumanistes/icone.jpg</file>
         <file>images/tyranides/icone.jpg</file>
         <file>images/croisade_franque/croix_rouge.jpg</file>
+        <file>images/croisade_franque/ange.jpg</file>
+        <file>images/conquistadors/marchand-collecteur.jpg</file>
+        <file>images/croisade_franque/pretre.jpg</file>
     </qresource>
 </RCC>

@@ -42,6 +42,7 @@ std::shared_ptr<Condition> Religion::AjouterCondACetteReligion(QString religion)
 
 void Religion::ModifierEffetEnEffetConversion(std::shared_ptr<Effet> &effet, QString religion, int ajoutEnFoi, bool convertitAthees)
 {
+    effet->m_Conditions.push_back(make_shared<Condition>(Religion::C_RELIGION, religion, Comparateur::c_Different));//on ne s'auto convertit pas dans la même religion
     effet->AjouterChangeurDeCarac(Religion::C_RELIGION, religion);
     effet->AjouterAjouteurACarac(Religion::C_FOI, QString::number(ajoutEnFoi));
     if (!convertitAthees)

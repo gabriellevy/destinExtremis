@@ -116,7 +116,7 @@ std::shared_ptr<Effet> Templiers::AjouterEffetUniversite(GenHistoire* genHist, s
         Religion::ModifierEffetEnEffetConversion(effet, Religion::CHRETIEN);
         GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->m_GoToEffetId = go_to_effet_suivant;
-        shared_ptr<Condition> cond1 = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<Condition> cond1 = make_shared<Condition>(2.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeud1 = make_shared<NoeudProbable>(
                     effet,
                     cond1);
@@ -141,6 +141,24 @@ std::shared_ptr<Effet> Templiers::AjouterEffetUniversite(GenHistoire* genHist, s
         noeudsProbaEducation.push_back(noeudCombat);
     }
 
+    // faiseur de miracles
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Votre foi à toute épreuve vous rend digne de recevoir le plus noble des enseignements accessibles aux templier : puiser dans sa foi et sa volonté pou accomplir des miracles divins.",
+                    ":/images/croisade_franque/ange.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        effet->m_Conditions.push_back(
+                    make_shared<Condition>(Religion::C_RELIGION, Religion::CHRETIEN, Comparateur::c_Egal));
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->AjouterAjouteurACarac(Religion::C_MIRACLE, "1");
+        shared_ptr<Condition> condCombat = make_shared<Condition>(0.8, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    condCombat);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
     // effet Cavalerie
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
@@ -159,6 +177,25 @@ std::shared_ptr<Effet> Templiers::AjouterEffetUniversite(GenHistoire* genHist, s
         noeudsProbaEducation.push_back(noeudCombat);
     }
 
+    // effet prêtre
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Le christianisme est au coeur du temple et apprendre les rudiments de la prêtrise est ainsi à la abse de la formation d'un bon templier."
+                    "C'est aussi son rêve le plus cher d'aller au bout de formation si il s'en montre digne.",
+                    ":/images/croisade_franque/pretre.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->m_Conditions.push_back(
+                    make_shared<Condition>(Religion::C_RELIGION, Religion::CHRETIEN, Comparateur::c_Egal));
+        effet->AjouterAjouteurACarac(Metier::PRETRE, "2");
+        shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    condCombat);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
     // effet architecte
     {
         shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
@@ -168,6 +205,22 @@ std::shared_ptr<Effet> Templiers::AjouterEffetUniversite(GenHistoire* genHist, s
         effet->m_GoToEffetId = go_to_effet_suivant;
         GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
         effet->AjouterAjouteurACarac(Metier::ARCHITECTE, "2");
+        shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
+        shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
+                    effet,
+                    condCombat);
+        noeudsProbaEducation.push_back(noeudCombat);
+    }
+
+    // effet banquier
+    {
+        shared_ptr<Effet> effet = genHist->AjouterEffetNarration(
+                    "Les circonstances, et surtout leur grande intégrité, ont fait des templiers des banquiers exceptionnels. Avoir des connaissances à ce sujet ne sera aps de trop pour prospérer dans l'ordre.",
+                    ":/images/conquistadors/marchand-collecteur.jpg",
+                    "", evt);
+        effet->m_GoToEffetId = go_to_effet_suivant;
+        GenVieHumain::TransformerEffetEnEffetMoisDeVie(effet, false);
+        effet->AjouterAjouteurACarac(Metier::BANQUIER, "2");
         shared_ptr<Condition> condCombat = make_shared<Condition>(1.0, TypeProba::p_Relative);
         shared_ptr<NoeudProbable> noeudCombat = make_shared<NoeudProbable>(
                     effet,
