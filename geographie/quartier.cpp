@@ -89,7 +89,7 @@ std::shared_ptr<Condition> QuartierEffets::AjouterCondHabiteCeQuartier(QString q
     return make_shared<Condition>(QuartierEffets::C_QUARTIER_HABITE, quartier, Comparateur::c_Egal);
 }
 
-std::shared_ptr<Condition> QuartierEffets::AjouterCondEstDansCeQuartier(QString quartier)
+std::shared_ptr<Condition> QuartierEffets::GenCondEstDansCeQuartier(QString quartier)
 {
     return make_shared<Condition>(QuartierEffets::C_QUARTIER_ACTUEL, quartier, Comparateur::c_Egal);
 }

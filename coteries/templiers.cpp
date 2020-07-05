@@ -13,6 +13,7 @@
 #include "socio_eco/crime.h"
 #include "extremis.h"
 #include "socio_eco/economieevt.h"
+#include "socio_eco/classesociale.h"
 #include "humanite/pnj.h"
 
 using std::make_shared;
@@ -468,6 +469,7 @@ void Templiers::GenererPortraits(QMap<QString, QString> caracs, int ageAnnees, Q
 
 EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
 {
+    shared_ptr<Coterie> templiersC = Extremis::GetCoterie(Coterie::TEMPLIERS);
     double tmp_Modificateur = 0.0; //pour les tests (doit être à 0 en prod)
     switch (indexEvt) {
     case 0 : {
@@ -565,6 +567,16 @@ EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_ModificateursCaracs[Templiers::C_EPEE_SACREE] = "1";
         m_IncrementeursCaracs[Religion::C_MIRACLE] = 1;
         m_Son = "qrc:/sons/croisade/saladinbesiegejerusalem.mp3";
+    }break;
+    case 5 : {
+        m_Nom = "Recevoir l'aumône";
+        m_Description = "Votre misère attendrit un chrétien templier qui vous fait un gros don.";
+        m_ConditionSelecteurProba = make_shared<Condition>(0.03 + tmp_Modificateur, p_Relative);
+        m_Conditions.push_back(ClasseSociale::GenConditionSiDeCetteClasseSociale(ClasseSociale::MISERABLES));
+        m_Conditions.push_back(QuartierEffets::GenCondEstDansCeQuartier(templiersC->m_Quartier->m_Nom));
+
+        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = 1;
+        m_Son = "qrc:/sons/croisade/guyderosesquandary.mp3";
     }break;
 
     }

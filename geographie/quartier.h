@@ -41,7 +41,7 @@ public:
     static QString C_QUARTIER_ACTUEL; // différent de l'habité lors des voyages etc
 
     static std::shared_ptr<Condition> AjouterCondHabiteCeQuartier(QString quartier);
-    static std::shared_ptr<Condition> AjouterCondEstDansCeQuartier(QString quartier);
+    static std::shared_ptr<Condition> GenCondEstDansCeQuartier(QString quartier);
 
 };
 

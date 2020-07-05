@@ -44,7 +44,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, franc);
         m_Description = "Vous vous mettez à voler à droite à gauche pour survivre";
         m_Conditions.push_back(Crime::AjouterConditionSiJamaisCriminel());
-        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
+        m_Conditions.push_back(ClasseSociale::GenConditionSiDeCetteClasseSociale(ClasseSociale::MISERABLES));
         Extremis::AjouterConditionSiActif(m_Conditions);
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::DELINQUANT;
 
@@ -172,7 +172,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
         Extremis::AjouterConditionSiActif(m_Conditions);
-        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::MISERABLES));
+        m_Conditions.push_back(ClasseSociale::GenConditionSiDeCetteClasseSociale(ClasseSociale::MISERABLES));
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::PAUVRES;
 
@@ -186,7 +186,7 @@ Crime::Crime(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         Trait::AjouterModifProbaSiACeTrait(m_ConditionSelecteurProba.get(), -0.01, honorable);
         m_Description = "Par un crime très astucieux vous parvenez à vous enrichir considérablement.";
         Extremis::AjouterConditionSiActif(m_Conditions);
-        m_Conditions.push_back(ClasseSociale::AjouterConditionSiCetteClasseSociale(ClasseSociale::PAUVRES));
+        m_Conditions.push_back(ClasseSociale::GenConditionSiDeCetteClasseSociale(ClasseSociale::PAUVRES));
         m_ModificateursCaracs[Crime::C_CRIMINEL] = Crime::CRIMINEL;
         m_ModificateursCaracs[ClasseSociale::C_CLASSE_SOCIALE] = ClasseSociale::CLASSE_MOYENNE;
 
