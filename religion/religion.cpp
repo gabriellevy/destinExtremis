@@ -16,15 +16,6 @@ Religion::Religion(int indexEvt):GenerateurNoeudsProbables (indexEvt)
     double tmp_Modificateur = 0.0;
     switch (indexEvt) {
     case 0 : {
-        m_Nom = "Nomination comme évèque";
-        m_Description = "Pour vos fortes compétences et votre ancienneté, et pour votre foi bien sûr, vous êtes nommé évèque.";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
-        m_Conditions.push_back(Religion::AjouterCondACetteReligion(Religion::CHRETIEN));
-        m_Conditions.push_back(make_shared<Condition>(Metier::PRETRE, "5", Comparateur::c_Superieur));
-        m_Conditions.push_back(make_shared<Condition>(Metier::C_TITRE, Religion::EVEQUE, Comparateur::c_Different));
-        this->m_ModificateursCaracs[Metier::C_TITRE] = Religion::EVEQUE;
-        m_Son = "qrc:/sons/croisade/sanctus.mp3";
-
     }break;
     }
 }
@@ -37,10 +28,6 @@ QString Religion::C_MIRACLE = "Miracles"; //capacité à créer des miracles (1 
 // valeurs de C_RELIGION "" = aucune
 QString Religion::CHRETIEN = ":/images/religion/Chretien.jpg";
 QString Religion::ATHEE = ":/images/religion/athee.jpg"; // différent de "" car l'athée a développé une aversion à la religion, il sera dur à reconvertir
-// valeurs de Metier::C_TITRE :
-QString Religion::EVEQUE = "Évèque";
-
-
 
 QString Religion::GetNomReligion(QString religion)
 {

@@ -26,6 +26,7 @@
 #include "politique/propagande.h"
 #include "violence/combat.h"
 #include "religion/religion.h"
+#include "religion/christianisme.h"
 #include "geographie/quartier.h"
 #include "humanite/pnj.h"
 #include "caracpnj.h"
@@ -206,6 +207,7 @@ void GenVieHumain::GenererEvtsDeBase(QVector<shared_ptr<NoeudProbable>> &noeuds)
     GenererNoeuds<EvtElfes>(m_GenerateurEvt, noeuds);
     GenererNoeuds<EvtTranshumanistes>(m_GenerateurEvt, noeuds);
     GenererNoeuds<TraitEffets>(m_GenerateurEvt, noeuds);
+    GenererNoeuds<Christianisme>(m_GenerateurEvt, noeuds);
 }
 
 template<class T>
@@ -273,7 +275,7 @@ void GenVieHumain::GenererPrincipalSelectionneurDEffet()
                 tousLesNoeudsDeBase, GenVieHumain::EFFET_SELECTEUR_ID, "", GenVieHumain::EVT_SELECTEUR);
     effetSelecteur->m_MsChrono = 1; // passé automatiquement
     // si ligne suivante active alors tous les x événements aléatoires deviennent un choix
-    effetSelecteur->m_SelectionneurDeNoeud->AppliquerModeCHoix(effetChoix, 10);
+    //effetSelecteur->m_SelectionneurDeNoeud->AppliquerModeCHoix(effetChoix, 10);
 
     shared_ptr<Effet> effetFinVie = AjouterEffetNarration("Cette vie est terminée...", "", "effetFinVie", GenVieHumain::EVT_SELECTEUR);
     effetFinVie->m_ChangeurPhaseDeroulement = PhaseDeroulement::epd_Fini;

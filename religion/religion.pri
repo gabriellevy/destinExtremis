@@ -1,3 +1,5 @@
-HEADERS += $$PWD/religion.h
+HEADERS += $$PWD/religion.h \
+    $$PWD/christianisme.h
 
-SOURCES += $$PWD/religion.cpp
+SOURCES += $$PWD/religion.cpp \
+    $$PWD/christianisme.cpp

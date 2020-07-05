@@ -533,15 +533,6 @@ EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         };
     }break;
     case 2 : {
-        m_Nom = "Don aux pauvres";
-        m_Description = "Vous donnez une grande partie de votre argent pour soutenir les pauvres.";
-        m_ConditionSelecteurProba = make_shared<Condition>(0.01 + tmp_Modificateur, p_Relative);
-        m_Conditions.push_back(Religion::AjouterCondACetteReligion(Religion::CHRETIEN));
-        m_Conditions.push_back(Trait::GenConditionSiACeTrait(altruiste));
-        m_IncrementeursCaracs[EconomieEvt::C_NIVEAU_ECONOMIQUE] = -2;
-        m_Son = "qrc:/sons/croisade/turexgloriae.mp3";
-    }break;
-    case 3 : {
         m_Nom = "Entrainement au combat";
         m_Description = "Vous êtes encore loin d'avoir atteint le niveau requis pour être un véritable guerrier templier. "
                 "Une série de séances avec un maître d'armes améliore grandement vos compétences.";
@@ -554,7 +545,7 @@ EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_Conditions.push_back( {make_shared<Condition>(Combat::C_CAP_COMBAT, "10", Comparateur::c_Inferieur)});
         m_IncrementeursCaracs[Combat::C_CAP_COMBAT] = 1;
     }break;
-    case 4 : {
+    case 3 : {
         m_Nom = "Don d'une épée sacrée";
         m_Description = "Pour votre dévotion chrétienne fervente et en signe que vos compétences au combat sont reconnues suffisantes, l'ordre vous affecte une épée sacrée bénie par un évèque ."
                 "Nulle doute qu'elle facilitera grandement vos miracles.";
@@ -568,7 +559,7 @@ EvtTempliers::EvtTempliers(int indexEvt):GenerateurNoeudsProbables (indexEvt)
         m_IncrementeursCaracs[Religion::C_MIRACLE] = 1;
         m_Son = "qrc:/sons/croisade/saladinbesiegejerusalem.mp3";
     }break;
-    case 5 : {
+    case 4 : {
         m_Nom = "Recevoir l'aumône";
         m_Description = "Votre misère attendrit un chrétien templier qui vous fait un gros don.";
         m_ConditionSelecteurProba = make_shared<Condition>(0.03 + tmp_Modificateur, p_Relative);

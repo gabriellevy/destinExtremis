@@ -24,8 +24,6 @@ public:
     // valeurs de C_RELIGION "" = aucune
     static QString CHRETIEN;
     static QString ATHEE; // différent de "" car l'athée a développé une aversion à la religion, il sera dur à reconvertir
-// valeurs de Metier::C_TITRE :
-    static QString EVEQUE;
 
     static QString GetNomReligion(QString religion);
     static std::shared_ptr<Condition> AjouterCondACetteReligion(QString religion);
